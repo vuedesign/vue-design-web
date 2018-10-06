@@ -1,6 +1,6 @@
-# vued
+# vued-template
 
-> A Vue.js project
+> Vued-template is a project architecture template for integrating vue family products
 
 ## Build Setup
 
