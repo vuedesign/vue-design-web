@@ -16,7 +16,6 @@
     "js-cookie": "^2.2.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vued-core": "file:../vued-core",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0"
   },
