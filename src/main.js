@@ -17,6 +17,7 @@ VueDesign.mixin('@/vendor/mixin');
 VueDesign.plugins('@/vendor/plugins');
 VueDesign.filters('@/vendor/filters');
 VueDesign.directives('@/vendor/directives');
+VueDesign.components('@/vendor/components');
 
 // 导入vuex状态管理的子模块
 Object.assign(store, { modules });

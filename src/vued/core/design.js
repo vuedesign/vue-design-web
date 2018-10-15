@@ -26,6 +26,13 @@ Design.directives = (directivesPath) => {
     });
 };
 
+Design.components = (componentsPath) => {
+    const components = loadFile(componentsPath, {});
+    Object.keys(components).forEach(key => {
+        Vue.component(key, components[key]);
+    });
+};
+
 Design.mixin = (mixinPath) => {
     Vue.mixin(loadFile(mixinPath, {}));
 };
