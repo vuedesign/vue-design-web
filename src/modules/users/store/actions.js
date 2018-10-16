@@ -4,7 +4,7 @@
 import Vue from 'vue';
 import * as types from './types';
 
-const getUserData = ({ commit }) => {
+export const getUserData = ({ commit }) => {
     const url = Vue.getAPI('USERS');
     console.log('getUserData : USERS : ', url);
     // const url = '';
@@ -12,8 +12,4 @@ const getUserData = ({ commit }) => {
         commit(types.USERS_DATA, res.data);
         commit(types.USERS_TOTAL, res.total);
     });
-};
-
-export default {
-    getUserData
 };

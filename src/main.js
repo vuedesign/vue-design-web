@@ -13,6 +13,8 @@ import * as apis from '@/configs/apis';
 // 导入url常量
 import * as urls from '@/configs/urls';
 
+VueDesign.use('@/vendor/UIComponent');
+
 VueDesign.mixin('@/vendor/mixin');
 VueDesign.plugins('@/vendor/plugins');
 VueDesign.filters('@/vendor/filters');

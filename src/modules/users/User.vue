@@ -16,11 +16,11 @@ export default {
         };
     },
     computed: {
-        ...mapGetters({
-            filters: 'users/userFilters',
-            columns: 'users/userColumns',
-            data: 'users/userData',
-            total: 'users/userTotal'
+        ...mapGetters('users', {
+            filters: 'userFilters',
+            columns: 'userColumns',
+            data: 'userData',
+            total: 'userTotal'
         })
     },
     created() {
