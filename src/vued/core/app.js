@@ -32,7 +32,8 @@ class App extends Vue {
         createAjax({
             baseURL: '/',
             interceptors,
-            store: storeInstance
+            store: storeInstance,
+            router: routerInstance
         });
 
         super({

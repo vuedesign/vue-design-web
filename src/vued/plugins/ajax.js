@@ -4,7 +4,7 @@
 import axios from 'axios';
 
 const ajax = (options = {}) => {
-    const { store, baseURL } = options;
+    const { baseURL, store, router } = options;
     const interceptors = options.interceptors || {};
     const instance = axios.create({
         baseURL
@@ -16,24 +16,24 @@ const ajax = (options = {}) => {
             injectionTimestamp(config);
         }
         if (interceptors.ajaxRequestSuccess) {
-            return interceptors.ajaxRequestSuccess({ store }, config);
+            return interceptors.ajaxRequestSuccess({ store, router }, config);
         }
         return config;
     }, error => {
         if (interceptors.ajaxRequestFailure) {
-            return interceptors.ajaxRequestFailure({ store }, error);
+            return interceptors.ajaxRequestFailure({ store, router }, error);
         }
         return Promise.reject(error);
     });
 
     instance.interceptors.response.use(response => {
         if (interceptors.ajaxResponseSuccess) {
-            return interceptors.ajaxResponseSuccess({ store }, response.data);
+            return interceptors.ajaxResponseSuccess({ store, router }, response.data);
         }
         return response.data;
     }, error => {
         if (interceptors.ajaxResponseFailure) {
-            return interceptors.ajaxResponseFailure({ store }, error);
+            return interceptors.ajaxResponseFailure({ store, router }, error);
         }
         return Promise.reject(error);
     });

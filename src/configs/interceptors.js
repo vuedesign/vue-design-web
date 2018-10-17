@@ -2,27 +2,57 @@
  * Created by wujian on 2018/9/24.
  */
 
-let token = 'xxsdfsf';
+let token = 'VHJK324567YU345667POIU';
 
-export const ajaxRequestSuccess = ({ store }, config) => {
+/**
+ * ajax请求成功
+ * @param store
+ * @param router
+ * @param config
+ * @returns {*}
+ */
+export const ajaxRequestSuccess = ({ store, router }, config) => {
+    console.log('store:', store);
+    console.log('router:', router);
     return config;
 };
 
-export const ajaxRequestFailure = ({ store }, error) => {
+/**
+ * ajax请求失败
+ * @param store
+ * @param router
+ * @param error
+ * @returns {Promise<never>}
+ */
+export const ajaxRequestFailure = ({ store, router }, error) => {
     return Promise.reject(error);
 };
 
-export const ajaxResponseSuccess = ({ store }, response) => {
+/**
+ * ajax返回成功
+ * @param store
+ * @param router
+ * @param response
+ * @returns {*}
+ */
+export const ajaxResponseSuccess = ({ store, router }, response) => {
     return response.data;
 };
 
-export const ajaxResponseFailure = ({ store }, error) => {
+/**
+ * ajax返回失败
+ * @param store
+ * @param router
+ * @param error
+ * @returns {Promise<never>}
+ */
+export const ajaxResponseFailure = ({ store, router }, error) => {
     return Promise.reject(error);
 };
 
 export const routerBeforeEach = ({ store }, { to, from, next }) => {
     console.log('routerBeforeEach', to, from);
-    console.log('Interceptors', token);
+    console.log('token:', token);
     next();
 };
 
