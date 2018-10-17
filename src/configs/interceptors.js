@@ -1,42 +1,35 @@
-import { injectionTimestamp } from '../vued';
-
 /**
  * Created by wujian on 2018/9/24.
  */
 
-class Interceptors {
-    constructor() {
-        this.token = 'xxsdfsf';
-    }
+let token = 'xxsdfsf';
 
-    ajaxRequestSuccess(config) {
-        injectionTimestamp(config);
-        return config;
-    }
+export const ajaxRequestSuccess = ({ store }, config) => {
+    return config;
+};
 
-    ajaxRequestFailure(error) {
-        return Promise.reject(error);
-    }
+export const ajaxRequestFailure = ({ store }, error) => {
+    return Promise.reject(error);
+};
 
-    ajaxResponseSuccess(response) {
-        return response.data;
-    }
+export const ajaxResponseSuccess = ({ store }, response) => {
+    return response.data;
+};
 
-    ajaxResponseFailure(error) {
-        return Promise.reject(error);
-    }
-    routerBeforeEach(to, from, next) {
-        console.log('routerBeforeEach', to, from);
-        console.log('Interceptors', this.token, this);
-        next();
-    }
+export const ajaxResponseFailure = ({ store }, error) => {
+    return Promise.reject(error);
+};
 
-    routerBeforeResolve(to, from, next) {
-        next();
-    }
+export const routerBeforeEach = ({ store }, { to, from, next }) => {
+    console.log('routerBeforeEach', to, from);
+    console.log('Interceptors', token);
+    next();
+};
 
-    routerAfterEach(to, from) {
-    }
-}
+export const routerBeforeResolve = ({ store }, { to, from, next }) => {
+    next();
+};
 
-export default Interceptors;
+export const routerAfterEach = ({ store }, { to, from }) => {
+    console.log(store);
+};

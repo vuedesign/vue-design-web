@@ -4,7 +4,7 @@ import App from '@/App';
 // 导入路由配置
 import routes from '@/configs/routes';
 // 导入拦截器，路由与ajax
-import Interceptors from '@/configs/interceptors';
+import * as interceptors from '@/configs/interceptors';
 // 导入vuex状态管理
 import store from '@/store';
 import modules from '@/configs/modules';
@@ -28,7 +28,7 @@ Object.assign(store, { modules });
 new VueDesign.App({
     App,
     routes,
-    Interceptors,
+    interceptors,
     store,
     apis,
     urls

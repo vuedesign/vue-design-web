@@ -8,7 +8,7 @@ import createAjax from './ajax';
 class App extends Vue {
     constructor(options = {}) {
         const { el, store, mode, routes, App, storePlugins } = options;
-        const Interceptors = options.Interceptors || class {};
+        const interceptors = options.interceptors || {};
         const constants = {
             apis: options.apis || {},
             urls: options.urls || {}
@@ -23,14 +23,16 @@ class App extends Vue {
         const routerInstance = createRouter({
             mode,
             routes: routes || [],
-            Interceptors
+            interceptors,
+            store: storeInstance
         });
         sync(storeInstance, routerInstance);
 
         createUtils(constants);
         createAjax({
             baseURL: '/',
-            Interceptors
+            interceptors,
+            store: storeInstance
         });
 
         super({

@@ -13,20 +13,3 @@ export function removeEmptyArrayElement(arr) {
     }
     return arr;
 }
-
-/**
- * 在api请求时注入时间戳
- * @param config
- */
-export function injectionTimestamp(config) {
-    const timestamp = new Date().getTime();
-    if (config.params) {
-        config.params = Object.assign({}, config.params, {
-            timestamp
-        });
-    } else {
-        config.params = {
-            timestamp
-        };
-    }
-};
