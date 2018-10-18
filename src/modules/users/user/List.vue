@@ -2,8 +2,10 @@
 </style>
 
 <template>
-    <div class="user">
-        user
+    <div class="users-user-list">
+        users-user-list
+        <el-button @click="$router.push({ name: 'users-group-update' })">点击打开 Dialog</el-button>
+        <router-view />
     </div>
 </template>
 

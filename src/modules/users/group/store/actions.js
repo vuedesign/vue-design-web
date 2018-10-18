@@ -4,12 +4,12 @@
 import Vue from 'vue';
 import * as types from './types';
 
-export const getUserData = ({ commit }) => {
+export const find = ({ commit }) => {
     const url = Vue.getAPI('USERS');
     console.log('getUserData : USERS : ', url);
     // const url = '';
     Vue.ajax.get(url).then(res => {
-        commit(types.USERS_DATA, res.data);
-        commit(types.USERS_TOTAL, res.total);
+        commit(types.DATA, res.data);
+        commit(types.TOTAL, res.total);
     });
 };

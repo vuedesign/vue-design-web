@@ -37,7 +37,8 @@ Design.mixin = (mixinPath) => {
     Vue.mixin(loadFile(mixinPath, {}));
 };
 
-Design.use = (plugin, options = {}) => {
+Design.use = (path, options = {}) => {
+    const plugin = loadFile(path, {});
     Vue.use(plugin, options);
     return Design;
 };
