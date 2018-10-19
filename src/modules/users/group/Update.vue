@@ -31,7 +31,9 @@ export default {
         })
     },
     created() {
-        // this.$store.dispatch('users/getUserData');
+        this.$store.dispatch('users/group/findOne', {
+            groupId: 2
+        });
     },
     methods: {
         handleClose(done) {

@@ -1,4 +1,4 @@
-import VueDesign from './vued';
+import VueDesign from '@/vued';
 // 导入组入口
 import App from '@/App';
 // 导入路由配置
