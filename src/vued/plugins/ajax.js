@@ -3,8 +3,8 @@
  */
 import axios from 'axios';
 
-const ajax = (options = {}) => {
-    const { baseURL, store, router } = options;
+const createAjax = (options = {}) => {
+    const { baseURL } = options;
     const interceptors = options.interceptors || {};
     const instance = axios.create({
         baseURL
@@ -16,24 +16,24 @@ const ajax = (options = {}) => {
             injectionTimestamp(config);
         }
         if (interceptors.ajaxRequestSuccess) {
-            return interceptors.ajaxRequestSuccess({ store, router }, config);
+            return interceptors.ajaxRequestSuccess(config);
         }
         return config;
     }, error => {
         if (interceptors.ajaxRequestFailure) {
-            return interceptors.ajaxRequestFailure({ store, router }, error);
+            return interceptors.ajaxRequestFailure(error);
         }
         return Promise.reject(error);
     });
 
     instance.interceptors.response.use(response => {
         if (interceptors.ajaxResponseSuccess) {
-            return interceptors.ajaxResponseSuccess({ store, router }, response.data);
+            return interceptors.ajaxResponseSuccess(response.data);
         }
         return response.data;
     }, error => {
         if (interceptors.ajaxResponseFailure) {
-            return interceptors.ajaxResponseFailure({ store, router }, error);
+            return interceptors.ajaxResponseFailure(error);
         }
         return Promise.reject(error);
     });
@@ -59,10 +59,13 @@ function injectionTimestamp(config) {
 }
 
 const install = (Vue, options) => {
-    Vue.prototype.$ajax = ajax(options);
-    Vue.ajax = ajax(options);
+    Vue.prototype.$ajax = createAjax(options);
+    Vue.ajax = createAjax(options);
 };
 
+export {
+    createAjax
+};
 export default {
     install
 };

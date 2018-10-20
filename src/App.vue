@@ -9,10 +9,6 @@
 export default {
     name: 'App',
     created() {
-        let api = this.$getAPI('USERS');
-        let url = this.$getURL('VUE_DESIGN');
-        console.log('$getAPI', api);
-        console.log('$getURL', url);
         this.$store.dispatch('getConstants');
         this.$store.dispatch('getUserName');
 

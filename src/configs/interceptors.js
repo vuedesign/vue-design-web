@@ -1,6 +1,8 @@
 /**
- * Created by wujian on 2018/9/24.
+ * 注：vued依赖本文件, 不能删
  */
+
+import { store, router } from '@/vued';
 
 let token = 'VHJK324567YU345667POIU';
 
@@ -11,7 +13,7 @@ let token = 'VHJK324567YU345667POIU';
  * @param config
  * @returns {*}
  */
-export const ajaxRequestSuccess = ({ store, router }, config) => {
+export const ajaxRequestSuccess = (config) => {
     console.log('store:', store);
     console.log('router:', router);
     return config;
@@ -24,7 +26,7 @@ export const ajaxRequestSuccess = ({ store, router }, config) => {
  * @param error
  * @returns {Promise<never>}
  */
-export const ajaxRequestFailure = ({ store, router }, error) => {
+export const ajaxRequestFailure = (error) => {
     return Promise.reject(error);
 };
 
@@ -35,7 +37,7 @@ export const ajaxRequestFailure = ({ store, router }, error) => {
  * @param response
  * @returns {*}
  */
-export const ajaxResponseSuccess = ({ store, router }, response) => {
+export const ajaxResponseSuccess = (response) => {
     return response.data;
 };
 
@@ -46,20 +48,20 @@ export const ajaxResponseSuccess = ({ store, router }, response) => {
  * @param error
  * @returns {Promise<never>}
  */
-export const ajaxResponseFailure = ({ store, router }, error) => {
+export const ajaxResponseFailure = (error) => {
     return Promise.reject(error);
 };
 
-export const routerBeforeEach = ({ store }, { to, from, next }) => {
+export const routerBeforeEach = ({ to, from, next }) => {
     console.log('routerBeforeEach', to, from);
     console.log('token:', token);
     next();
 };
 
-export const routerBeforeResolve = ({ store }, { to, from, next }) => {
+export const routerBeforeResolve = ({ to, from, next }) => {
     next();
 };
 
-export const routerAfterEach = ({ store }, { to, from }) => {
+export const routerAfterEach = ({ to, from }) => {
     console.log(store);
 };

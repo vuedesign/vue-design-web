@@ -8,7 +8,7 @@ export default {
     meta: {
         label: '错误'
     },
-    component: () => import('@/modules/error/Index'),
+    component: () => import('./Index'),
     redirect: 'error/404',
     children: [
         {
@@ -17,7 +17,7 @@ export default {
             meta: {
                 label: '403'
             },
-            component: () => import('@/modules/error/403')
+            component: () => import('./403')
         },
         {
             path: '404',
@@ -25,7 +25,7 @@ export default {
             meta: {
                 label: '404'
             },
-            component: () => import('@/modules/error/404')
+            component: () => import('./404')
         },
         {
             path: '500',
@@ -33,7 +33,7 @@ export default {
             meta: {
                 label: '500'
             },
-            component: () => import('@/modules/error/500')
+            component: () => import('./500')
         },
         {
             path: '502',
@@ -41,7 +41,7 @@ export default {
             meta: {
                 label: '502'
             },
-            component: () => import('@/modules/error/502')
+            component: () => import('./502')
         }
     ]
 };

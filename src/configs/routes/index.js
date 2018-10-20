@@ -1,5 +1,9 @@
-import defaultRoutes from '@/configs/defaultRoutes';
-import adminRoutes from '@/configs/adminRoutes';
+/**
+ * 注：vued依赖本文件, 不能删
+ */
+
+import root from '@/configs/routes/root';
+import admin from '@/configs/routes/admin';
 
 export default [
     {
@@ -11,9 +15,9 @@ export default [
         path: '/admin',
         name: 'admin',
         component: () => import('@/modules/Admin'),
-        children: adminRoutes
+        children: admin
     },
-    ...defaultRoutes,
+    ...root,
     {
         path: '*',
         redirect: '/error'
