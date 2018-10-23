@@ -2,9 +2,10 @@
     <vued-t-shape>
         <vued-header slot="header"></vued-header>
         <vued-aside slot="aside"></vued-aside>
-        <div slot="body">
+        <vued-breadcrumb slot="breadcrumb"></vued-breadcrumb>
+        <vued-body slot="body">
             <router-view/>
-        </div>
+        </vued-body>
     </vued-t-shape>
 </template>
 
@@ -12,12 +13,16 @@
 import VuedTShape from '@/components/layouts/VuedTShape';
 import VuedAside from '@/components/servers/VuedAside';
 import VuedHeader from '@/components/servers/VuedHeader';
+import VuedBreadcrumb from '@/components/servers/VuedBreadcrumb';
+import VuedBody from '@/components/servers/VuedBody';
 export default {
     name: 'admin',
     components: {
         VuedTShape,
         VuedAside,
-        VuedHeader
+        VuedHeader,
+        VuedBreadcrumb,
+        VuedBody
     },
     data() {
         return {
