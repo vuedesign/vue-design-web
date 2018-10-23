@@ -57,5 +57,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+    .el-menu-vertical-demo.el-menu{
+        border: 0;
+    }
 </style>
