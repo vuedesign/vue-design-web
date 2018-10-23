@@ -1,12 +1,24 @@
 <template>
-    <div class="admin">
-        <router-view/>
-    </div>
+    <vued-t-shape>
+        <vued-header slot="header"></vued-header>
+        <vued-aside slot="aside"></vued-aside>
+        <div slot="body">
+            <router-view/>
+        </div>
+    </vued-t-shape>
 </template>
 
 <script>
+import VuedTShape from '@/components/layouts/VuedTShape';
+import VuedAside from '@/components/servers/VuedAside';
+import VuedHeader from '@/components/servers/VuedHeader';
 export default {
     name: 'admin',
+    components: {
+        VuedTShape,
+        VuedAside,
+        VuedHeader
+    },
     data() {
         return {
             msg: 'Welcome to Your Vue.js App'
