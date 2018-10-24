@@ -48,6 +48,7 @@ export const ajaxResponseFailure = (error) => {
 export const routerBeforeEach = ({ to, from, next }) => {
     console.log('routerBeforeEach', to, from);
     console.log('token:', token);
+    store.commit('BREADCRUMB', to);
     next();
 };
 

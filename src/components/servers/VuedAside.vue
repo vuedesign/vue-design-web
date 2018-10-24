@@ -1,50 +1,57 @@
 <template>
     <div class="vued-aside">
-        <el-menu
-            default-active="2"
-            class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose">
-            <el-submenu index="1">
-                <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span>导航一</span>
+        <div class="vued-aside-menu">
+            <el-menu
+                default-active="group"
+                class="vued-aside-menu-vertical"
+                :collapse="isCollapse"
+                @open="handleOpen"
+                @close="handleClose"
+                @select="handleSelect"
+            >
+                <template v-for="(item, key) in menuAside">
+                    <el-submenu
+                        v-if="item.children"
+                        :index="item.name"
+                        :key="key"
+                    >
+                        <template slot="title">
+                            <i :class="item.icon"></i>
+                            <span>{{ item.label }}</span>
+                        </template>
+                        <el-menu-item
+                            v-for="(subItem, subKey) in item.children"
+                            :key="subKey"
+                            :index="subItem.name">
+                            <span slot="title">{{ subItem.label }}</span>
+                        </el-menu-item>
+                    </el-submenu>
+                    <el-menu-item v-else :index="item.name" :key="key">
+                        <i :class="item.icon"></i>
+                        <span slot="title">{{ item.label }}</span>
+                    </el-menu-item>
                 </template>
-                <el-menu-item-group>
-                    <template slot="title">分组一</template>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-menu-item index="2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-            </el-menu-item>
-        </el-menu>
+            </el-menu>
+        </div>
+        <div class="btn-collapse">
+            <i :class="collapseIcon" @click="handleCollapseClick"></i>
+        </div>
     </div>
 </template>
 
 <script>
+import menuAside from '@/configs/menuAside';
 export default {
     data() {
         return {
-            msg: 'hello vue'
+            isCollapse: false,
+            menuAside
         };
+    },
+    computed: {
+        collapseIcon() {
+            return this.isCollapse ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left';
+        }
     },
     methods: {
         handleOpen(key, keyPath) {
@@ -52,13 +59,53 @@ export default {
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
+        },
+        handleCollapseClick() {
+            this.isCollapse = !this.isCollapse;
+        },
+        handleSelect(index, indexPath) {
+            this.$router.push({
+                name: indexPath.join('-')
+            });
+            console.log('====', index, indexPath);
         }
     }
 };
 </script>
 
 <style lang="scss">
-    .el-menu-vertical-demo.el-menu{
-        border: 0;
+    .vued-aside{
+        height: 100%;
+        .el-menu-item, .el-submenu__title{
+            height: 48px;
+            line-height: 48px;
+        }
+    }
+    .vued-aside-menu-vertical{
+        width: 200px;
+        &.el-menu{
+            border: 0;
+        }
+        &.el-menu--collapse{
+            width: 64px;
+        }
+    }
+    .vued-aside-menu{
+        overflow-x: hidden;
+        height: 100%;
+    }
+    .btn-collapse{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        height: 32px;
+        line-height: 32px;
+        border-top: 1px solid #eee;
+        text-align: center;
+        i{
+            cursor: pointer;
+            color: #aaa;
+        }
     }
 </style>

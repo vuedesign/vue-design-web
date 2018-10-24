@@ -13,4 +13,8 @@ export default {
 </script>
 
 <style>
+    .vued-header{
+        height: 100%;
+        background-color: #409EFF;
+    }
 </style>

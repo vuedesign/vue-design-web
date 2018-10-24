@@ -36,7 +36,6 @@ export default {
         left: 0;
         width: 100%;
         z-index: 2;
-        background-color: #3392e2;
     }
     .vued-t-shape-body{
         position: absolute;
@@ -46,12 +45,12 @@ export default {
         bottom: 0;
     }
     .vued-t-shape-aside{
-        width: 200px;
+        width: auto;
         height: 100%;
         z-index: 1;
-        border-right: 1px solid #eee;
         float: left;
-        overflow-x: hidden;
+        border-right: 1px solid #eee;
+        position: relative;
     }
     .vued-t-shape-mainer{
         position: relative;

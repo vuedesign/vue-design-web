@@ -3,3 +3,4 @@
  */
 
 export const DEMO = 'DEMO';
+export const BREADCRUMB = 'BREADCRUMB';

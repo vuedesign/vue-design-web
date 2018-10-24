@@ -26,7 +26,7 @@ export default {
         })
     },
     created() {
-        this.$store.dispatch('users/getUserData');
+        // this.$store.dispatch('users/getUserData');
     },
     methods: {
         handleCreate() {

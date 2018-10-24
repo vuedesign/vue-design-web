@@ -1,4 +1,7 @@
-[
-    "error",
-    "users"
-]
+{
+    "name": "modules",
+    "children": [
+        "error",
+        "users"
+    ]
+}

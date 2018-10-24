@@ -8,9 +8,6 @@
 export default {
     name: 'App',
     created() {
-        this.$store.dispatch('getConstants');
-        this.$store.dispatch('getUserName');
-
         // cookie
         this.$cookies.set('TEST_COOKIE_1', {
             username: 'wujian====',
