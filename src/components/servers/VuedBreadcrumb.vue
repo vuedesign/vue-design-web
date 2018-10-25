@@ -1,6 +1,7 @@
 <template>
     <div class="vued-breadcrumb">
         <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item
                 v-for="(item, index) in breadcrumbs"
                 :key="index"
@@ -18,6 +19,7 @@ export default {
 
 <style>
     .vued-breadcrumb{
-        padding: 20px 16px;
+        padding: 17px 16px;
+        float: left;
     }
 </style>

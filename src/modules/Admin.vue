@@ -2,7 +2,6 @@
     <vued-t-shape>
         <vued-header slot="header"></vued-header>
         <vued-aside slot="aside"></vued-aside>
-        <vued-breadcrumb slot="breadcrumb"></vued-breadcrumb>
         <vued-body slot="body">
             <router-view/>
         </vued-body>
@@ -13,7 +12,6 @@
 import VuedTShape from '@/components/layouts/VuedTShape';
 import VuedAside from '@/components/servers/VuedAside';
 import VuedHeader from '@/components/servers/VuedHeader';
-import VuedBreadcrumb from '@/components/servers/VuedBreadcrumb';
 import VuedBody from '@/components/servers/VuedBody';
 export default {
     name: 'admin',
@@ -21,31 +19,11 @@ export default {
         VuedTShape,
         VuedAside,
         VuedHeader,
-        VuedBreadcrumb,
         VuedBody
-    },
-    data() {
-        return {
-            msg: 'Welcome to Your Vue.js App'
-        };
     }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>

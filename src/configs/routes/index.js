@@ -11,12 +11,7 @@ export default [
         name: 'HelloWorld',
         component: () => import('@/components/Home')
     },
-    {
-        path: '/admin',
-        name: 'admin',
-        component: () => import('@/modules/Admin'),
-        children: admin
-    },
+    ...admin,
     ...root,
     {
         path: '*',

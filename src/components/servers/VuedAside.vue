@@ -9,7 +9,7 @@
                 @close="handleClose"
                 @select="handleSelect"
             >
-                <template v-for="(item, key) in menuAside">
+                <template v-for="(item, key) in asideMenu">
                     <el-submenu
                         v-if="item.children"
                         :index="item.name"
@@ -40,12 +40,12 @@
 </template>
 
 <script>
-import menuAside from '@/configs/menuAside';
+import asideMenu from '@/configs/asideMenu';
 export default {
     data() {
         return {
             isCollapse: false,
-            menuAside
+            asideMenu
         };
     },
     computed: {
@@ -76,6 +76,7 @@ export default {
 <style lang="scss">
     .vued-aside{
         height: 100%;
+        border-right: 1px solid #ddd;
         .el-menu-item, .el-submenu__title{
             height: 48px;
             line-height: 48px;

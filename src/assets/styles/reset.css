@@ -10,3 +10,11 @@ html.admin #vue-design-app{
     height: 100%;
     overflow: hidden;
 }
+
+
+.pagination{
+    text-align: right;
+    padding-top: 20px;
+    margin: 0 -10px;
+    padding-left: 10px;
+}

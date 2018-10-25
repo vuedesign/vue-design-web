@@ -27,6 +27,13 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="pagination">
+            <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="1000">
+            </el-pagination>
+        </div>
         <router-view />
     </div>
 </template>
@@ -58,4 +65,5 @@ export default {
 </script>
 
 <style lang="scss">
+
 </style>

@@ -35,7 +35,7 @@ export default {
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 2;
+        z-index: 999;
     }
     .vued-t-shape-body{
         position: absolute;
@@ -49,7 +49,6 @@ export default {
         height: 100%;
         z-index: 1;
         float: left;
-        border-right: 1px solid #eee;
         position: relative;
     }
     .vued-t-shape-mainer{
