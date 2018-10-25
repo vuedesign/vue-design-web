@@ -1,5 +1,3 @@
-<style lang="scss">
-</style>
 
 <template>
     <div class="users-group-list">
@@ -59,3 +57,6 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+</style>
