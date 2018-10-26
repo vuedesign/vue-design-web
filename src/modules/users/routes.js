@@ -5,12 +5,12 @@ import group from './group/routes';
 import user from './user/routes';
 
 export default {
-    path: '/users',
+    path: 'users',
     name: 'users',
     meta: {
         label: '用户中心'
     },
-    component: () => import('../Admin'),
+    component: () => import('./Index'),
     redirect: 'users/user',
     children: [
         ...group,

@@ -8,7 +8,7 @@ export default {
     meta: {
         label: '错误'
     },
-    component: () => import('../Admin'),
+    component: () => import('../../components/layouts/Admin'),
     redirect: 'error/404',
     children: [
         {

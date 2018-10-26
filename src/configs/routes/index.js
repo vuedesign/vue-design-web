@@ -11,7 +11,16 @@ export default [
         name: 'HelloWorld',
         component: () => import('@/components/Home')
     },
-    ...admin,
+    {
+        path: '/admin',
+        name: 'admin',
+        meta: {
+            label: '首页'
+        },
+        redirect: 'admin/dashboard',
+        component: () => import('@/components/layouts/Admin'),
+        children: admin
+    },
     ...root,
     {
         path: '*',

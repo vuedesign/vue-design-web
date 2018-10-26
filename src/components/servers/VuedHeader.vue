@@ -4,17 +4,19 @@
             <h1>logo</h1>
         </div>
         <vued-breadcrumb slot="breadcrumb"></vued-breadcrumb>
-        <div class="vued-nav">
-            <el-menu
-                :default-active="headerNavActive"
-                mode="horizontal"
-                @select="handleSelect">
-                <el-menu-item
+        <div class="vued-header-right">
+            <ul class="vued-header-nav">
+                <li
                     v-for="(item, index) in headerLeftNav"
                     :index="item.name"
                     :key="index"
-                >{{ item.label }}</el-menu-item>
-            </el-menu>
+                >
+                    <i :class="item.icon"></i><span>{{ item.label }}</span>
+                </li>
+            </ul>
+            <div class="vued-avatar">
+                <span></span>
+            </div>
         </div>
     </div>
 </template>
@@ -61,25 +63,36 @@ export default {
             font-weight: 700;
         }
     }
-    .vued-nav{
+    .vued-header-right{
+        float: right;
+    }
+    .vued-header-nav{
         float: left;
-        .el-menu--horizontal>.el-menu-item{
-            height: 48px;
-            line-height: 48px;
+        line-height: 46px;
+        height: 46px;
+        li{
+            cursor: pointer;
         }
-        .el-menu.el-menu--horizontal{
-            border: none;
+        i,
+        span{
+            display: inline-block;
+            vertical-align: middle;
         }
-        .el-menu{
-            background-color: transparent;
+        span{
+            margin-left: 3px;
         }
-        .el-menu--horizontal>.el-menu-item.is-active {
-            border-bottom: 3px solid #fff;
-            color: #fff;
-            font-weight: 700;
-        }
-        .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover{
-            background-color: rgba(255, 255, 255, .1);
+    }
+    .vued-avatar{
+        float: left;
+        margin-left: 20px;
+        padding: 10px;
+        span{
+            display: block;
+            width: 28px;
+            height: 28px;
+            background-color: #ddd;
+            border-radius: 50%;
+            cursor: pointer;
         }
     }
 </style>
