@@ -27,9 +27,9 @@ Design.directives = (directivesPath) => {
 };
 
 Design.components = (componentsPath) => {
-    const components = loadFile(componentsPath, {});
-    Object.keys(components).forEach(key => {
-        Vue.component(key, components[key]);
+    const components = loadFile(componentsPath, []);
+    components.forEach(component => {
+        Vue.component(component.name, component);
     });
 };
 
