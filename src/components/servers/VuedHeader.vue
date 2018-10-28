@@ -1,7 +1,7 @@
 <template>
     <div class="vued-header">
         <div class="vued-logo">
-            <h1 @click="handleLogo">Vue.Design Admin</h1>
+            <h1 @click="handleLogo">VueDesign Admin</h1>
         </div>
         <div class="vued-header-left">
             <ul>
@@ -108,9 +108,10 @@ export default {
         text-align: center;
         min-width: 200px;
         h1{
+            margin: 0;
             display: inline-block;
             font-size: 20px;
-            padding: 10px 16px 0 16px;
+            padding: 13px 16px 0 16px;
             color: #fff;
             font-weight: 700;
             cursor: pointer;
