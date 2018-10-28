@@ -1,7 +1,8 @@
 <template>
     <vued-t-shape>
         <vued-header slot="header"></vued-header>
-        <vued-aside slot="aside"></vued-aside>
+        <vued-aside slot="aside" v-if="$store.state.asideMenu"></vued-aside>
+        <vued-breadcrumb slot="breadcrumb"></vued-breadcrumb>
         <vued-body slot="body">
             <router-view/>
         </vued-body>
@@ -13,13 +14,24 @@ import VuedTShape from '@/components/layouts/VuedTShape';
 import VuedAside from '@/components/servers/VuedAside';
 import VuedHeader from '@/components/servers/VuedHeader';
 import VuedBody from '@/components/servers/VuedBody';
+import VuedBreadcrumb from '@/components/servers/VuedBreadcrumb';
+
 export default {
     name: 'admin',
+    data() {
+        return {
+            isThree: false
+        };
+    },
     components: {
         VuedTShape,
         VuedAside,
         VuedHeader,
-        VuedBody
+        VuedBody,
+        VuedBreadcrumb
+    },
+    created() {
+        this.$store.dispatch('findMenu', this.isThree);
     }
 };
 </script>

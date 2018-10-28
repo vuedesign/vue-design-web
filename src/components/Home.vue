@@ -12,6 +12,9 @@ export default {
         return {
             msg: 'welcome to Your Vued App'
         };
+    },
+    created() {
+        this.$store.dispatch('getUserName');
     }
 };
 </script>

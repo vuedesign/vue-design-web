@@ -1,3 +1,7 @@
 export default {
-    breadcrumbs: []
+    breadcrumbs: [],
+    menu: [],
+    asideMenu: [],
+    headerMenu: [],
+    headerMenuActive: ''
 };

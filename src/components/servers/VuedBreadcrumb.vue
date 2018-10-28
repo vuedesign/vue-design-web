@@ -18,7 +18,7 @@ export default {
 
 <style>
     .vued-breadcrumb{
+        width: 100%;
         padding: 17px 16px;
-        float: left;
     }
 </style>

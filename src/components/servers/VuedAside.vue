@@ -40,15 +40,19 @@
 </template>
 
 <script>
-import asideMenu from '@/configs/asideMenu';
+import { mapGetters } from 'vuex';
 export default {
     data() {
         return {
-            isCollapse: false,
-            asideMenu
+            isCollapse: false
         };
     },
     computed: {
+        ...mapGetters([
+            'menu',
+            'asideMenu',
+            'headerMenuActive'
+        ]),
         collapseIcon() {
             return this.isCollapse ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left';
         }
@@ -64,10 +68,13 @@ export default {
             this.isCollapse = !this.isCollapse;
         },
         handleSelect(index, indexPath) {
+            let name = indexPath.join('-');
+            if (this.headerMenuActive) {
+                name = [this.headerMenuActive].concat(indexPath).join('-');
+            }
             this.$router.push({
-                name: indexPath.join('-')
+                name
             });
-            console.log('====', index, indexPath);
         }
     }
 };
@@ -76,7 +83,7 @@ export default {
 <style lang="scss">
     .vued-aside{
         height: 100%;
-        border-right: 1px solid #ddd;
+        // border-right: 1px solid #f5f5f5;
         .el-menu-item, .el-submenu__title{
             height: 48px;
             line-height: 48px;

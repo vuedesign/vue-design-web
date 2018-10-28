@@ -3,3 +3,7 @@
  */
 
 export const BREADCRUMB = 'BREADCRUMB';
+export const MENU = 'MENU';
+export const ASIDE_MENU = 'ASIDE_MENU';
+export const HEADER_MENU = 'HEADER_MENU';
+export const HEADER_MENU_ACTIVE = 'HEADER_MENU_ACTIVE';

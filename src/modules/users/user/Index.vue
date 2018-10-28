@@ -2,7 +2,7 @@
     <div class="users-user-list">
         <el-table
             :data="data"
-            style="width: 100%">
+            style="width: 100%; border-radius: 3px;">
             <el-table-column
                 prop="name"
                 label="姓名"

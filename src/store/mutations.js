@@ -1,5 +1,9 @@
 import {
-    BREADCRUMB
+    BREADCRUMB,
+    MENU,
+    ASIDE_MENU,
+    HEADER_MENU,
+    HEADER_MENU_ACTIVE
 } from './types';
 
 export default {
@@ -13,5 +17,17 @@ export default {
             });
         });
         state.breadcrumbs = breadcrumbs;
+    },
+    [MENU](state, menu) {
+        state.menu = menu;
+    },
+    [ASIDE_MENU](state, asideMenu) {
+        state.asideMenu = asideMenu;
+    },
+    [HEADER_MENU](state, headerMenu) {
+        state.headerMenu = headerMenu;
+    },
+    [HEADER_MENU_ACTIVE](state, headerMenuActive) {
+        state.headerMenuActive = headerMenuActive;
     }
 };

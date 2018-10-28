@@ -55,5 +55,6 @@ export default {
         position: relative;
         height: 100%;
         overflow-x: hidden;
+        background-color: #f5f5f5;
     }
 </style>

@@ -3,7 +3,7 @@
     <div class="users-group-list">
         <el-table
             :data="data"
-            style="width: 100%">
+            style="width: 100%;border-radius: 3px;">
             <el-table-column
                 prop="name"
                 label="姓名"
@@ -28,6 +28,13 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="pagination">
+            <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="1000">
+            </el-pagination>
+        </div>
         <router-view />
     </div>
 </template>
