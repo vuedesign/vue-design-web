@@ -10,8 +10,8 @@
             :before-close="handleClose">
             <span>这是一段信息</span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="handleCancel">取 消</el-button>
-                <el-button type="primary" @click="handleCancel">确 定</el-button>
+                <el-button @click="handleCancel" size="medium">取 消</el-button>
+                <el-button type="primary" @click="handleCancel" size="medium">确 定</el-button>
               </span>
         </el-dialog>
     </div>

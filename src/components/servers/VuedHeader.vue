@@ -69,15 +69,15 @@ export default {
         };
     },
     computed: {
-        ...mapGetters([
+        ...mapGetters('global', [
             'menu',
             'headerMenu'
         ])
     },
     methods: {
         handleHeaderMenu(item, index) {
-            this.$store.commit('ASIDE_MENU', this.menu[index].children);
-            this.$store.commit('HEADER_MENU_ACTIVE', this.menu[index].name);
+            this.$store.commit('global/ASIDE_MENU', this.menu[index].children);
+            this.$store.commit('global/HEADER_MENU_ACTIVE', this.menu[index].name);
             this.$router.push({
                 name: item.name
             });

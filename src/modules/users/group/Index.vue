@@ -1,6 +1,18 @@
 
 <template>
     <div class="users-group-list">
+        <vued-filter>
+            <ul class="left">
+                <li>
+                    <el-button type="primary" size="small">新增</el-button>
+                </li>
+            </ul>
+            <ul class="right">
+                <li>
+                    <el-input type="text" size="small"></el-input>
+                </li>
+            </ul>
+        </vued-filter>
         <el-table
             :data="data"
             style="width: 100%;border-radius: 3px;">
@@ -28,20 +40,27 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pagination">
+        <vued-pagination>
             <el-pagination
                 background
                 layout="prev, pager, next"
                 :total="1000">
             </el-pagination>
-        </div>
+        </vued-pagination>
         <router-view />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import VuedFilter from '@/components/layouts/VuedFilter';
+import VuedPagination from '@/components/layouts/VuedPagination';
+
 export default {
+    components: {
+        VuedFilter,
+        VuedPagination
+    },
     data() {
         return {
             createBabel: '新增用户组'

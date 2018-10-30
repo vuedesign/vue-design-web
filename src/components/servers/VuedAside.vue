@@ -48,7 +48,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters([
+        ...mapGetters('global', [
             'menu',
             'asideMenu',
             'headerMenuActive'
@@ -83,7 +83,6 @@ export default {
 <style lang="scss">
     .vued-aside{
         height: 100%;
-        // border-right: 1px solid #f5f5f5;
         .el-menu-item, .el-submenu__title{
             height: 48px;
             line-height: 48px;
@@ -91,11 +90,20 @@ export default {
     }
     .vued-aside-menu-vertical{
         width: 200px;
-        &.el-menu{
+        &.el-menu,
+        .el-menu{
             border: 0;
+            background-color: transparent;
         }
         &.el-menu--collapse{
             width: 64px;
+        }
+        .el-menu-item.is-active {
+            font-weight: 700;
+            background-color: #dce7f3;
+        }
+        .el-menu-item:hover{
+            color: #409EFF;
         }
     }
     .vued-aside-menu{

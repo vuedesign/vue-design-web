@@ -27,20 +27,27 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pagination">
+        <vued-pagination>
             <el-pagination
                 background
                 layout="prev, pager, next"
                 :total="1000">
             </el-pagination>
-        </div>
+        </vued-pagination>
         <router-view />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import VuedFilter from '@/components/layouts/VuedFilter';
+import VuedPagination from '@/components/layouts/VuedPagination';
+
 export default {
+    components: {
+        VuedFilter,
+        VuedPagination
+    },
     data() {
         return {
             createBabel: '新增用户组'

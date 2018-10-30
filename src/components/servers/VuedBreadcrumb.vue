@@ -12,7 +12,7 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-    computed: mapGetters(['breadcrumbs'])
+    computed: mapGetters('global', ['breadcrumbs'])
 };
 </script>
 

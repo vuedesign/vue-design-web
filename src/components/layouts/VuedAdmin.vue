@@ -1,7 +1,7 @@
 <template>
     <vued-t-shape>
         <vued-header slot="header"></vued-header>
-        <vued-aside slot="aside" v-if="$store.state.asideMenu"></vued-aside>
+        <vued-aside slot="aside" v-if="$store.state.global.asideMenu"></vued-aside>
         <vued-breadcrumb slot="breadcrumb"></vued-breadcrumb>
         <vued-body slot="body">
             <router-view/>
@@ -31,7 +31,7 @@ export default {
         VuedBreadcrumb
     },
     created() {
-        this.$store.dispatch('findMenu', this.isThree);
+        this.$store.dispatch('global/findMenu', this.isThree);
     }
 };
 </script>

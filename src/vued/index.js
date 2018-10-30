@@ -12,12 +12,10 @@ import configRoutes from '@/configs/routes';
 // 导入拦截器，路由与ajax
 import * as interceptors from '@/configs/interceptors';
 // 导入vuex状态管理
-import configStore from '@/store';
+
 import modules from '@/configs/modules';
 
-// 导入vuex状态管理的子模块
-Object.assign(configStore, { modules });
-const store = createStore(configStore);
+const store = createStore({ modules });
 
 const router = createRouter({
     mode: 'history',
