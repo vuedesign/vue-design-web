@@ -18,7 +18,7 @@ export default [
             label: '首页'
         },
         redirect: 'admin/dashboard',
-        component: () => import('@/components/layouts/VuedAdmin'),
+        component: () => import('@/components/servers/VuedAdmin'),
         children: admin
     },
     ...root,

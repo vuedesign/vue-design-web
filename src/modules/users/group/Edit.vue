@@ -2,11 +2,11 @@
 </style>
 
 <template>
-    <div class="users-group-update">
+    <div class="users-group-edit">
         <el-dialog
             title="提示"
-            :visible.sync="dialogVisible"
             width="60%"
+            :visible="true"
             :before-close="handleClose">
             <el-form ref="form" :model="formData" label-width="80px">
                 <el-form-item label="活动名称">
@@ -58,11 +58,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
+
 export default {
+    name: 'users-group-edit',
     data() {
         return {
-            createBabel: '新增用户',
-            dialogVisible: true,
             formData: {
                 name: '',
                 region: '',

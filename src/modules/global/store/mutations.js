@@ -2,8 +2,11 @@ import {
     BREADCRUMB,
     MENU,
     ASIDE_MENU,
+    ASIDE_ACTIVE,
     HEADER_MENU,
-    HEADER_MENU_ACTIVE
+    HEADER_MENU_ACTIVE,
+    PERMISSION,
+    ACTIONS
 } from './types';
 
 export default {
@@ -29,5 +32,14 @@ export default {
     },
     [HEADER_MENU_ACTIVE](state, headerMenuActive) {
         state.headerMenuActive = headerMenuActive;
+    },
+    [PERMISSION](state, permission) {
+        state.permission = permission;
+    },
+    [ACTIONS](state, actions) {
+        state.actions = actions;
+    },
+    [ASIDE_ACTIVE](state, asideActive) {
+        state.asideActive = asideActive;
     }
 };

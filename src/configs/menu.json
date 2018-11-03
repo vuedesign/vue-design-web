@@ -14,7 +14,7 @@
                 "label": "用户组",
                 "children": [
                     {
-                        "name": "update",
+                        "name": "edit",
                         "label": "编辑"
                     }
                 ]

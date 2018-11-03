@@ -3,5 +3,8 @@ export default {
     menu: [],
     asideMenu: [],
     headerMenu: [],
-    headerMenuActive: ''
+    headerMenuActive: '',
+    permission: [],
+    actions: [],
+    asideActive: ''
 };

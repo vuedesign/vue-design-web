@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import app from './core/app';
 import Design from './core/design';
 import to from './core/to';
@@ -6,6 +7,7 @@ import createStore from './core/store';
 import createRouter from './core/router';
 import initAjax from './core/ajax';
 import { createAjax } from './plugins/ajax';
+import { actionOfType } from './core/permission';
 
 // 导入路由配置
 import configRoutes from '@/configs/routes';
@@ -35,8 +37,15 @@ initAjax({
     interceptors
 });
 
-console.log('Design ================= ', Design);
+const actionOf = actionOfType(store);
+
+Vue.mixin({
+    methods: {
+        actionOf
+    }
+});
+
 Design.extend = app({ store, router });
 
-export { to, store, router, ajax };
+export { to, store, router, ajax, actionOf };
 export default Design;

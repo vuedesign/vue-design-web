@@ -4,12 +4,12 @@
         <vued-filter>
             <ul class="left">
                 <li>
-                    <el-button type="primary" size="small">新增</el-button>
+                    <el-button v-if="actionOf('ADD')" type="primary" size="small" @click="handleAddClick">新增</el-button>
                 </li>
             </ul>
             <ul class="right">
                 <li>
-                    <el-input type="text" size="small"></el-input>
+                    <el-input type="text" v-focus size="small"></el-input>
                 </li>
             </ul>
         </vued-filter>
@@ -35,8 +35,9 @@
                 label="操作"
                 width="100">
                 <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                    <el-button v-if="actionOf('VIEW')" @click="handleViewClick(scope.row)" type="text" size="small">查看</el-button>
+                    <el-button v-if="actionOf('EDIT')" @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
+                    <el-button v-if="actionOf('DELETE')"  @click="handleDelClick(scope.row)" type="text" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -62,9 +63,7 @@ export default {
         VuedPagination
     },
     data() {
-        return {
-            createBabel: '新增用户组'
-        };
+        return {};
     },
     computed: {
         ...mapGetters('users/group', [
@@ -77,8 +76,17 @@ export default {
         this.$store.dispatch('users/group/find');
     },
     methods: {
-        handleClick() {
-            this.$router.push({ name: 'users-group-update' });
+        handleAddClick() {
+            this.$router.push({ name: 'users-group-add' });
+        },
+        handleEditClick({ id }) {
+            this.$router.push({ name: 'users-group-edit', params: { id } });
+        },
+        handleDelClick({ id }) {
+            // this.$router.push({ name: 'users-group-update' });
+        },
+        handleViewClick({ id }) {
+            this.$router.push({ name: 'users-group-view', params: { id } });
         }
     }
 };

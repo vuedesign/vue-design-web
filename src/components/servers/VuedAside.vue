@@ -2,7 +2,7 @@
     <div class="vued-aside">
         <div class="vued-aside-menu">
             <el-menu
-                default-active="group"
+                :default-active="asideActive"
                 class="vued-aside-menu-vertical"
                 :collapse="isCollapse"
                 @open="handleOpen"
@@ -22,8 +22,8 @@
                         <el-menu-item
                             v-for="(subItem, subKey) in item.children"
                             :key="subKey"
-                            :index="subItem.name">
-                            <span slot="title">{{ subItem.label }}</span>
+                            :index="item.name + '-' + subItem.name">
+                            <span slot="title">{{ subItem.label }}{{subItem.name}}</span>
                         </el-menu-item>
                     </el-submenu>
                     <el-menu-item v-else :index="item.name" :key="key">
@@ -51,11 +51,15 @@ export default {
         ...mapGetters('global', [
             'menu',
             'asideMenu',
+            'asideActive',
             'headerMenuActive'
         ]),
         collapseIcon() {
             return this.isCollapse ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left';
         }
+    },
+    created() {
+        this.$store.commit('global/ASIDE_ACTIVE', this.$route.name);
     },
     methods: {
         handleOpen(key, keyPath) {
@@ -68,9 +72,9 @@ export default {
             this.isCollapse = !this.isCollapse;
         },
         handleSelect(index, indexPath) {
-            let name = indexPath.join('-');
+            let name = index;
             if (this.headerMenuActive) {
-                name = [this.headerMenuActive].concat(indexPath).join('-');
+                name = [this.headerMenuActive].concat(index).join('-');
             }
             this.$router.push({
                 name

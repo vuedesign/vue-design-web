@@ -11,7 +11,6 @@ export const find = async({ commit }) => {
     if (err) {
         return;
     }
-    console.log('res *** ', res);
     commit(types.DATA, res.data);
     commit(types.TOTAL, res.total);
 };

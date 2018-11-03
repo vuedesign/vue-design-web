@@ -22,7 +22,7 @@ Design.filters = (filtersPath) => {
 Design.directives = (directivesPath) => {
     const directives = loadFile(directivesPath, {});
     Object.keys(directives).forEach(key => {
-        Vue.filter(key, directives[key]);
+        Vue.directive(key, directives[key]);
     });
 };
 
