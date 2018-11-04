@@ -24,6 +24,7 @@ export default {
         ul{
             li{
                 float: left;
+                margin-left: 10px;
             }
             &.left{
                 float: left;

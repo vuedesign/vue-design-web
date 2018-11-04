@@ -14,12 +14,23 @@ export function removeEmptyArrayElement(arr) {
     return arr;
 }
 
-export const filtersCommit = (namespaced, name) => {
+export const filtersCommit = (namespaced, name, time = 500) => {
+    let timer = null;
     return {
         set(value) {
-            this.$store.commit(`${namespaced}/FILTERS`, {
-                [name]: value
-            });
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                this.$store.commit(`${namespaced}/FILTERS`, Object.assign({}, {
+                    [name]: value,
+                    page: 1
+                }));
+                this.$router.push({
+                    params: {
+                        page: 1
+                    }
+                });
+                clearTimeout(timer);
+            }, time);
         },
         get() {
             return this.filters[name];

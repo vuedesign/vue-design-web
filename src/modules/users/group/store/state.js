@@ -7,6 +7,8 @@ export default {
     title: '',
     filters: {
         name: '',
+        address: '',
+        type: '',
         page: 1,
         pageSize: 20
     },

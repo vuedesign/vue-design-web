@@ -9,7 +9,16 @@
             </ul>
             <ul class="right">
                 <li>
+                    <el-input type="text" v-model="address" size="small"></el-input>
+                </li>
+                <li>
                     <el-input type="text" v-model="name" size="small"></el-input>
+                </li>
+                <li>
+                    <el-select v-model="type" placeholder="请选择" size="small">
+                        <el-option label="超级管理员" value="supper"></el-option>
+                        <el-option label="管理员" value="admin"></el-option>
+                    </el-select>
                 </li>
             </ul>
         </vued-filter>
@@ -18,7 +27,12 @@
             style="width: 100%;border-radius: 3px;">
             <el-table-column
                 prop="name"
-                label="姓名"
+                label="用户组"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="type"
+                label="类型"
                 width="180">
             </el-table-column>
             <el-table-column
@@ -74,15 +88,14 @@ export default {
             'data',
             'total'
         ]),
-        name: filtersCommit('users/group', 'name')
+        name: filtersCommit('users/group', 'name'),
+        address: filtersCommit('users/group', 'address'),
+        type: filtersCommit('users/group', 'type', 0)
     },
     watch: {
         filters: {
             handler(nv, ov) {
                 this.$store.dispatch('users/group/find');
-                this.$router.push({
-                    params: Object.assign({}, nv)
-                });
             },
             deep: true
         }
