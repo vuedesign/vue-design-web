@@ -35,14 +35,14 @@ export default {
         asideMenu: {
             handler(nv, ov) {
                 if (nv && nv.length > 0) {
-                    const actions = this.getActions(nv, this.$route.path);
+                    const actions = this.getActions(nv, this.$route.name);
                     this.$store.commit('global/ACTIONS', actions);
                 }
             },
             deep: true
         },
         '$route'() {
-            const actions = this.getActions(this.asideMenu, this.$route.path);
+            const actions = this.getActions(this.asideMenu, this.$route.name);
             this.$store.commit('global/ACTIONS', actions);
         }
     },
@@ -56,7 +56,7 @@ export default {
             setActions(data, path);
             function setActions(data, path) {
                 data && data.length > 0 && data.forEach(item => {
-                    if (item.url && item.url === path) {
+                    if (item.name && item.name === path) {
                         if (item.actions && item.actions.length > 0) {
                             actions = item.actions;
                         }

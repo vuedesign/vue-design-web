@@ -19,17 +19,17 @@
     {
         "id": 3,
         "parentId": 2,
-        "name": "group",
+        "name": "users-group",
         "label": "用户组",
         "icon": "",
         "menu": true,
-        "url": "/admin/users/group",
+        "url": "/admin/users/group/1",
         "actions": ["EDIT", "ADD", "DELETE", "VIEW"]
     },
     {
         "id": 4,
         "parentId": 2,
-        "name": "user",
+        "name": "users-user",
         "label": "用户",
         "icon": "",
         "url": "/admin/users/user",
@@ -39,7 +39,7 @@
     {
         "id": 5,
         "parentId": 3,
-        "name": "update",
+        "name": "users-group-update",
         "label": "编辑",
         "icon": "",
         "menu": false
@@ -47,7 +47,7 @@
     {
         "id": 6,
         "parentId": 3,
-        "name": "add",
+        "name": "users-group-add",
         "label": "新增",
         "icon": "",
         "menu": false

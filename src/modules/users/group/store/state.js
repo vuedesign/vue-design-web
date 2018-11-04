@@ -6,7 +6,9 @@ export default {
     show: false,
     title: '',
     filters: {
-        search: ''
+        name: '',
+        page: 1,
+        pageSize: 20
     },
     data: [],
     total: 0

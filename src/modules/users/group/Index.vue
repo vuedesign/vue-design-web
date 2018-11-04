@@ -9,7 +9,7 @@
             </ul>
             <ul class="right">
                 <li>
-                    <el-input type="text" v-focus size="small"></el-input>
+                    <el-input type="text" v-model="name" size="small"></el-input>
                 </li>
             </ul>
         </vued-filter>
@@ -43,9 +43,11 @@
         </el-table>
         <vued-pagination>
             <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="filters.page"
                 background
                 layout="prev, pager, next"
-                :total="1000">
+                :total="total">
             </el-pagination>
         </vued-pagination>
         <router-view />
@@ -54,6 +56,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { filtersCommit } from '@/vued';
 import VuedFilter from '@/components/layouts/VuedFilter';
 import VuedPagination from '@/components/layouts/VuedPagination';
 
@@ -70,9 +73,24 @@ export default {
             'filters',
             'data',
             'total'
-        ])
+        ]),
+        name: filtersCommit('users/group', 'name')
+    },
+    watch: {
+        filters: {
+            handler(nv, ov) {
+                this.$store.dispatch('users/group/find');
+                this.$router.push({
+                    params: Object.assign({}, nv)
+                });
+            },
+            deep: true
+        }
     },
     created() {
+        this.$store.commit('users/group/FILTERS', {
+            page: Number(this.$route.params.page)
+        });
         this.$store.dispatch('users/group/find');
     },
     methods: {
@@ -87,6 +105,10 @@ export default {
         },
         handleViewClick({ id }) {
             this.$router.push({ name: 'users-group-view', params: { id } });
+        },
+        handleCurrentChange(page) {
+            this.$store.commit('users/group/FILTERS', { page });
+            this.$router.push({ params: { page } });
         }
     }
 };

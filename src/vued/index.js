@@ -8,6 +8,7 @@ import createRouter from './core/router';
 import initAjax from './core/ajax';
 import { createAjax } from './plugins/ajax';
 import { actionOfType } from './core/permission';
+import { filtersCommit } from './global/utils';
 
 // 导入路由配置
 import configRoutes from '@/configs/routes';
@@ -47,5 +48,5 @@ Vue.mixin({
 
 Design.extend = app({ store, router });
 
-export { to, store, router, ajax, actionOf };
+export { to, store, router, ajax, actionOf, filtersCommit };
 export default Design;

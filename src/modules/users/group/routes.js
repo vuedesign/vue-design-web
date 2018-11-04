@@ -1,6 +1,6 @@
 export default [
     {
-        path: 'group',
+        path: 'group/:page',
         name: 'users-group',
         meta: {
             label: '用户组'

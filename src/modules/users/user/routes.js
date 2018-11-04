@@ -1,6 +1,6 @@
 export default [
     {
-        path: 'user',
+        path: 'user/:page',
         name: 'users-user',
         meta: {
             label: '用户'

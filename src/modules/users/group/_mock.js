@@ -18,7 +18,7 @@ Mock.mock(/\/api\/v1\/group/, 'get', options => {
                 page: 1,
                 limit: 2,
                 pages: 1,
-                total: 10,
+                total: 100,
                 next: null,
                 prev: null
             }

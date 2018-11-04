@@ -22,8 +22,8 @@
                         <el-menu-item
                             v-for="(subItem, subKey) in item.children"
                             :key="subKey"
-                            :index="item.name + '-' + subItem.name">
-                            <span slot="title">{{ subItem.label }}{{subItem.name}}</span>
+                            :index="subItem.name">
+                            <span slot="title">{{ subItem.label }}</span>
                         </el-menu-item>
                     </el-submenu>
                     <el-menu-item v-else :index="item.name" :key="key">
@@ -72,12 +72,11 @@ export default {
             this.isCollapse = !this.isCollapse;
         },
         handleSelect(index, indexPath) {
-            let name = index;
-            if (this.headerMenuActive) {
-                name = [this.headerMenuActive].concat(index).join('-');
-            }
             this.$router.push({
-                name
+                name: index,
+                params: {
+                    page: 1
+                }
             });
         }
     }

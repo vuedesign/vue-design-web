@@ -13,3 +13,16 @@ export function removeEmptyArrayElement(arr) {
     }
     return arr;
 }
+
+export const filtersCommit = (namespaced, name) => {
+    return {
+        set(value) {
+            this.$store.commit(`${namespaced}/FILTERS`, {
+                [name]: value
+            });
+        },
+        get() {
+            return this.filters[name];
+        }
+    };
+};
