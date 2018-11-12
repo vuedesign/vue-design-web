@@ -3,7 +3,7 @@
  */
 // import Vue from 'vue';
 // import { router, store } from '@/vued';
-import { array2Tree } from '@/vendor/utils';
+import { list2tree } from '@/vendor/utils';
 
 export const findMenu = ({ commit }, isThree = false) => {
     return new Promise((resolve, reject) => {
@@ -24,7 +24,8 @@ export const permission = ({ commit }, isThree = false) => {
         setTimeout(() => {
             const data = require('@/configs/permission.json');
             // commit('PERMISSION', data);
-            const menuData = array2Tree(data);
+            const menuData = list2tree(data);
+            console.log('menuData', menuData);
             if (isThree) {
                 commit('HEADER_MENU', menuData);
                 commit('HEADER_MENU_ACTIVE', menuData[0].name);

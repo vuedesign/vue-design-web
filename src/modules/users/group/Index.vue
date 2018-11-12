@@ -56,13 +56,12 @@
             </el-table-column>
         </el-table>
         <vued-pagination>
-            <el-pagination
+            {{ filters.page }}
+            <pagination
                 @current-change="handleCurrentChange"
                 :current-page="filters.page"
-                background
-                layout="prev, pager, next"
-                :total="total">
-            </el-pagination>
+                :total="total"
+            ></pagination>
         </vued-pagination>
         <router-view />
     </div>
@@ -106,6 +105,8 @@ export default {
         });
         this.$store.dispatch('users/group/find');
     },
+    mounted() {
+    },
     methods: {
         handleAddClick() {
             this.$router.push({ name: 'users-group-add' });
@@ -121,7 +122,12 @@ export default {
         },
         handleCurrentChange(page) {
             this.$store.commit('users/group/FILTERS', { page });
-            this.$router.push({ params: { page } });
+            this.$router.push({
+                name: 'users-group',
+                params: {
+                    page
+                }
+            });
         }
     }
 };
