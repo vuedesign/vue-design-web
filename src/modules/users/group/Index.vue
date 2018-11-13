@@ -23,6 +23,7 @@
             </ul>
         </vued-filter>
         <el-table
+            v-loading="loading"
             :data="data"
             style="width: 100%;border-radius: 3px;">
             <el-table-column
@@ -54,9 +55,9 @@
                     <el-button v-if="actionOf('DELETE')"  @click="handleDelClick(scope.row)" type="text" size="small">删除</el-button>
                 </template>
             </el-table-column>
+            <div slot="empty" class="table-empty"></div>
         </el-table>
         <vued-pagination>
-            {{ filters.page }}
             <pagination
                 @current-change="handleCurrentChange"
                 :current-page="filters.page"
@@ -85,7 +86,8 @@ export default {
         ...mapGetters('users/group', [
             'filters',
             'data',
-            'total'
+            'total',
+            'loading'
         ]),
         name: filtersCommit('users/group', 'name'),
         address: filtersCommit('users/group', 'address'),
@@ -134,4 +136,5 @@ export default {
 </script>
 
 <style lang="scss">
+
 </style>

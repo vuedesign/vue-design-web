@@ -25,6 +25,9 @@ export default {
             li{
                 float: left;
                 margin-left: 10px;
+                &:first-child{
+                    margin-left: 0;
+                }
             }
             &.left{
                 float: left;

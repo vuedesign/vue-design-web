@@ -7,6 +7,7 @@ import * as api from '../api';
 import { to } from '@/vued';
 
 export const find = async({ commit }) => {
+    commit(types.LOADING, true);
     const [err, res] = await to(api.find());
     if (err) {
         return;
@@ -14,6 +15,7 @@ export const find = async({ commit }) => {
     console.log('res *** ', res);
     commit(types.DATA, res.data);
     commit(types.TOTAL, res.total);
+    commit(types.LOADING, false);
 };
 
 export const findOne = async({ commit }, params) => {
