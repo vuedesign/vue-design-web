@@ -86,10 +86,6 @@ export default {
 <style lang="scss">
     .vued-aside{
         height: 100%;
-        .el-menu-item, .el-submenu__title{
-            height: 48px;
-            line-height: 48px;
-        }
     }
     .vued-aside-menu-vertical{
         width: 200px;
@@ -99,14 +95,25 @@ export default {
             background-color: transparent;
         }
         &.el-menu--collapse{
-            width: 64px;
+            width: 48px;
         }
-        .el-menu-item.is-active {
-            font-weight: 700;
-            background-color: #dce7f3;
+        .el-menu-item{
+            &.is-active {
+                font-weight: 700;
+                background-color: #dce7f3;
+            }
+            &:hover{
+                color: #409EFF;
+            }
         }
-        .el-menu-item:hover{
-            color: #409EFF;
+        & > .el-menu-item,
+        & > .el-submenu > .el-submenu__title{
+            height: 48px;
+            line-height: 48px;
+            padding: 0 11px !important;
+        }
+        & > .el-menu-item > .el-tooltip {
+            padding: 0 11px !important;
         }
     }
     .vued-aside-menu{
