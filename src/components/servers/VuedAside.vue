@@ -42,6 +42,7 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
+    name: 'vued-aside',
     data() {
         return {
             isCollapse: false

@@ -50,7 +50,7 @@ export default {
         z-index: 1;
         float: left;
         position: relative;
-        background-color: #f5f5f5;
+        // background-color: #f5f5f5;
         background-color: #eef5f9;
     }
     .vued-t-shape-mainer{

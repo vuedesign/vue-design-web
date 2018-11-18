@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: 'vued-body',
     data() {
         return {
             msg: 'hello vue'

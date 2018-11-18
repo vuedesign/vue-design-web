@@ -12,6 +12,7 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
+    name: 'vued-breadcrumb',
     computed: mapGetters('global', ['breadcrumbs'])
 };
 </script>

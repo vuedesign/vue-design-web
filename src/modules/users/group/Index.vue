@@ -9,13 +9,13 @@
             </ul>
             <ul class="right">
                 <li>
-                    <el-input type="text" v-model="address" size="small"></el-input>
+                    <el-input type="text" placeholder="用户组" v-model="address" size="small"></el-input>
                 </li>
                 <li>
                     <el-input type="text" v-model="name" size="small"></el-input>
                 </li>
                 <li>
-                    <el-select v-model="type" placeholder="请选择" size="small">
+                    <el-select style="width: 110px" v-model="type" placeholder="请选择" size="small">
                         <el-option label="超级管理员" value="supper"></el-option>
                         <el-option label="管理员" value="admin"></el-option>
                     </el-select>
@@ -48,7 +48,7 @@
             <el-table-column
                 fixed="right"
                 label="操作"
-                width="100">
+                width="140">
                 <template slot-scope="scope">
                     <el-button v-if="actionOf('VIEW')" @click="handleViewClick(scope.row)" type="text" size="small">查看</el-button>
                     <el-button v-if="actionOf('EDIT')" @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>

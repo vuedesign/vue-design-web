@@ -18,7 +18,7 @@ import VuedBody from '@/components/servers/VuedBody';
 import VuedBreadcrumb from '@/components/servers/VuedBreadcrumb';
 
 export default {
-    name: 'admin',
+    name: 'vued-admin',
     components: {
         VuedTShape,
         VuedAside,

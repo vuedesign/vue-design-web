@@ -11,7 +11,7 @@
                     :key="index"
                     @click="handleHeaderMenu(item, index)"
                 >
-                    <i :class="item.icon"></i><span>{{ item.label }}</span>
+                    <vued-iconfont :type="item.icon" /><span>{{ item.label }}</span>
                 </li>
             </ul>
         </div>
@@ -19,29 +19,70 @@
             <ul class="vued-header-nav">
                 <li
                     v-for="(item, index) in headerLeftNav"
+                    v-if="item.type !== 'MORE'"
                     :index="item.name"
                     :key="index"
                     @click="handleHeaderNav(item, index)"
                 >
-                    <i :class="item.icon"></i><span>{{ item.label }}</span>
+                    <el-tooltip class="item" effect="dark" :content="item.label" placement="bottom">
+                        <span class="menu-btn"><vued-iconfont :type="item.icon"></vued-iconfont></span>
+                    </el-tooltip>
+                </li>
+                <li>
+                    <el-popover
+                        placement="bottom"
+                        width="200"
+                        trigger="click">
+                        <div class="vued-header-right-more">
+                            <dl v-for="(item, index) in headerLeftNav"
+                                v-if="item.type === 'MORE'"
+                                :key="index"
+                            >
+                                <dt><vued-iconfont :type="item.icon" /></dt>
+                                <dd>{{ item.label }}</dd>
+                            </dl>
+                        </div>
+                        <span class="menu-btn" slot="reference"><vued-iconfont type="menu_more_fill"></vued-iconfont></span>
+                    </el-popover>
+                </li>
+                <li>
+                    <el-popover
+                        placement="bottom"
+                        title="消息"
+                        width="200"
+                        trigger="click"
+                        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                        <span class="menu-btn" slot="reference"><vued-iconfont type="message_fill"></vued-iconfont></span>
+                    </el-popover>
                 </li>
             </ul>
             <div class="vued-user">
-                <span class="avatar"></span>
-                <el-dropdown
+                <el-popover
+                    placement="bottom"
+                    width="240"
                     trigger="click"
-                    @command="handleCommand">
-                   <span class="name">wujian<i class="el-icon-arrow-down el-icon--right"></i>
-                   </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item
-                            v-for="(item, index) in userDropdown"
-                            :key="index"
-                            :command="item.name"
-                            :divided="item.divided"
-                        >{{ item.label }}</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+                >
+                    <span class="avatar" slot="reference"></span>
+                    <div class="vued-user-popover">
+                        <dl>
+                            <dt><span class="avatar-big"></span></dt>
+                            <dd>
+                                <h4>wujian</h4>
+                                <p>wujian@aaa.cn</p>
+                            </dd>
+                        </dl>
+                        <ul>
+                            <li class="setting" @click="handleSetting">
+                                <vued-iconfont type="setting_fill" />
+                                <span>设置</span>
+                            </li>
+                            <li class="exit" @click="handleExit">
+                                <vued-iconfont type="exit_fill" />
+                                <span>退出</span>
+                            </li>
+                        </ul>
+                    </div>
+                </el-popover>
             </div>
         </div>
     </div>
@@ -50,7 +91,9 @@
 <script>
 import headerLeftNav from '@/configs/headerLeftNav';
 import { mapGetters } from 'vuex';
+
 export default {
+    name: 'vued-header',
     data() {
         return {
             headerNavActive: 'users',
@@ -82,8 +125,11 @@ export default {
                 name: item.name
             });
         },
-        handleCommand(command) {
-            this.$message(`click on item ${command}`);
+        handleExit() {
+            this.$message(`click exit`);
+        },
+        handleSetting() {
+            this.$message(`click setting`);
         },
         handleLogo() {
             this.$router.push({
@@ -117,47 +163,30 @@ export default {
             cursor: pointer;
         }
     }
-    .vued-header-right{
-        float: right;
-    }
     .vued-header-nav,
     .vued-header-left ul{
         float: left;
-        line-height: 46px;
-        height: 46px;
+        line-height: 48px;
+        height: 48px;
         li{
             cursor: pointer;
             float: left;
-            padding: 0 10px;
-            margin: 0 5px;
-        }
-        i,
-        span{
-            display: inline-block;
-            vertical-align: middle;
-            color: #fff;
-        }
-        span{
-            margin-left: 3px;
-        }
-        li{
-            &:hover{
-                span{
-                    font-weight: bold;
-                }
-            }
+            padding: 0 11px;
         }
     }
     .vued-user{
-        float: left;
+        float: right;
         margin-left: 10px;
         padding: 10px 16px;
         cursor: pointer;
-        span{
-            display: inline-block;
-            vertical-align: middle;
+        > span{
+            display: block;
+            height: 28px;
+            line-height: 28px;
         };
         .avatar{
+            display: inline-block;
+            vertical-align: middle;
             width: 28px;
             height: 28px;
             background-color: #ddd;
@@ -169,6 +198,118 @@ export default {
             line-height: 24px;
             color: #fff;
             margin-left: 4px;
+        }
+    }
+    .vued-user-popover{
+        dl,
+        ul{
+            &:after{
+                content: '';
+                display: block;
+                clear: both;
+                width: 100%;
+                height: 0;
+            }
+        }
+        dt{
+            float: left;
+            margin-right: 10px;
+            .avatar-big{
+                display: block;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: #eee;
+            }
+        }
+        dd{
+            h4{
+                font-size: 18px;
+            }
+            p{
+                color: #999;
+            }
+        }
+        ul{
+            padding-top: 10px;
+            border-top: 1px solid #f9f9f9;
+            margin-top: 10px;
+        }
+        li{
+            float: left;
+            cursor: pointer;
+            i,
+            span{
+                display: inline-block;
+                vertical-align: middle;
+                color: #999;
+            }
+            &:hover{
+                i,
+                span{
+                    color: #409EFF;
+                }
+            }
+            &.exit{
+                float: right;
+            }
+            &.setting{
+                float: left;
+            }
+        }
+    }
+    .vued-header-right-more{
+        &:after{
+            content: '';
+            display: block;
+            width: 100%;
+            height: 0;
+            clear: both;
+        }
+        dl{
+            width: 50%;
+            float: left;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 10px 0;
+            border-radius: 3px;
+            &:hover{
+                border: 1px solid #eee;
+            }
+        }
+        dt{
+            i.iconfont{
+                font-size: 32px;
+            }
+        }
+    }
+    .vued-header-right{
+        float: right;
+        line-height: 48px;
+        height: 48px;
+        li{
+            float: left;
+            padding: 0 11px;
+            span.menu-btn{
+                cursor: pointer;
+                display: inline-block;
+                vertical-align: middle;
+                width: 26px;
+                height: 26px;
+                line-height: 26px;
+                border-radius: 50%;
+                text-align: center;
+                margin-left: 0;
+                & > i{
+                    display: block;
+                    vertical-align: middle;
+                    color: #fff;
+                }
+                &:hover{
+                    background-color: #2c8eff;
+                }
+            }
         }
     }
 </style>
