@@ -6,12 +6,7 @@
 
 <script>
 export default {
-    name: 'vued-body',
-    data() {
-        return {
-            msg: 'hello vue'
-        };
-    }
+    name: 'vued-body'
 };
 </script>
 
@@ -19,6 +14,5 @@ export default {
     .vued-body{
         height: auto;
         padding: 20px 16px;
-        padding-top: 0;
     }
 </style>

@@ -4,21 +4,12 @@
             <h1 @click="handleLogo">VueDesign Admin</h1>
         </div>
         <div class="vued-header-left">
-            <ul>
-                <li
-                    v-for="(item, index) in headerMenu"
-                    :index="item.name"
-                    :key="index"
-                    @click="handleHeaderMenu(item, index)"
-                >
-                    <vued-iconfont :type="item.icon" /><span>{{ item.label }}</span>
-                </li>
-            </ul>
+            <vued-breadcrumb slot="breadcrumb"></vued-breadcrumb>
         </div>
         <div class="vued-header-right">
             <ul class="vued-header-nav">
                 <li
-                    v-for="(item, index) in headerLeftNav"
+                    v-for="(item, index) in headerMenu"
                     v-if="item.type !== 'MORE'"
                     :index="item.name"
                     :key="index"
@@ -34,7 +25,7 @@
                         width="200"
                         trigger="click">
                         <div class="vued-header-right-more">
-                            <dl v-for="(item, index) in headerLeftNav"
+                            <dl v-for="(item, index) in headerMenu"
                                 v-if="item.type === 'MORE'"
                                 :key="index"
                             >
@@ -42,7 +33,7 @@
                                 <dd>{{ item.label }}</dd>
                             </dl>
                         </div>
-                        <span class="menu-btn" slot="reference"><vued-iconfont type="menu_more_fill"></vued-iconfont></span>
+                        <span class="menu-btn" slot="reference"><vued-iconfont type="menu-more"></vued-iconfont></span>
                     </el-popover>
                 </li>
                 <li>
@@ -52,7 +43,7 @@
                         width="200"
                         trigger="click"
                         content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-                        <span class="menu-btn" slot="reference"><vued-iconfont type="message_fill"></vued-iconfont></span>
+                        <span class="menu-btn" slot="reference"><vued-iconfont type="message"></vued-iconfont></span>
                     </el-popover>
                 </li>
             </ul>
@@ -73,11 +64,11 @@
                         </dl>
                         <ul>
                             <li class="setting" @click="handleSetting">
-                                <vued-iconfont type="setting_fill" />
+                                <vued-iconfont type="setting" />
                                 <span>设置</span>
                             </li>
                             <li class="exit" @click="handleExit">
-                                <vued-iconfont type="exit_fill" />
+                                <vued-iconfont type="exit" />
                                 <span>退出</span>
                             </li>
                         </ul>
@@ -89,42 +80,18 @@
 </template>
 
 <script>
-import headerLeftNav from '@/configs/headerLeftNav';
-import { mapGetters } from 'vuex';
+import headerMenu from '@/configs/headerMenu';
+import VuedBreadcrumb from '@/components/servers/VuedBreadcrumb';
 
 export default {
     name: 'vued-header',
+    components: { VuedBreadcrumb },
     data() {
         return {
-            headerNavActive: 'users',
-            headerLeftNav,
-            userDropdown: [
-                {
-                    name: 'logout',
-                    label: '退出'
-                },
-                {
-                    name: 'user-info',
-                    label: '用户资料',
-                    divided: true
-                }
-            ]
+            headerMenu
         };
     },
-    computed: {
-        ...mapGetters('global', [
-            'menu',
-            'headerMenu'
-        ])
-    },
     methods: {
-        handleHeaderMenu(item, index) {
-            this.$store.commit('global/ASIDE_MENU', this.menu[index].children);
-            this.$store.commit('global/HEADER_MENU_ACTIVE', this.menu[index].name);
-            this.$router.push({
-                name: item.name
-            });
-        },
         handleExit() {
             this.$message(`click exit`);
         },
@@ -311,5 +278,8 @@ export default {
                 }
             }
         }
+    }
+    .vued-header-left{
+        float: left;
     }
 </style>

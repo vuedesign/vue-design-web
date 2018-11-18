@@ -17,9 +17,17 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
     .vued-breadcrumb{
         width: 100%;
         padding: 17px 16px;
+        .el-breadcrumb__inner{
+            color: #eee;
+        }
+        .el-breadcrumb__item:last-child{
+            .el-breadcrumb__inner{
+                color: #fff;
+            }
+        }
     }
 </style>

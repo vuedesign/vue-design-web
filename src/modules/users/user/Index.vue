@@ -3,7 +3,7 @@
         <vued-filter>
             <ul class="left">
                 <li>
-                    <el-button v-if="actionOf('ADD')" type="primary" size="small" @click="handleAddClick">新增</el-button>
+                    <el-button type="primary" size="small" @click="handleAddClick">新增</el-button>
                 </li>
             </ul>
             <ul class="right">
@@ -34,9 +34,9 @@
                 label="操作"
                 width="100">
                 <template slot-scope="scope">
-                    <el-button v-if="actionOf('VIEW')" @click="handleViewClick(scope.row)" type="text" size="small">查看</el-button>
-                    <el-button v-if="actionOf('EDIT')" @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
-                    <el-button v-if="actionOf('DELETE')"  @click="handleDelClick(scope.row)" type="text" size="small">删除</el-button>
+                    <el-button @click="handleViewClick(scope.row)" type="text" size="small">查看</el-button>
+                    <el-button @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
+                    <el-button @click="handleDelClick(scope.row)" type="text" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -16,7 +16,7 @@
                         :key="key"
                     >
                         <template slot="title">
-                            <i :class="item.icon"></i>
+                            <vued-iconfont :type="item.icon" />
                             <span>{{ item.label }}</span>
                         </template>
                         <el-menu-item
@@ -27,7 +27,7 @@
                         </el-menu-item>
                     </el-submenu>
                     <el-menu-item v-else :index="item.name" :key="key">
-                        <i :class="item.icon"></i>
+                        <vued-iconfont :type="item.icon" />
                         <span slot="title">{{ item.label }}</span>
                     </el-menu-item>
                 </template>
@@ -50,10 +50,8 @@ export default {
     },
     computed: {
         ...mapGetters('global', [
-            'menu',
             'asideMenu',
-            'asideActive',
-            'headerMenuActive'
+            'asideActive'
         ]),
         collapseIcon() {
             return this.isCollapse ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left';

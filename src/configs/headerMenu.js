@@ -2,18 +2,18 @@ export default [
     {
         name: 'doc',
         label: '文档',
-        icon: 'doc_fill'
+        icon: 'doc'
     },
     {
         name: 'doc',
         label: '文档',
-        icon: 'doc_fill',
+        icon: 'doc',
         type: 'MORE'
     },
     {
         name: 'doc',
         label: '文档',
-        icon: 'doc_fill',
+        icon: 'doc',
         type: 'MORE'
     }
 ];
