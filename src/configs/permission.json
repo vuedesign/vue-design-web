@@ -29,7 +29,7 @@
     {
         "id": 4,
         "parentId": 2,
-        "name": "users-user",
+        "name": "users-group",
         "label": "用户",
         "icon": "",
         "url": "/admin/users/user",

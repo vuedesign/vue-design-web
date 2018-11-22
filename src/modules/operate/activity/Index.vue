@@ -49,14 +49,14 @@ export default {
         return {};
     },
     computed: {
-        ...mapGetters('users/user', [
+        ...mapGetters('operate/activity', [
             'filters',
             'data',
             'total'
         ])
     },
     created() {
-        this.$store.dispatch('users/user/find');
+        this.$store.dispatch('operate/activity/find');
     },
     methods: {
         handleAddClick() {
@@ -66,10 +66,10 @@ export default {
             this.$router.push({ name: 'operate-activity-edit', params: { id } });
         },
         handleDelClick({ id }) {
-            // this.$router.push({ name: 'users-user-update' });
+            // this.$router.push({ name: 'operate-activity-update' });
         },
         handleViewClick({ id }) {
-            this.$router.push({ name: 'users-user-view', params: { id } });
+            this.$router.push({ name: 'operate-activity-view', params: { id } });
         }
     }
 };

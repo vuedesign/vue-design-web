@@ -2,6 +2,7 @@
     "name": "modules",
     "children": [
         "dashboard",
-        "users"
+        "users",
+        "operate"
     ]
 }

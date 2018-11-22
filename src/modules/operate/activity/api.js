@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-const API_URL = '/api/v1/users/group';
+const API_URL = '/api/v1/operate/activity';
 
 export const find = params => Vue.ajax.get(API_URL, { params });
 

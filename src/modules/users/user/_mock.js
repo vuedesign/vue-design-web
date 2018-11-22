@@ -1,7 +1,7 @@
 import Mock from 'mockjs';
 
-Mock.mock(/\/api\/v1\/user/, 'get', options => {
-    console.log('mock:/api/v1/group');
+Mock.mock(/\/api\/v1\/users\/user/, 'get', options => {
+    console.log('mock:/api/v1/users/user');
     return {
         type: options.type,
         code: 200,
@@ -9,8 +9,9 @@ Mock.mock(/\/api\/v1\/user/, 'get', options => {
             'data|10': [
                 {
                     'id|+1': 1,
-                    date: '@DATETIME',
                     name: '@NAME',
+                    birthday: '@DATETIME',
+                    email: '@email()',
                     address: '上海市普陀区金沙江路 1518 弄'
                 }
             ],

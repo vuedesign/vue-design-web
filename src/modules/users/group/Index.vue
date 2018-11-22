@@ -23,6 +23,7 @@
             </ul>
         </vued-filter>
         <el-table
+            size="medium"
             v-loading="loading"
             :data="data"
             style="width: 100%;border-radius: 3px;">
