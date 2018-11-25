@@ -10,12 +10,24 @@
         </vued-filter>
         <el-table
             size="medium"
-            :data="data"
+            :data="list"
             style="width: 100%; border-radius: 3px;">
-            <el-table-column prop="name" label="姓名" min-width="100" />
-            <el-table-column prop="birthday" label="生日" min-width="120" />
-            <el-table-column prop="email" label="E-mail" min-width="120" />
-            <el-table-column prop="address" label="地址" min-width="180"/>
+            <el-table-column label="缩略图" min-width="64" >
+                <template slot-scope="scope">
+                    <span><img :src="scope.row.thumb" /></span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="name" label="活动名称" min-width="120" />
+            <el-table-column prop="region" label="活动区域" min-width="120" />
+            <el-table-column prop="date" label="活动时间" min-width="180">
+                <template slot-scope="scope">
+                    {{ scope.row.date }} {{ scope.row.time }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="delivery" label="即时配送"></el-table-column>
+            <el-table-column prop="type" label="活动性质"></el-table-column>
+            <el-table-column prop="resource" label="特殊资源"></el-table-column>
+            <el-table-column prop="desc" label="活动形式"></el-table-column>
             <el-table-column fixed="right" label="操作" width="140">
                 <template slot-scope="scope">
                     <el-button @click="handleViewClick(scope.row)" type="text" size="small">查看</el-button>
@@ -27,8 +39,10 @@
         <vued-pagination>
             <el-pagination
                 background
+                :page-size="filters.pageSize"
+                :current-page="filters.page"
                 layout="prev, pager, next"
-                :total="1000">
+                :total="total">
             </el-pagination>
         </vued-pagination>
         <router-view />
@@ -46,16 +60,29 @@ export default {
         VuedPagination
     },
     data() {
-        return {};
+        return {
+            params: this.$route.params
+        };
     },
     computed: {
         ...mapGetters('operate/activity', [
             'filters',
-            'data',
+            'list',
             'total'
         ])
     },
+    watch: {
+        filters: {
+            handler(nv, ov) {
+                this.$store.dispatch('operate/activity/find');
+            },
+            deep: true
+        }
+    },
     created() {
+        this.$store.commit('users/group/FILTERS', {
+            page: Number(this.params.page)
+        });
         this.$store.dispatch('operate/activity/find');
     },
     methods: {

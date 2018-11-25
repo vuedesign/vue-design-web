@@ -4,25 +4,29 @@
 
 import {
     FILTERS,
-    DATA,
+    LIST,
+    ITEM,
     TOTAL,
     LOADING
 } from './types';
 
 export default {
-    [DATA](state, { key, value }) {
+    [LIST](state, { key, value }) {
         state[key] = value;
     },
     [FILTERS](state, filters) {
         state.filters = Object.assign(state.filters, filters);
     },
-    [DATA](state, data) {
-        state.data = data;
+    [LIST](state, list) {
+        state.list = list;
     },
-    [TOTAL](state, data) {
-        state.total = data;
+    [ITEM](state, item) {
+        state.item = item;
     },
-    [LOADING](state, data) {
-        state.loading = data;
+    [TOTAL](state, total) {
+        state.total = total;
+    },
+    [LOADING](state, loading) {
+        state.loading = loading;
     }
 };

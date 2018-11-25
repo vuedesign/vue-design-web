@@ -6,20 +6,25 @@ Mock.mock(/\/api\/v1\/operate\/activity/, 'get', options => {
         type: options.type,
         code: 200,
         data: Mock.mock({
-            'data|10': [
+            'list|20': [
                 {
                     'id|+1': 1,
-                    name: '@NAME',
-                    birthday: '@DATETIME',
-                    email: '@email()',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    name: '@cname()',
+                    thumb: '@image("64")',
+                    region: '@cname()',
+                    date: '@date()',
+                    time: '@time()',
+                    delivery: false,
+                    type: [1, 2, 3, 4],
+                    resource: '@cname()',
+                    desc: '@cname(20)'
                 }
             ],
             pagination: {
                 page: 1,
-                limit: 2,
+                limit: 20,
                 pages: 1,
-                total: 10,
+                total: 100,
                 next: null,
                 prev: null
             }
