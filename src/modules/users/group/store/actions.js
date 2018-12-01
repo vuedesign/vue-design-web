@@ -13,7 +13,7 @@ export const find = async({ commit, getters }) => {
     if (err) {
         return;
     }
-    commit(types.DATA, res.data);
+    commit(types.DATA, res.list);
     commit(types.TOTAL, res.pagination.total);
     commit(types.LOADING, false);
 };

@@ -13,7 +13,7 @@ import { mapGetters } from 'vuex';
 import VuedTShape from '@/components/layouts/VuedTShape';
 import VuedAside from '@/components/servers/VuedAside';
 import VuedHeader from '@/components/servers/VuedHeader';
-import VuedBody from '@/components/servers/VuedBody';
+import VuedBody from '@/components/layouts/VuedBody';
 
 export default {
     name: 'vued-admin',

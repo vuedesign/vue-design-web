@@ -14,6 +14,8 @@ export default {
 <style scoped lang="scss">
     .vued-filter{
         margin-bottom: 20px;
+        background-color: #eef5f97a;
+        padding: 0 5px 5px 5px;
         &:after{
             content: '';
             display: block;
@@ -24,10 +26,11 @@ export default {
         ul{
             li{
                 float: left;
-                margin-left: 10px;
+                margin-left: 5px;
                 &:first-child{
                     margin-left: 0;
                 }
+                margin-top: 5px;
             }
             &.left{
                 float: left;

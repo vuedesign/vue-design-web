@@ -7,12 +7,14 @@ import * as api from '../api';
 import { to } from '@/vued';
 import { SUCCESS_STATUS_CODE } from '@/configs/constants';
 
-export const find = async({ commit }) => {
+export const find = async({ commit, getters }) => {
+    const params = getters.filters;
     commit(types.LOADING, true);
-    const [err, res] = await to(api.find());
+    const [err, res] = await to(api.find(params));
     if (err) {
         return;
     }
+    console.log('res', res);
     commit(types.LIST, res.list);
     commit(types.TOTAL, res.pagination.total);
     commit(types.LOADING, false);

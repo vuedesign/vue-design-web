@@ -72,14 +72,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import { filtersCommit } from '@/vued';
-import VuedFilter from '@/components/layouts/VuedFilter';
-import VuedPagination from '@/components/layouts/VuedPagination';
 
 export default {
-    components: {
-        VuedFilter,
-        VuedPagination
-    },
     data() {
         return {};
     },

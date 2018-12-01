@@ -4,8 +4,8 @@
 
 export default {
     filters: {
-        page: 0,
-        pageSize: 0,
+        page: 1,
+        size: 20,
         search: ''
     },
     list: [],

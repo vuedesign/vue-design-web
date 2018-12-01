@@ -5,7 +5,7 @@
                 <li><el-button type="primary" size="small" @click="handleAddClick">新增</el-button></li>
             </ul>
             <ul class="right">
-                <li><el-input type="text" size="small" /></li>
+                <li><el-input v-model="name" type="text" size="small" /></li>
             </ul>
         </vued-filter>
         <el-table
@@ -39,9 +39,12 @@
         <vued-pagination>
             <el-pagination
                 background
-                :page-size="filters.pageSize"
+                @size-change="handleSizeChange"
+                @current-change="handlePageChange"
                 :current-page="filters.page"
-                layout="prev, pager, next"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="filters.size"
+                layout="sizes, prev, pager, next"
                 :total="total">
             </el-pagination>
         </vued-pagination>
@@ -51,14 +54,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import VuedFilter from '@/components/layouts/VuedFilter';
-import VuedPagination from '@/components/layouts/VuedPagination';
+import { filtersCommit } from '@/vued';
 
 export default {
-    components: {
-        VuedFilter,
-        VuedPagination
-    },
+    name: 'activity-list',
     data() {
         return {
             params: this.$route.params
@@ -69,7 +68,8 @@ export default {
             'filters',
             'list',
             'total'
-        ])
+        ]),
+        name: filtersCommit('operate/activity', 'name')
     },
     watch: {
         filters: {
@@ -97,6 +97,25 @@ export default {
         },
         handleViewClick({ id }) {
             this.$router.push({ name: 'operate-activity-view', params: { id } });
+        },
+        handleSizeChange(size) {
+            const page = 1;
+            this.$store.commit('operate/activity/FILTERS', { size, page });
+            this.$router.push({
+                name: 'operate-activity',
+                params: {
+                    page
+                }
+            });
+        },
+        handlePageChange(page) {
+            this.$store.commit('operate/activity/FILTERS', { page });
+            this.$router.push({
+                name: 'operate-activity',
+                params: {
+                    page
+                }
+            });
         }
     }
 };

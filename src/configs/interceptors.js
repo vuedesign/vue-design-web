@@ -31,7 +31,7 @@ export const ajaxRequestFailure = (error) => {
  * @returns {*}
  */
 export const ajaxResponseSuccess = (response) => {
-    return response.data;
+    return response;
 };
 
 /**
@@ -44,7 +44,6 @@ export const ajaxResponseFailure = (error) => {
 };
 
 export const routerBeforeEach = ({ to, from, next }) => {
-    console.log('routerBeforeEach', to, from);
     store.commit('global/BREADCRUMB', to);
     next();
 };
@@ -54,5 +53,4 @@ export const routerBeforeResolve = ({ to, from, next }) => {
 };
 
 export const routerAfterEach = ({ to, from }) => {
-    console.log(store);
 };

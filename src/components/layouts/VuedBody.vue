@@ -13,6 +13,6 @@ export default {
 <style>
     .vued-body{
         height: auto;
-        padding: 20px 16px;
+        padding: 10px 10px;
     }
 </style>
