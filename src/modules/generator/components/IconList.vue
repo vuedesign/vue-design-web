@@ -11,6 +11,7 @@
                 :key="index"
                 :class="{'select': item === selectIcon }"
                 @click="handleSelectIcon(item)"
+                @dblclick="handleCopyIconClassName(item)"
             >
                 <span>
                     <vued-iconfont :type="item" />
@@ -57,6 +58,9 @@ export default {
         },
         handleSelectIcon(selectIcon) {
             this.$store.commit('generator/SELECT_ICON', selectIcon);
+        },
+        handleCopyIconClassName(selectIcon) {
+            this.$message.success(selectIcon);
         }
     }
 };
