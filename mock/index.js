@@ -1,12 +1,12 @@
 const global = require('./global');
-const usersUser = require('./users/user');
-const usersGroup = require('./users/group');
+const generatorModules = require('./generator/modules');
+const generatorPages = require('./generator/pages');
 const operateActivity = require('./operate/activity');
 
 module.exports = Object.assign(
     {},
     global,
-    usersUser,
-    usersGroup,
+    generatorModules,
+    generatorPages,
     operateActivity
 );

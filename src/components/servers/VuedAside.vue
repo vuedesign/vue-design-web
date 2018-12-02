@@ -23,7 +23,10 @@
                             v-for="(subItem, subKey) in item.children"
                             :key="subKey"
                             :index="subItem.name">
-                            <span slot="title">{{ subItem.label }}</span>
+                            <template slot="title">
+                                <vued-iconfont :type="subItem.icon" />
+                                <span>{{ subItem.label }}</span>
+                            </template>
                         </el-menu-item>
                     </el-submenu>
                     <el-menu-item v-else :index="item.name" :key="key">
@@ -45,7 +48,7 @@ export default {
     name: 'vued-aside',
     data() {
         return {
-            isCollapse: false
+            isCollapse: true
         };
     },
     computed: {
@@ -85,21 +88,32 @@ export default {
 <style lang="scss">
     .vued-aside{
         height: 100%;
+        width: auto;
+        background-color: #409EFF;
+        float: left;
+        position: relative;
     }
     .vued-aside-menu-vertical{
-        width: 200px;
+        width: 100px;
         &.el-menu,
         .el-menu{
             border: 0;
             background-color: transparent;
         }
         &.el-menu--collapse{
-            width: 48px;
+            width: 40px;
         }
         .el-menu-item{
+            span{
+                color: #fff;
+            }
             &.is-active {
                 font-weight: 700;
-                background-color: #dce7f3;
+                background-color: #eef5f9;
+                span,
+                i{
+                    color: #409EFF;
+                }
             }
             &:hover{
                 color: #409EFF;
@@ -107,12 +121,25 @@ export default {
         }
         & > .el-menu-item,
         & > .el-submenu > .el-submenu__title{
-            height: 48px;
-            line-height: 48px;
+            height: 40px;
+            line-height: 40px;
             padding: 0 11px !important;
         }
         & > .el-menu-item > .el-tooltip {
             padding: 0 11px !important;
+        }
+        .el-menu-item i{
+            color: #fff;
+        }
+        .el-menu-item:focus,
+        .el-menu-item:hover {
+            background-color: #57aaff;
+            i{
+                // font-size: 18px;
+            }
+            &.is-active {
+                background-color: #eef5f9;
+            }
         }
     }
     .vued-aside-menu{
@@ -124,13 +151,12 @@ export default {
         width: 100%;
         bottom: 0;
         left: 0;
-        height: 32px;
-        line-height: 32px;
-        border-top: 1px solid #eee;
+        height: 40px;
+        line-height: 40px;
         text-align: center;
         i{
             cursor: pointer;
-            color: #aaa;
+            color: #eef5f9
         }
     }
 </style>

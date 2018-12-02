@@ -2,7 +2,7 @@
     "name": "modules",
     "children": [
         "dashboard",
-        "users",
+        "generator",
         "operate"
     ]
 }

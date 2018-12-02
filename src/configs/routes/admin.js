@@ -1,9 +1,9 @@
 import dashboard from '@/modules/dashboard/routes';
-import users from '@/modules/users/routes';
+import generator from '@/modules/generator/routes';
 import operate from '@/modules/operate/routes';
 
 export default [
-    users,
+    generator,
     dashboard,
     operate
 ];

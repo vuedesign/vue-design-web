@@ -1,0 +1,8 @@
+{
+    "name": "generator",
+    "label": "生成器",
+    "children": [
+        "modules",
+        "pages"
+    ]
+}

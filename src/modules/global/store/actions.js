@@ -5,11 +5,11 @@
 // import { router, store } from '@/vued';
 import * as types from './types';
 import { list2tree } from '@/vendor/utils';
+import asideMenu from '@/configs/asideMenu';
 
 export const findMenu = ({ commit }) => {
     return new Promise((resolve, reject) => {
-        const data = require('@/configs/menu.json');
-        commit(types.ASIDE_MENU, data);
+        commit(types.ASIDE_MENU, asideMenu);
     });
 };
 

@@ -1,12 +1,12 @@
 <template>
     <div class="vued-t-shape">
-        <header class="vued-t-shape-header">
-            <slot name="header"></slot>
+        <aside class="vued-t-shape-aside">
+            <slot name="aside"></slot>
+        </aside>
+        <header class="vued-t-shape-right-bar">
+            <slot name="right-bar"></slot>
         </header>
         <section class="vued-t-shape-body">
-            <aside v-if="$slots.aside" class="vued-t-shape-aside">
-                <slot name="aside"></slot>
-            </aside>
             <section class="vued-t-shape-mainer">
                 <slot name="breadcrumb" v-if="$slots.breadcrumb"></slot>
                 <slot name="body"></slot>
@@ -30,19 +30,13 @@ export default {
         width: 100%;
     }
     .vued-t-shape-header{
-        height: 48px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 999;
+        height: 100%;
+        width: 40px;
+        float: right;
     }
     .vued-t-shape-body{
-        position: absolute;
-        top: 48px;
-        width: 100%;
-        left: 0;
-        bottom: 0;
+        height: 100%;
+        overflow: hidden;
     }
     .vued-t-shape-aside{
         width: auto;
@@ -51,7 +45,8 @@ export default {
         float: left;
         position: relative;
         // background-color: #f5f5f5;
-        background-color: #eef5f9;
+        // background-color: #dce7f3;
+        background-color: #409EFF;
     }
     .vued-t-shape-mainer{
         position: relative;

@@ -1,27 +1,21 @@
 <template>
-    <vued-t-shape>
-        <vued-header slot="header"></vued-header>
-        <vued-aside slot="aside" v-if="$store.state.global.asideMenu"></vued-aside>
-        <vued-body slot="body">
-            <router-view/>
-        </vued-body>
-    </vued-t-shape>
+    <div class="vued-admin">
+        <vued-aside />
+        <vued-right-bar />
+        <router-view />
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import VuedTShape from '@/components/layouts/VuedTShape';
 import VuedAside from '@/components/servers/VuedAside';
-import VuedHeader from '@/components/servers/VuedHeader';
-import VuedBody from '@/components/layouts/VuedBody';
+import VuedRightBar from '@/components/servers/VuedRightBar';
 
 export default {
     name: 'vued-admin',
     components: {
-        VuedTShape,
         VuedAside,
-        VuedHeader,
-        VuedBody
+        VuedRightBar
     },
     computed: {
         ...mapGetters('global', [
@@ -45,6 +39,7 @@ export default {
     },
     created() {
         this.$store.dispatch('global/findMenu');
+        document.getElementsByTagName('html')[0].setAttribute('class', 'admin');
         // this.$store.dispatch('global/permission');
     },
     methods: {
@@ -70,4 +65,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .vued-admin{
+        height: 100%;
+        width: 100%;
+    }
 </style>

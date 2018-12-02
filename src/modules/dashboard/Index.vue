@@ -1,12 +1,17 @@
 <template>
-    <div class="dashboard-list">
-        仪表板
-    </div>
+    <vued-admin-body>
+        <aside-menu slot="asideMenu" />
+        <vued-breadcrumb slot="breadcrumb" />
+        dashboard content
+    </vued-admin-body>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import AsideMenu from './components/AsideMenu';
+
 export default {
+    components: { AsideMenu },
     data() {
         return {
             createBabel: '新增用户组'
@@ -31,5 +36,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+    .dashboard-list{
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+    }
 </style>

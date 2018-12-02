@@ -9,6 +9,7 @@ export default [
     {
         path: '/',
         name: 'HelloWorld',
+        redirect: '/admin',
         component: () => import('@/components/Home')
     },
     {
