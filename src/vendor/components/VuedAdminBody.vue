@@ -12,10 +12,7 @@
 
 <script>
 export default {
-    name: 'vued-admin-body',
-    mounted() {
-        console.log('$slots', this.$slots);
-    }
+    name: 'vued-admin-body'
 };
 </script>
 
