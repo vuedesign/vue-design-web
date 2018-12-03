@@ -97,6 +97,6 @@ export default {
 
 <style lang="scss">
     .generator-module{
-        padding: 10px;
+        padding: 16px;
     }
 </style>

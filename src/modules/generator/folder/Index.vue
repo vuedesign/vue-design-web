@@ -86,6 +86,6 @@ export default {
 
 <style lang="scss">
     .generator-folder{
-        padding: 10px;
+        padding: 16px;
     }
 </style>

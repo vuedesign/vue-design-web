@@ -12,65 +12,70 @@
                 </li>
             </ul>
         </div>
-        <dl v-for="(one, oneIndex) in list" :key="oneIndex">
-            <dt :class="one.type">
-                <div class="title-icon" @click="handleFolderOpen(oneIndex)" >
-                    <vued-iconfont v-if="one.type === 'module'" type="module" />
-                    <vued-iconfont v-else :type="one.isOpen ? 'folder-open' : 'folder'"/>
-                </div>
-                <div class="operate">
-                    <span class="btn-add" @click="handleModuleDel(oneIndex)">
-                        <vued-iconfont type="trash" />
-                    </span>
-                    <span class="btn-add" @click="handleModuleAdd(oneIndex)">
-                        <vued-iconfont type="add" />
-                    </span>
-                    <span class="btn-open" v-if="one.type === 'module'" @click="handleModuleShow(oneIndex)">
-                        <vued-iconfont :type="one.isOpen ? 'up' : 'down'" />
-                    </span>
-                </div>
-                <div class="title-text">
-                    <h5>{{ one.name }}<span v-if="one.children && one.children.length > 0">({{ one.children && one.children.length }})</span></h5>
-                    <p>{{ one.label }}</p>
-                </div>
-            </dt>
-            <dd v-if="one.children && one.children.length > 0 && one.isOpen"
-                v-for="(tow, towIndex) in one.children"
-                :key="towIndex"
-            >
-                <dl>
-                    <dt :class="tow.type">
-                        <div class="title-icon"><vued-iconfont type="module" /></div>
-                        <div class="operate">
-                            <span class="btn-add" @click="handleModuleDel(oneIndex, towIndex)">
-                                <vued-iconfont type="trash" />
-                            </span>
-                            <span class="btn-add" @click="handleModuleAdd(oneIndex, towIndex)">
-                                <vued-iconfont type="add" />
-                            </span>
-                            <span class="btn-open" @click="handleModuleShow(oneIndex, towIndex)">
-                                <vued-iconfont :type="tow.isOpen ? 'up' : 'down'" />
-                            </span>
-                        </div>
-                        <div class="title-text">
-                            <h5>{{ tow.name }}<span v-if="tow.children && tow.children.length > 0">({{ tow.children && tow.children.length }})</span></h5>
-                            <p>{{ tow.label }}</p>
-                        </div>
-                    </dt>
-                    <dd v-if="tow.children && tow.children.length > 0 && tow.isOpen"
-                        v-for="(three, threeIndex) in tow.children"
-                        :key="threeIndex"
-                    >
-                        <div class="title-icon"><vued-iconfont type="document" /></div>
-                        <div class="operate"></div>
-                        <div class="title-text">
-                            <h6>{{ three.name }}</h6>
-                            <p>{{ three.label }}</p>
-                        </div>
-                    </dd>
-                </dl>
-            </dd>
-        </dl>
+        <template  v-if="list && list.length > 0">
+            <dl v-for="(one, oneIndex) in list" :key="oneIndex">
+                <dt :class="one.type">
+                    <div class="title-icon" @click="handleFolderOpen(oneIndex)" >
+                        <vued-iconfont v-if="one.type === 'module'" type="module" />
+                        <vued-iconfont v-else :type="one.isOpen ? 'folder-open' : 'folder'"/>
+                    </div>
+                    <div class="operate">
+                        <span class="btn-add" @click="handleModuleDel(oneIndex)">
+                            <vued-iconfont type="trash" />
+                        </span>
+                        <span class="btn-add" @click="handleModuleAdd(oneIndex)">
+                            <vued-iconfont type="add" />
+                        </span>
+                        <span class="btn-open" v-if="one.type === 'module'" @click="handleModuleShow(oneIndex)">
+                            <vued-iconfont :type="one.isOpen ? 'up' : 'down'" />
+                        </span>
+                    </div>
+                    <div class="title-text">
+                        <h5>{{ one.name }}<span v-if="one.children && one.children.length > 0">({{ one.children && one.children.length }})</span></h5>
+                        <p>{{ one.label }}</p>
+                    </div>
+                </dt>
+                <dd v-if="one.children && one.children.length > 0 && one.isOpen"
+                    v-for="(tow, towIndex) in one.children"
+                    :key="towIndex"
+                >
+                    <dl>
+                        <dt :class="tow.type">
+                            <div class="title-icon"><vued-iconfont type="module" /></div>
+                            <div class="operate">
+                                <span class="btn-add" @click="handleModuleDel(oneIndex, towIndex)">
+                                    <vued-iconfont type="trash" />
+                                </span>
+                                <span class="btn-add" @click="handleModuleAdd(oneIndex, towIndex)">
+                                    <vued-iconfont type="add" />
+                                </span>
+                                <span class="btn-open" @click="handleModuleShow(oneIndex, towIndex)">
+                                    <vued-iconfont :type="tow.isOpen ? 'up' : 'down'" />
+                                </span>
+                            </div>
+                            <div class="title-text">
+                                <h5>{{ tow.name }}<span v-if="tow.children && tow.children.length > 0">({{ tow.children && tow.children.length }})</span></h5>
+                                <p>{{ tow.label }}</p>
+                            </div>
+                        </dt>
+                        <dd v-if="tow.children && tow.children.length > 0 && tow.isOpen"
+                            v-for="(three, threeIndex) in tow.children"
+                            :key="threeIndex"
+                        >
+                            <div class="title-icon"><vued-iconfont type="document" /></div>
+                            <div class="operate"></div>
+                            <div class="title-text">
+                                <h6>{{ three.name }}</h6>
+                                <p>{{ three.label }}</p>
+                            </div>
+                        </dd>
+                    </dl>
+                </dd>
+            </dl>
+        </template>
+        <div v-else class="empty">
+            <span>loading...</span>
+        </div>
     </div>
 </template>
 
@@ -147,11 +152,12 @@ export default {
 
 <style lang="scss">
     .generator-aside-menu{
-        height: 100%;
+        min-height: 100%;
         float: left;
         width: 320px;
         border-right: 1px solid #eef5f9;
         background-color: #eef5f9;
+        position: relative;
         > dl{
             border-bottom: 1px solid #dce7f3;
         }
@@ -254,6 +260,23 @@ export default {
         }
         .btn-open{
             color: #666;
+        }
+        .empty{
+            top: 40px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            text-align: center;
+            span,
+            &:after{
+                display: inline-block;
+                vertical-align: middle;
+            }
+            &:after{
+                content: '';
+                width: 0;
+                height: 100%;
+            }
         }
     }
     .aside-menu-header{

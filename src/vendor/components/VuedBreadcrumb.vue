@@ -21,5 +21,6 @@ export default {
     .vued-breadcrumb{
         width: 100%;
         padding: 14px 16px 12px;
+        background-color: #fff;
     }
 </style>
