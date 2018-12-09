@@ -55,7 +55,7 @@ export default {
         return {};
     },
     computed: {
-        ...mapGetters('generator/modules', [
+        ...mapGetters('generator/module', [
             'list',
             'total'
         ]),
@@ -64,7 +64,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('generator/modules/find');
+        this.$store.dispatch('generator/module/find');
     },
     methods: {
         handleAddClick() {

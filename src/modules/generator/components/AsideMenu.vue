@@ -20,10 +20,10 @@
                         <vued-iconfont v-else :type="one.isOpen ? 'folder-open' : 'folder'"/>
                     </div>
                     <div class="operate">
-                        <span class="btn-add" @click="handleModuleDel(oneIndex)">
+                        <span class="btn-del" @click="handleModuleDel(oneIndex)">
                             <vued-iconfont type="trash" />
                         </span>
-                        <span class="btn-add" @click="handleModuleAdd(oneIndex)">
+                        <span class="btn-add" @click="handleModuleAdd(one)">
                             <vued-iconfont type="add" />
                         </span>
                         <span class="btn-open" v-if="one.type === 'module'" @click="handleModuleShow(oneIndex)">
@@ -46,9 +46,9 @@
                                 <span class="btn-add" @click="handleModuleDel(oneIndex, towIndex)">
                                     <vued-iconfont type="trash" />
                                 </span>
-                                <span class="btn-add" @click="handleModuleAdd(oneIndex, towIndex)">
-                                    <vued-iconfont type="add" />
-                                </span>
+                                <!--<span class="btn-add" @click="handleModuleAdd(oneIndex, towIndex)">-->
+                                    <!--<vued-iconfont type="add" />-->
+                                <!--</span>-->
                                 <span class="btn-open" @click="handleModuleShow(oneIndex, towIndex)">
                                     <vued-iconfont :type="tow.isOpen ? 'up' : 'down'" />
                                 </span>
@@ -129,7 +129,14 @@ export default {
         handleFolderOpen(oneIndex) {
             this.list[oneIndex].isOpen = !this.list[oneIndex].isOpen;
         },
-        handleModuleAdd(oneIndex) {},
+        handleModuleAdd(one) {
+            this.$router.push({
+                name: 'generator-module-add-base',
+                query: {
+                    folderName: one.name
+                }
+            });
+        },
         handleModuleDel(oneIndex) {},
         handleMenuClick(menu) {
             console.log(menu);

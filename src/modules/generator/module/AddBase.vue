@@ -110,7 +110,8 @@ export default {
             'selectIcon'
         ]),
         ...mapGetters('generator/module', [
-            'list'
+            'list',
+            'item'
         ]),
         folderList() {
             let list = [
@@ -131,6 +132,11 @@ export default {
         }
     },
     watch: {
+        '$route'(to) {
+            if (to.query.folderName) {
+                this.formData.folderName = to.query.folderName;
+            }
+        },
         selectIcon(val) {
             this.formData.moduleIcon = val;
         },
@@ -141,6 +147,7 @@ export default {
         }
     },
     created() {
+        Object.assign(this.formData, this.item);
         if (this.query.folderName) {
             this.formData.folderName = this.query.folderName;
         }
@@ -152,10 +159,11 @@ export default {
         handleNext(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.$store.commit('generator/module/ITEM', this.formData);
                     this.$router.push({
                         name: 'generator-module-add-data',
                         query: {
-                            folderName: 'root'
+                            folderName: this.query.folderName
                         }
                     });
                 } else {
@@ -165,9 +173,8 @@ export default {
             });
         },
         handleFolderNameChange(folderName) {
-            console.log('folderName', folderName);
             this.$router.push({
-                name: 'generator-module-add',
+                name: 'generator-module-add-base',
                 query: {
                     folderName
                 }

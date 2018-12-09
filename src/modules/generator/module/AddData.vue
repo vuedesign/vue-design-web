@@ -119,13 +119,23 @@ export default {
         },
         handlePrevClick() {
             this.$router.push({
-                name: 'generator-module-add-base'
+                name: 'generator-module-add-base',
+                query: {
+                    folderName: this.query.folderName
+                }
             });
         }
     }
 };
 </script>
 
+<style lang="scss">
+    .generator-module-add-data{
+        .el-tabs__header{
+            margin: 0;
+        }
+    }
+</style>
 <style lang="scss" scoped>
     .generator-module-add-data{
         padding:0 16px 16px;

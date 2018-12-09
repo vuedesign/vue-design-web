@@ -87,7 +87,10 @@ export default {
     methods: {
         handleAddClick() {
             this.$router.push({
-                name: 'generator-module-add'
+                name: 'generator-module-add-base',
+                query: {
+                    folderName: 'root'
+                }
             });
         },
         handleDelClick() {}
