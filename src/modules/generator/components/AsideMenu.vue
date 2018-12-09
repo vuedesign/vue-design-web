@@ -94,7 +94,7 @@ export default {
                     type: 'folder'
                 },
                 {
-                    name: 'generator-module-add',
+                    name: 'generator-module-add-base',
                     label: '创建模块',
                     icon: 'file-add',
                     type: 'module'
@@ -103,20 +103,20 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('generator/modules', [
+        ...mapGetters('generator/module', [
             'list'
         ])
     },
     watch: {
         filters: {
             handler(nv, ov) {
-                this.$store.dispatch('generator/modules/find');
+                this.$store.dispatch('generator/module/find');
             },
             deep: true
         }
     },
     created() {
-        this.$store.dispatch('generator/modules/find');
+        this.$store.dispatch('generator/module/find');
     },
     methods: {
         handleModuleShow(oneIndex, towIndex) {

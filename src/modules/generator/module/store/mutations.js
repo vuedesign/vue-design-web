@@ -7,7 +7,9 @@ import {
     LIST,
     ITEM,
     TOTAL,
-    LOADING
+    LOADING,
+    TABLE_ITEM,
+    TABLE_LIST
 } from './types';
 
 export default {
@@ -28,5 +30,11 @@ export default {
     },
     [LOADING](state, loading) {
         state.loading = loading;
+    },
+    [TABLE_ITEM](state, tableItem) {
+        state.tableItem = tableItem;
+    },
+    [TABLE_LIST](state, tableList) {
+        state.tableList = tableList;
     }
 };

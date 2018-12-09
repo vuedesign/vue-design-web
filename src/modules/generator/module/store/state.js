@@ -9,7 +9,25 @@ export default {
         search: ''
     },
     list: [],
-    item: {},
+    item: {
+        moduleName: '',
+        moduleLabel: '',
+        folderName: '',
+        moduleIcon: '',
+        apiURL: '',
+        isApiURL: false,
+        isModuleMenu: true
+    },
     total: 0,
-    loading: false
+    loading: false,
+    tableItem: {
+        key: '',
+        title: '',
+        value: '',
+        default: '',
+        options: '',
+        filter: '',
+        validate: ''
+    },
+    tableList: []
 };

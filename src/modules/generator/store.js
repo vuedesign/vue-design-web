@@ -2,7 +2,8 @@
  * Created by wujian on 2018/3/18.
  */
 
-import modules from './modules/store';
+import folder from './folder/store';
+import module from './module/store';
 import pages from './pages/store';
 
 export default {
@@ -19,7 +20,8 @@ export default {
         }
     },
     modules: {
-        modules,
+        folder,
+        module,
         pages
     }
 };

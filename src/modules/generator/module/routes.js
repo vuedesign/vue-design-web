@@ -8,12 +8,12 @@ export default [
         component: () => import('./Index')
     },
     {
-        path: 'module/add',
-        name: 'generator-module-add',
+        path: 'module/add-base',
+        name: 'generator-module-add-base',
         meta: {
-            label: '新增模块'
+            label: '新增模块基础信息'
         },
-        component: () => import('./Add'),
+        component: () => import('./AddBase'),
         children: [
             {
                 path: 'icon',
@@ -22,6 +22,32 @@ export default [
                     label: '图标列表'
                 },
                 component: () => import('../components/IconList')
+            }
+        ]
+    },
+    {
+        path: 'module/add-data',
+        name: 'generator-module-add-data',
+        meta: {
+            label: '新增模块数据配置'
+        },
+        component: () => import('./AddData'),
+        children: [
+            {
+                path: 'add',
+                name: 'generator-module-add-data-add',
+                meta: {
+                    label: '图标列表'
+                },
+                component: () => import('./TableAdd')
+            },
+            {
+                path: 'edit/:id',
+                name: 'generator-module-add-data-edit',
+                meta: {
+                    label: '图标列表'
+                },
+                component: () => import('./TableAdd')
             }
         ]
     }

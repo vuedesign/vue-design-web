@@ -1,5 +1,5 @@
 <template>
-    <div class="generator-module-add">
+    <div class="generator-module-add-base">
         <el-form
             ref="moduleForm"
             :model="formData"
@@ -66,7 +66,7 @@
             </el-form-item>
         </el-form>
         <div class="btn-group">
-            <el-button type="primary" @click="handleSubmit('moduleForm')" size="medium">确 定</el-button>
+            <el-button type="primary" @click="handleNext('moduleForm')" size="medium">下一步</el-button>
             <el-button @click="handleCancel" size="medium" >返回列表</el-button>
         </div>
         <router-view />
@@ -78,7 +78,7 @@ import * as constants from './constants';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'generator-module-add',
+    name: 'generator-module-add-base',
     data() {
         return {
             constants,
@@ -109,9 +109,8 @@ export default {
         ...mapGetters('generator', [
             'selectIcon'
         ]),
-        ...mapGetters('generator/modules', [
-            'list',
-            'stepActive'
+        ...mapGetters('generator/module', [
+            'list'
         ]),
         folderList() {
             let list = [
@@ -150,11 +149,15 @@ export default {
         handleCancel() {
             this.$router.push({ name: 'generator-module' });
         },
-        handleSubmit(formName) {
-            console.log(this.formData);
+        handleNext(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+                    this.$router.push({
+                        name: 'generator-module-add-data',
+                        query: {
+                            folderName: 'root'
+                        }
+                    });
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -178,7 +181,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .generator-module-add{
+    .generator-module-add-base{
         padding: 30px;
         .btn-group{
             margin-left: 90px;

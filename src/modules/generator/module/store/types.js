@@ -7,3 +7,5 @@ export const ITEM = 'ITEM';
 export const FILTERS = 'FILTERS';
 export const TOTAL = 'TOTAL';
 export const LOADING = 'LOADING';
+export const TABLE_ITEM = 'TABLE_ITEM';
+export const TABLE_LIST = 'TABLE_LIST';

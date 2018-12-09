@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-const API_URL = '/api/v1/generator/modules';
+const API_URL = '/api/v1/generator/module';
 
 export const find = params => Vue.ajax.get(API_URL, { params });
 

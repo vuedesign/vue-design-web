@@ -13,7 +13,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     .vued-filter{
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         background-color: #eef5f97a;
         padding: 0 8px 8px 8px;
         &:after{

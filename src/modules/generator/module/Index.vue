@@ -56,7 +56,7 @@ export default {
         return {};
     },
     computed: {
-        ...mapGetters('generator/modules', [
+        ...mapGetters('generator/module', [
             'list'
         ]),
         moduleList() {
@@ -82,7 +82,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('generator/modules/find');
+        this.$store.dispatch('generator/module/find');
     },
     methods: {
         handleAddClick() {
@@ -97,6 +97,6 @@ export default {
 
 <style lang="scss">
     .generator-module{
-        padding: 16px;
+        padding:0 16px 16px;
     }
 </style>

@@ -1,5 +1,5 @@
 module.exports = {
-    '/generator/modules GET': cxt => {
+    '/generator/module GET': cxt => {
         return [
             {
                 name: 'dashboard',
