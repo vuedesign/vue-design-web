@@ -23,7 +23,7 @@
                         <span class="btn-del" @click="handleModuleDel(oneIndex)">
                             <vued-iconfont type="trash" />
                         </span>
-                        <span class="btn-add" @click="handleModuleAdd(one)">
+                        <span class="btn-add" v-if="one.type === 'folder'" @click="handleModuleAdd(one)">
                             <vued-iconfont type="add" />
                         </span>
                         <span class="btn-open" v-if="one.type === 'module'" @click="handleModuleShow(oneIndex)">
