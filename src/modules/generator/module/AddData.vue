@@ -2,7 +2,7 @@
     <div class="generator-module-add-data">
         <vued-filter>
             <ul class="left">
-                <li><el-button type="primary" size="small" @click="handleAddClick">新增</el-button></li>
+                <li><el-button type="primary" size="small" @click="handleAddClick">新 增</el-button></li>
             </ul>
         </vued-filter>
         <el-tabs v-model="activeName" @tab-click="handleTabClick">

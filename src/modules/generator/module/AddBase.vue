@@ -64,31 +64,33 @@
                     >{{ value }}</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="表格组合" prop="table">
-                <el-checkbox-group v-model="formData.table.checkList">
+            <template v-if="formData.moduleType === 'TABLE'">
+                <el-form-item label="表格组合" prop="table">
+                    <el-checkbox-group v-model="formData.table.checkList">
+                        <el-checkbox
+                            v-for="(item, index) in tableList"
+                            :key="index"
+                            :disabled="item.disabled"
+                            :label="item.key"
+                        >{{ item.value }}</el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item
+                    v-if="formData.table.checkList.includes('find')"
+                    label="列表">
                     <el-checkbox
-                        v-for="(item, index) in tableList"
-                        :key="index"
-                        :disabled="item.disabled"
-                        :label="item.key"
-                    >{{ item.value }}</el-checkbox>
-                </el-checkbox-group>
-            </el-form-item>
-            <el-form-item
-                v-if="formData.table.checkList.includes('find')"
-                label="列表">
-                <el-checkbox
-                    v-model="formData.table.checkList.find.checkbox"
-                >多选</el-checkbox>
-            </el-form-item>
-            <el-form-item
-                v-if="formData.table.checkList.includes('destroy')"
-                label="删除"
-            >
-                <el-checkbox
-                    v-model="formData.table.checkList.find.batch"
-                >批量删除</el-checkbox>
-            </el-form-item>
+                        v-model="formData.table.checkList.find.checkbox"
+                    >多选</el-checkbox>
+                </el-form-item>
+                <el-form-item
+                    v-if="formData.table.checkList.includes('destroy')"
+                    label="删除"
+                >
+                    <el-checkbox
+                        v-model="formData.table.checkList.find.batch"
+                    >批量删除</el-checkbox>
+                </el-form-item>
+            </template>
         </el-form>
         <div class="btn-group">
             <el-button type="primary" @click="handleNext('moduleForm')" size="medium">下一步</el-button>

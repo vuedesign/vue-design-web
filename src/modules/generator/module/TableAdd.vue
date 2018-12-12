@@ -3,12 +3,14 @@
         title="提示"
         :visible="true"
         width="700px"
-        class="operate-activity-add"
+        class="generator-module-table-add"
         :before-close="handleClose">
         <el-form
             ref="addForm"
             :model="formData"
             label-width="80px"
+            label-position="left"
+            label-suffix=":"
             size="small"
         >
             <el-form-item label="key">
@@ -63,7 +65,7 @@ import { mapGetters } from 'vuex';
 import * as constants from './constants';
 
 export default {
-    name: 'operate-activity-add',
+    name: 'generator-module-table-add',
     data() {
         return {
             constants,
@@ -146,10 +148,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-    .line{
-        display: inline-block;
-        text-align: center;
-        height: 1px;
+<style lang="scss">
+    .generator-module-table-add{
+        .el-dialog__body{
+            padding: 20px 40px;
+        }
+        .el-form-item__label{
+            font-weight: 700;
+        }
     }
 </style>
