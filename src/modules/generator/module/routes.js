@@ -26,6 +26,14 @@ export default [
         ]
     },
     {
+        path: 'module/add-table',
+        name: 'generator-module-add-table',
+        meta: {
+            label: '新增模块表格数据'
+        },
+        component: () => import('./AddTable')
+    },
+    {
         path: 'module/add-data',
         name: 'generator-module-add-data',
         meta: {
@@ -37,7 +45,7 @@ export default [
                 path: 'add',
                 name: 'generator-module-add-data-add',
                 meta: {
-                    label: '图标列表'
+                    label: '新增数据'
                 },
                 component: () => import('./TableAdd')
             },
@@ -45,7 +53,7 @@ export default [
                 path: 'edit/:id',
                 name: 'generator-module-add-data-edit',
                 meta: {
-                    label: '图标列表'
+                    label: '编辑数据'
                 },
                 component: () => import('./TableAdd')
             }

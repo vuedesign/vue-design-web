@@ -119,7 +119,7 @@ export default {
         },
         handlePrevClick() {
             this.$router.push({
-                name: 'generator-module-add-base',
+                name: 'generator-module-add-table',
                 query: {
                     folderName: this.query.folderName
                 }
