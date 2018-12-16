@@ -21,7 +21,21 @@
             <el-form-item
                 v-if="formData.checkList.includes('find')"
                 label="列表配置">
-                <el-radio-group v-model="formData.configList.find">
+                <span class="field-text">显示字段</span>
+                <el-select
+                    v-model="formData.configList.find.list"
+                    multiple
+                    collapse-tags
+                    :style="selectStyle"
+                    placeholder="请选择">
+                    <el-option
+                        v-for="item in tableFiledOptions"
+                        :key="item.value"
+                        :label="item.label + ' (' + item.value + ')'"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-radio-group v-model="formData.configList.find.type" style="margin-left: 10px">
                     <el-radio label="none">无</el-radio>
                     <el-radio label="radio">单选</el-radio>
                     <el-radio label="checkbox">多选</el-radio>
@@ -30,16 +44,17 @@
             <el-form-item
                 v-if="formData.checkList.includes('create')"
                 label="添加配置">
-                <span>添加字段</span>
+                <span class="field-text">添加字段</span>
                 <el-select
                     v-model="formData.configList.create"
                     multiple
                     collapse-tags
+                    :style="selectStyle"
                     placeholder="请选择">
                     <el-option
-                        v-for="item in createOptions"
+                        v-for="item in tableFiledOptions"
                         :key="item.value"
-                        :label="item.label"
+                        :label="item.label + ' (' + item.value + ')'"
                         :value="item.value">
                     </el-option>
                 </el-select>
@@ -47,16 +62,17 @@
             <el-form-item
                 v-if="formData.checkList.includes('update')"
                 label="编辑配置">
-                <span>编辑字段</span>
+                <span class="field-text">编辑字段</span>
                 <el-select
                     v-model="formData.configList.update"
                     multiple
                     collapse-tags
+                    :style="selectStyle"
                     placeholder="请选择">
                     <el-option
-                        v-for="item in updateOptions"
+                        v-for="item in tableFiledOptions"
                         :key="item.value"
-                        :label="item.label"
+                        :label="item.label + ' (' + item.value + ')'"
                         :value="item.value">
                     </el-option>
                 </el-select>
@@ -72,16 +88,17 @@
             <el-form-item
                 v-if="formData.checkList.includes('view')"
                 label="详情配置">
-                <span>显示字段</span>
+                <span class="field-text">显示字段</span>
                 <el-select
                     v-model="formData.configList.view"
                     multiple
                     collapse-tags
+                    :style="selectStyle"
                     placeholder="请选择">
                     <el-option
-                        v-for="item in viewOptions"
+                        v-for="item in tableFiledOptions"
                         :key="item.value"
-                        :label="item.label"
+                        :label="item.label + ' (' + item.value + ')'"
                         :value="item.value">
                     </el-option>
                 </el-select>
@@ -89,28 +106,31 @@
             <el-form-item
                 v-if="formData.checkList.includes('apply')"
                 label="审核配置">
-                <span>显示字段</span>
+                <span class="field-text">显示字段</span>
                 <el-select
-                    v-model="formData.configList.apply"
+                    v-model="formData.configList.apply.show"
                     multiple
                     collapse-tags
+                    :style="selectStyle"
                     placeholder="请选择">
                     <el-option
-                        v-for="item in applyOptions"
+                        v-for="item in tableFiledOptions"
                         :key="item.value"
-                        :label="item.label"
+                        :label="item.label + ' (' + item.value + ')'"
                         :value="item.value">
                     </el-option>
                 </el-select>
-                <span>编辑字段</span>
+                <span class="field-text" style="margin-left: 10px;">编辑字段</span>
                 <el-select
-                    v-model="formData.configList.apply"
+                    v-model="formData.configList.apply.edit"
                     multiple
+                    collapse-tags
+                    :style="selectStyle"
                     placeholder="请选择">
                     <el-option
-                        v-for="item in applyOptions"
+                        v-for="item in tableFiledOptions"
                         :key="item.value"
-                        :label="item.label"
+                        :label="item.label + ' (' + item.value + ')'"
                         :value="item.value">
                     </el-option>
                 </el-select>
@@ -126,14 +146,56 @@
                     @close="handlePatchClose(index)">
                     {{ patch.key }}
                 </el-tag>
-                <el-button type="primary" plain size="small" class="btn-patch">添 加</el-button>
+                <el-button
+                    type="primary"
+                    plain
+                    size="small"
+                    class="btn-patch"
+                    @click="handleOpenPatchClick"
+                >添 加</el-button>
             </el-form-item>
         </el-form>
         <div class="btn-group">
             <el-button type="primary" @click="handleNext('moduleForm')" size="medium">下一步</el-button>
             <el-button @click="handlePrevClick" size="medium" >返回上一步</el-button>
         </div>
-        <router-view />
+        <el-dialog
+            title="提示"
+            :visible.sync="patchVisible"
+            width="540px"
+            :before-close="handleClosePatchClick">
+            <el-form
+                :model="patchForm"
+                :rules="rules" ref="patchForm"
+                label-width="100px"
+                class="demo-patchForm"
+                size="small"
+            >
+                <el-form-item label="活动名称" prop="name">
+                    <el-select
+                        v-model="formData.configList.patch"
+                        :style="selectStyle"
+                        placeholder="请选择">
+                        <el-option
+                            v-for="item in tableFiledOptions"
+                            :key="item.value"
+                            :label="item.label + ' (' + item.value + ')'"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="正文本" prop="true">
+                    <el-input v-model="patchForm.true" :style="selectStyle"></el-input>
+                </el-form-item>
+                <el-form-item label="负文本" prop="false">
+                    <el-input v-model="patchForm.false" :style="selectStyle"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="handleSubmitPatchForm('patchForm')">确 定</el-button>
+                    <el-button @click="handleResetPatchForm('patchForm')">重置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
     </div>
 </template>
 
@@ -150,13 +212,21 @@ export default {
             formData: {
                 checkList: ['find', 'create', 'update', 'destroy', 'view', 'apply', 'patch'],
                 configList: {
-                    find: 'none',
-                    create: [],
-                    update: [],
-                    view: [],
+                    find: {
+                        type: 'none',
+                        list: ['id', 'name', 'type', 'thumb', 'date', 'delivery', 'resource', 'desc']
+                    },
+                    create: ['name', 'type', 'thumb', 'date', 'delivery', 'resource', 'desc'],
+                    update: ['thumb', 'date', 'delivery', 'resource', 'desc'],
                     destroy: {
-                        batch: false
-                    }
+                        batch: true
+                    },
+                    view: ['name', 'type', 'thumb', 'date', 'delivery', 'resource', 'desc'],
+                    apply: {
+                        show: ['name', 'type', 'thumb', 'date', 'resource', 'desc'],
+                        edit: ['delivery', 'desc']
+                    },
+                    patch: []
                 }
             },
             tableList: [
@@ -190,92 +260,38 @@ export default {
                     value: '状态'
                 }
             ],
-            createOptions: [
+            tableFiledOptions: [
                 {
-                    value: '选项1',
-                    label: '黄金糕'
+                    value: 'id',
+                    label: 'ID'
                 },
                 {
-                    value: '选项2',
-                    label: '双皮奶'
+                    value: 'name',
+                    label: '活动名称'
                 },
                 {
-                    value: '选项3',
-                    label: '蚵仔煎'
+                    value: 'type',
+                    label: '活动类型'
                 },
                 {
-                    value: '选项4',
-                    label: '龙须面'
+                    value: 'thumb',
+                    label: '活动banner'
                 },
                 {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
-            ],
-            updateOptions: [
-                {
-                    value: '选项1',
-                    label: '黄金糕'
+                    value: 'date',
+                    label: '日期'
                 },
                 {
-                    value: '选项2',
-                    label: '双皮奶'
+                    value: 'delivery',
+                    label: '即时配送'
                 },
                 {
-                    value: '选项3',
-                    label: '蚵仔煎'
+                    value: 'resource',
+                    label: '特殊资源'
                 },
                 {
-                    value: '选项4',
-                    label: '龙须面'
-                },
-                {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
-            ],
-            viewOptions: [
-                {
-                    value: '选项1',
-                    label: '黄金糕'
-                },
-                {
-                    value: '选项2',
-                    label: '双皮奶'
-                },
-                {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                },
-                {
-                    value: '选项4',
-                    label: '龙须面'
-                },
-                {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
-            ],
-            applyOptions: [
-                {
-                    value: '选项1',
-                    label: '黄金糕'
-                },
-                {
-                    value: '选项2',
-                    label: '双皮奶'
-                },
-                {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                },
-                {
-                    value: '选项4',
-                    label: '龙须面'
-                },
-                {
-                    value: '选项5',
-                    label: '北京烤鸭'
+                    value: 'desc',
+                    label: '描述'
                 }
             ],
             patchList: [
@@ -292,9 +308,11 @@ export default {
                     false: '不显示'
                 }
             ],
-            inputStyle: {
-                minWidth: '194px',
-                maxWidth: '388px'
+            selectStyle: {
+                width: '300px'
+            },
+            patchVisible: false,
+            patchForm: {
             }
         };
     },
@@ -378,6 +396,18 @@ export default {
         },
         handlePatchClose(index) {
             this.patchList.splice(index, 1);
+        },
+        handleOpenPatchClick() {
+            this.patchVisible = true;
+        },
+        handleSubmitPatchForm() {
+            this.patchVisible = false;
+        },
+        handleResetPatchForm() {
+            this.patchVisible = false;
+        },
+        handleClosePatchClick() {
+            this.patchVisible = false;
         }
     }
 };
@@ -395,6 +425,9 @@ export default {
         .btn-patch{
             margin-left: 6px;
         }
+        .el-radio+.el-radio {
+            margin-left: 10px;
+        }
     }
 </style>
 <style lang="scss" scoped>
@@ -402,6 +435,9 @@ export default {
         padding: 30px;
         .btn-group{
             margin-left: 90px;
+        }
+        .field-text{
+            margin-right: 5px;
         }
     }
 </style>
