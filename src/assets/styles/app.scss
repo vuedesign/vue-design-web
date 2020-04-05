@@ -12,11 +12,12 @@ li{
     list-style: none;
 }
 
-html.admin,
-html.admin body,
-html.admin #vue-design-app{
+html,
+body,
+#vue-design-app{
     height: 100%;
     overflow: hidden;
+    width: 100%;
 }
 
 #vue-design-app {

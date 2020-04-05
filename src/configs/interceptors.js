@@ -2,7 +2,7 @@
  * 注：vued依赖本文件, 不能删
  */
 
-import { store } from '@/vued';
+import { store } from 'vue-design-core';
 
 // let token = 'VHJK324567YU345667POIU';
 export const isTimestampDisabled = false;
@@ -43,14 +43,13 @@ export const ajaxResponseFailure = (error) => {
     return Promise.reject(error);
 };
 
-export const routerBeforeEach = ({ to, from, next }) => {
+export const routerBeforeEach = ({ to, next }) => {
     store.commit('global/BREADCRUMB', to);
     next();
 };
 
-export const routerBeforeResolve = ({ to, from, next }) => {
+export const routerBeforeResolve = ({ next }) => {
     next();
 };
 
-export const routerAfterEach = ({ to, from }) => {
-};
+export const routerAfterEach = () => {};

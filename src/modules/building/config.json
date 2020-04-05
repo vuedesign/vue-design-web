@@ -1,0 +1,9 @@
+{
+    "name": "building",
+    "label": "生成器",
+    "children": [
+        "folder",
+        "module",
+        "page"
+    ]
+}

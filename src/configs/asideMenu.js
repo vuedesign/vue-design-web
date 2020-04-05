@@ -1,31 +1,17 @@
 export default [
     {
-        name: 'dashboard',
-        label: '仪表板',
-        icon: 'dashboard'
+        name: 'project',
+        label: '项目',
+        icon: 'homepage'
     },
     {
-        name: 'generator',
-        label: '生成器',
-        icon: 'build'
-        /*
-        children: [
-            {
-                name: 'generator-modules',
-                label: '模块列表',
-                icon: 'manage'
-            },
-            {
-                name: 'generator-folder-add',
-                label: '创建目录',
-                icon: 'folder-add'
-            },
-            {
-                name: 'generator-modules-add',
-                label: '创建模块',
-                icon: 'file-add'
-            }
-        ]
-        */
+        name: 'pulgin',
+        label: '插件',
+        icon: 'module'
+    },
+    {
+        name: 'api',
+        label: '接口',
+        icon: 'api'
     }
 ];
