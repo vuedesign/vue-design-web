@@ -3,6 +3,9 @@
  */
 
 import { store } from 'vue-design-core';
+import {
+    REQ_SUCCESS_STATUS_CODE
+} from './constants';
 
 // let token = 'VHJK324567YU345667POIU';
 export const isTimestampDisabled = false;
@@ -13,6 +16,10 @@ export const isTimestampDisabled = false;
  * @returns {*}
  */
 export const ajaxRequestSuccess = (config) => {
+    const token = store.getters['global/token'];
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`
+    }
     return config;
 };
 
@@ -31,7 +38,10 @@ export const ajaxRequestFailure = (error) => {
  * @returns {*}
  */
 export const ajaxResponseSuccess = (response) => {
-    return response;
+    if (response.code === REQ_SUCCESS_STATUS_CODE) {
+        return response.data;
+    }
+    return Promise.reject(response);
 };
 
 /**

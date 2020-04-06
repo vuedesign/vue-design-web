@@ -4,7 +4,7 @@
 // import Vue from 'vue';
 import * as types from './types';
 import * as api from '../api';
-import { SUCCESS_STATUS_CODE } from '@/configs/constants';
+import { REQ_SUCCESS_STATUS_CODE } from '@/configs/constants';
 
 export const find = async({ commit, getters }) => {
     const params = getters.filters;
@@ -31,7 +31,7 @@ export const create = async({ dispatch }, data = {}) => {
     if (err) {
         return;
     }
-    if (res.code === SUCCESS_STATUS_CODE) {
+    if (res.code === REQ_SUCCESS_STATUS_CODE) {
         dispatch('find');
     }
 };
@@ -43,7 +43,7 @@ export const update = async({ dispatch }, data = {}) => {
     if (err) {
         return;
     }
-    if (res.code === SUCCESS_STATUS_CODE) {
+    if (res.code === REQ_SUCCESS_STATUS_CODE) {
         dispatch('find');
     }
 };
@@ -53,7 +53,7 @@ export const destroy = async({ dispatch }, id) => {
     if (err) {
         return;
     }
-    if (res.code === SUCCESS_STATUS_CODE) {
+    if (res.code === REQ_SUCCESS_STATUS_CODE) {
         dispatch('find');
     }
 };
@@ -65,7 +65,7 @@ export const updateOne = async({ dispatch }, data) => {
     if (err) {
         return;
     }
-    if (res.code === SUCCESS_STATUS_CODE) {
+    if (res.code === REQ_SUCCESS_STATUS_CODE) {
         dispatch('find');
     }
 };

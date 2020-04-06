@@ -11,8 +11,8 @@
                     <dl>
                         <dt><span class="avatar-big"></span></dt>
                         <dd>
-                            <h4>wujian</h4>
-                            <p>wujian@aaa.cn</p>
+                            <h4>{{ userinfo.username }}</h4>
+                            <p v-if="userinfo.email">{{ userinfo.email }}</p>
                         </dd>
                     </dl>
                     <ul>
@@ -40,8 +40,7 @@
                 </el-popover>
             </li>
             <li
-                v-for="(item, index) in rightBarMenu"
-                v-if="item.type !== 'MORE'"
+                v-for="(item, index) in rightBar"
                 :index="item.name"
                 :key="index"
                 @click="handleHeaderNav(item, index)"
@@ -56,8 +55,7 @@
                     width="200"
                     trigger="click">
                     <div class="vued-right-bar-more">
-                        <dl v-for="(item, index) in rightBarMenu"
-                            v-if="item.type === 'MORE'"
+                        <dl v-for="(item, index) in rightBarMenuMore"
                             :key="index"
                         >
                             <dt><vue-design-iconfont :type="item.icon" /></dt>
@@ -72,6 +70,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import rightBarMenu from '@/configs/rightBarMenu';
 
 export default {
@@ -81,9 +80,21 @@ export default {
             rightBarMenu
         };
     },
+    computed: {
+        ...mapGetters('global', ['userinfo']),
+        rightBarMenuMore() {
+            return this.rightBarMenu.filter(item => item.type === 'MORE');
+        },
+        rightBar() {
+            return this.rightBarMenu.filter(item => item.type !== 'MORE');
+        }
+    },
+    created() {
+        this.$store.dispatch('global/userinfo');
+    },
     methods: {
         handleExit() {
-            this.$message(`click exit`);
+            this.$store.dispatch('auth/logout');
         },
         handleSetting() {
             this.$message(`click setting`);
@@ -94,7 +105,8 @@ export default {
             });
         },
         handleHeaderNav(item, index) {
-            this.$message(`click on item ${JSON.stringify(item)}`);
+            console.log('index', index);
+            this.$message(`click on item ${JSON.stringify(item)}$`);
         }
     }
 };

@@ -1,7 +1,5 @@
-// import Vue from 'vue';
-// import { router, store } from '@/vued';
 import * as types from './types';
-import { list2tree } from '@/vendors/utils';
+import * as apis from './apis';
 import asideMenu from '@/configs/asideMenu';
 
 const state = {
@@ -9,7 +7,13 @@ const state = {
     asideMenu: [],
     permission: [],
     actions: [],
-    asideActive: ''
+    asideActive: '',
+    token: '',
+    userinfo: {
+        id: '',
+        username: '',
+        nickname: ''
+    }
 };
 
 const actions = {
@@ -19,17 +23,10 @@ const actions = {
             resolve();
         });
     },
-    permission: ({ commit }) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const data = require('@/configs/permission.json');
-                // commit('PERMISSION', data);
-                const menuData = list2tree(data);
-                console.log('menuData', menuData);
-                commit(types.ASIDE_MENU, menuData);
-                resolve();
-            }, 100);
-        });
+    userinfo: async({ commit }) => {
+        const res = await apis.userinfoData();
+        console.log('res----------------', res);
+        commit('USERINFO', res);
     }
 };
 
@@ -56,10 +53,29 @@ const mutations = {
     },
     [types.ASIDE_ACTIVE](state, asideActive) {
         state.asideActive = asideActive;
+    },
+    [types.TOKEN](state, token) {
+        state.token = token;
+        localStorage.setItem(types.VUE_DESIGN_TOKEN, token);
+    },
+    [types.USERINFO](state, userinfo){
+        state.userinfo = userinfo;
     }
 };
 
 const getters = {
+    userinfo: state => state.userinfo,
+    token: state => {
+        if (state.token) {
+            return state.token;
+        } else {
+            const token = localStorage.getItem(types.VUE_DESIGN_TOKEN);
+            if (token) {
+                return token;
+            }
+            return '';
+        }
+    },
     breadcrumbs: state => state.breadcrumbs,
     menu: state => state.menu,
     asideMenu: state => state.asideMenu,
