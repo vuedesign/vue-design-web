@@ -1,13 +1,16 @@
 <template>
     <div class="project-list">
         <dl>
-            <dt>项目</dt>
-            <dd @click="handleEditClick">
-                <div class="item-inner"></div>
+            <dt>项目 ({{ total }})</dt>
+            <dd v-for="item in list"
+                :key="item.id"
+                @click="handleEditClick(item)">
+                <div class="item-inner">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.description }}</p>
+                </div>
                 <div class="item-bar"></div>
             </dd>
-            <dd></dd>
-            <dd></dd>
             <dd class="btn btn-add" @click="handleAddClick">
                 <span class="icon-add"></span>
             </dd>
@@ -16,6 +19,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'project-list',
@@ -23,7 +27,17 @@ export default {
         return {
         };
     },
+    computed: {
+        ...mapGetters('project', [
+            'list',
+            'total'
+        ])
+    },
+    created() {
+        this.find();
+    },
     methods: {
+        ...mapActions('project', ['find']),
         handleAddClick() {
             this.$router.push({
                 name: 'project-add'
@@ -40,21 +54,22 @@ export default {
 
 <style lang="scss" scope>
     .project-list {
-        padding: 80px 100px;
-        padding-right: 50px;
+        padding: 40px;
         width: 100%;
         dt {
             clear: both;
             width: 100%;
-            height: 50px;
-            line-height: 50px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 20px;
         }
         dd {
             float: left;
             width: 300px;
             height: 200px;
-            margin-right: 50px;
-            margin-bottom: 50px;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-bottom: 40px;
             background-color: #fff;
             padding: 10px;
             padding-bottom: 30px;
@@ -69,9 +84,6 @@ export default {
                         background-color: #fff;
                     }
                 }
-                .item-inner {
-                    display: block;
-                }
             }
             &.btn-add {
                 padding: 0;
@@ -81,11 +93,26 @@ export default {
                 justify-content: center;
             }
             .item-inner {
-                display: none;
+                display: block;
                 position: relative;
                 width: auto;
                 height: 160px;
-                background-color: rgba($color: #000000, $alpha: .5);
+                background-color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                h5,
+                p {
+                    text-align: center;
+                }
+                h5 {
+                    color: #444;
+                    line-height: 24px;
+                }
+                p {
+                    color: #999;
+                    line-height: 28px;
+                }
             }
         }
     }

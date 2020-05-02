@@ -44,8 +44,24 @@
                                         </div>
                                     </el-image>
                                 </el-form-item>
+                                
                                 <el-form-item label="项目图标" prop="logo">
-                                    <el-avatar shape="square" :size="50" :src="squareUrl"></el-avatar>
+                                    <el-upload
+                                        class="avatar-uploader"
+                                        action="/api/upload/file"
+                                        :headers="headers"
+                                        :show-file-list="false"
+                                        :on-success="handleAvatarSuccess"
+                                        :before-upload="beforeAvatarUpload">
+                                        <el-avatar
+                                            v-if="imageUrl"
+                                            shape="square"
+                                            :size="50"
+                                            :src="imageUrl"
+                                            class="avatar"></el-avatar>
+                                        <span v-else class="avatar"><i class="el-icon-plus avatar-uploader-icon"></i></span>
+                                    </el-upload>
+                                    <!--<el-avatar shape="square" :size="50" :src="squareUrl"></el-avatar>-->
                                 </el-form-item>
                                 <el-form-item label="仓库地址" prop="gitUrl">
                                     <el-input
@@ -107,6 +123,7 @@
 
 <script>
 // import ProjectAdd from '../components/ProjectAdd';
+import { mapGetters } from 'vuex';
 import * as constants from '../constants';
 import pkg from '../../../../package.json';
 
@@ -120,6 +137,7 @@ export default {
             constants,
             projectList: [1, 2, 3],
             activeName: 'info',
+            imageUrl: '',
             squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
             formData: {
                 name: '',
@@ -144,6 +162,12 @@ export default {
             get() {
                 return this.formData.package || JSON.stringify(pkg, null, 4);
             }
+        },
+        ...mapGetters('global', ['token']),
+        headers() {
+            return {
+                authorization: `Bearer ${this.token}`
+            };
         }
     },
     methods: {
@@ -165,7 +189,22 @@ export default {
                 }
             });
         },
-        handleClick() {}
+        handleClick() {},
+        handleAvatarSuccess(res, file) {
+            this.imageUrl = URL.createObjectURL(file.raw);
+        },
+        beforeAvatarUpload(file) {
+            const isImage = ['image/jpeg', 'image/png'].includes(file.type);
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isImage) {
+                this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isImage && isLt2M;
+        }
     },
 };
 </script>
@@ -199,4 +238,38 @@ export default {
     .project-add-inner {
         padding: 0 20px;
     }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        display: block;
+        border: 1px dashed #d9d9d9;
+        border-radius: 4px;
+        line-height: 48px;
+        text-align: center;
+    }
+
+    // .avatar-uploader .el-upload {
+    //     border: 1px dashed #d9d9d9;
+    //     border-radius: 6px;
+    //     cursor: pointer;
+    //     position: relative;
+    //     overflow: hidden;
+    // }
+    // .avatar-uploader .el-upload:hover {
+    //     border-color: #409EFF;
+    // }
+    // .avatar-uploader-icon {
+    //     font-size: 28px;
+    //     color: #8c939d;
+    //     width: 178px;
+    //     height: 178px;
+    //     line-height: 178px;
+    //     text-align: center;
+    // }
+    // .avatar {
+    //     width: 178px;
+    //     height: 178px;
+    //     display: block;
+    // }
 </style>

@@ -2,7 +2,7 @@
  * 注：vued依赖本文件, 不能删
  */
 
-import { store } from 'vue-design-core';
+import { store, router } from 'vue-design-core';
 import {
     REQ_SUCCESS_STATUS_CODE
 } from './constants';
@@ -40,6 +40,10 @@ export const ajaxRequestFailure = (error) => {
 export const ajaxResponseSuccess = (response) => {
     if (response.code === REQ_SUCCESS_STATUS_CODE) {
         return response.data;
+    } else {
+        router.push({
+            name: 'auth-login'
+        });
     }
     return Promise.reject(response);
 };

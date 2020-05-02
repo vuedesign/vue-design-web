@@ -1,7 +1,9 @@
 <template>
     <div class="project">
         <vue-design-aside />
-        <router-view />
+        <div class="vue-design-main">
+            <router-view />
+        </div>
         <vue-design-right-bar />
     </div>
 </template>
@@ -25,5 +27,9 @@ export default {
         height: 100%;
         display: flex;
         background-color: #eef5f9;
+    }
+    .vue-design-main {
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 </style>
