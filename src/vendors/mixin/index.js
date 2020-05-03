@@ -1,12 +1,12 @@
+import { mapGetters } from 'vuex';
+
 export default {
-    data() {
-        return {
-            mixin: 'mixin'
-        };
-    },
-    methods: {
-        testMixin() {
-            console.log(this.mixin);
+    computed: {
+        ...mapGetters('global', ['token']),
+        globalHeaders() {
+            return {
+                authorization: `Bearer ${this.token}`
+            };
         }
     }
 };

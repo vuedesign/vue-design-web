@@ -2,6 +2,9 @@
  * Created by wujian on 2018/3/18.
  */
 import * as apis from './apis';
+import { Message } from 'element-ui';
+import { waiting } from '@vendors/utils';
+import { router } from 'vue-design-core';
 
 const state = {
     filter: {},
@@ -17,6 +20,30 @@ const actions = {
         commit('LIST', res.rows);
         commit('TOTAL', res.count);
         console.log('project find:', res);
+    },
+    findOne: async({ commit }, uuid) => {
+        const res = await apis.findOneData({ uuid });
+        commit('DETAIL', res);
+    },
+    add: async(store, formData) => {
+        await apis.createData(formData);
+        Message.success('项目创建成功！');
+        await waiting();
+        router.push({
+            name: 'project'
+        });
+    },
+    edit: async(store, formData) => {
+        await apis.editData(formData);
+        Message.success('项目编辑成功！');
+        await waiting();
+        router.push({
+            name: 'project'
+        });
+    },
+    check: async(store, { field, value, uuid }) => {
+        const res = await apis.checkData({ field, value, uuid });
+        return res;
     }
 }
 

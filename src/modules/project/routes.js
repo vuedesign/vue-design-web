@@ -26,7 +26,7 @@ export default {
             component: () => import('./pages/Add')
         },
         {
-            path: 'edit',
+            path: 'edit/:uuid',
             name: 'project-edit',
             meta: {
                 label: '修改项目'

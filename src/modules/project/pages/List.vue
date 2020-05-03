@@ -43,9 +43,10 @@ export default {
                 name: 'project-add'
             });
         },
-        handleEditClick() {
+        handleEditClick({ uuid }) {
             this.$router.push({
-                name: 'project-edit'
+                name: 'project-edit',
+                params: { uuid }
             });
         }
     }

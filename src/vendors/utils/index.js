@@ -25,3 +25,11 @@ export function getActions(data, path) {
     }
     return actions;
 }
+
+export const waiting = (time = 1000) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, time);
+    });
+};
