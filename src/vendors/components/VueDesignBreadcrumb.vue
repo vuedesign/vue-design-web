@@ -4,7 +4,9 @@
             <el-breadcrumb-item
                 v-for="(item, index) in breadcrumbs"
                 :key="index"
-            >{{ item.label }}</el-breadcrumb-item>
+            >
+                <router-link :to="{ name: item.name }">{{ item.label }}</router-link>
+            </el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 </template>

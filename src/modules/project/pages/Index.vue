@@ -31,5 +31,6 @@ export default {
     .vue-design-main {
         overflow-x: hidden;
         overflow-y: auto;
+        flex: 1;
     }
 </style>

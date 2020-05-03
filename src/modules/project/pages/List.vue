@@ -2,6 +2,9 @@
     <div class="project-list">
         <dl>
             <dt>项目 ({{ total }})</dt>
+            <dd class="btn btn-add" @click="handleAddClick">
+                <span class="icon-add"></span>
+            </dd>
             <dd v-for="item in list"
                 :key="item.id"
                 @click="handleEditClick(item)">
@@ -10,9 +13,6 @@
                     <p>{{ item.description }}</p>
                 </div>
                 <div class="item-bar"></div>
-            </dd>
-            <dd class="btn btn-add" @click="handleAddClick">
-                <span class="icon-add"></span>
             </dd>
         </dl>
     </div>
@@ -62,6 +62,7 @@ export default {
             height: 40px;
             line-height: 40px;
             padding: 0 20px;
+            color: #666;
         }
         dd {
             float: left;
