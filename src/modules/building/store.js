@@ -2,10 +2,6 @@
  * Created by wujian on 2018/3/18.
  */
 
-import folder from './children/folder/store';
-import module from './children/module/store';
-import page from './children/page/store';
-
 export default {
     namespaced: true,
     state: {
@@ -20,8 +16,5 @@ export default {
         }
     },
     modules: {
-        folder,
-        module,
-        page
     }
 };

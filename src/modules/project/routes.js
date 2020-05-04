@@ -6,7 +6,7 @@ export default {
     path: 'project',
     name: 'project',
     meta: { label: '项目' },
-    component: () => import('./pages/Index'),
+    component: () => import(/* webpackChunkName: "project" */ './pages/Index'),
     redirect: { name: 'project-list' },
     children: [
         {
@@ -15,7 +15,7 @@ export default {
             meta: {
                 label: '项目列表'
             },
-            component: () => import('./pages/List')
+            component: () => import(/* webpackChunkName: "project" */ './pages/List')
         },
         {
             path: 'add',
@@ -23,7 +23,17 @@ export default {
             meta: {
                 label: '新建项目'
             },
-            component: () => import('./pages/Add')
+            component: () => import(/* webpackChunkName: "project" */ './pages/Add'),
+            children: [
+                {
+                    path: 'cropper',
+                    name: 'project-cropper',
+                    meta: {
+                        label: '修改项目'
+                    },
+                    component: () => import(/* webpackChunkName: "cropper" */ './pages/ProjectCropper')
+                }
+            ]
         },
         {
             path: 'edit/:uuid',
@@ -31,7 +41,7 @@ export default {
             meta: {
                 label: '修改项目'
             },
-            component: () => import('./pages/Edit')
+            component: () => import(/* webpackChunkName: "project" */ './pages/Edit')
         }
     ]
 };

@@ -33,6 +33,7 @@
                                 <el-image
                                     :src="formData.thumb"
                                     style="width: 300px; height: 200px"
+                                    @click="handleOpenCropper"
                                 >
                                     <div slot="placeholder" class="image-slot">
                                         加载中<span class="dot">...</span>
@@ -172,6 +173,10 @@ export default {
         }
     },
     methods: {
+        handleOpenCropper() {
+            debugger;
+            this.$router.push({ name: 'project-cropper' });
+        },
         editorInit() {
             require('brace/ext/language_tools');
             require('brace/mode/json');
