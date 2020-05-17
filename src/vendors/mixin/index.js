@@ -5,7 +5,8 @@ export default {
         ...mapGetters('global', ['token']),
         globalHeaders() {
             return {
-                authorization: `Bearer ${this.token}`
+                authorization: `Bearer ${this.token}`,
+                'X-Requested-With': 'XMLHttpRequest'
             };
         }
     }

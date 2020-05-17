@@ -11,7 +11,8 @@ const state = {
     list: [],
     detail: {},
     total: 0,
-    selectIcon: ''
+    selectIcon: '',
+    currentBlob: null
 };
 
 const actions = {
@@ -45,7 +46,7 @@ const actions = {
         const res = await apis.checkData({ field, value, uuid });
         return res;
     }
-}
+};
 
 const mutations = {
     LIST(state, payload) {
@@ -59,6 +60,9 @@ const mutations = {
     },
     DETAIL(state, payload) {
         state.detail = payload;
+    },
+    CURRENT_BLOB(state, payload) {
+        state.currentBlob = payload;
     }
 };
 
@@ -66,7 +70,8 @@ const getters = {
     list: state => state.list,
     detail: state => state.detail,
     filter: state => state.filter,
-    total: state => state.total
+    total: state => state.total,
+    currentBlob: state => state.currentBlob
 };
 
 export default {

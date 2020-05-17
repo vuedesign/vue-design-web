@@ -30,33 +30,39 @@
                                 ></el-input>
                             </el-form-item>
                             <el-form-item label="项目封面" prop="thumb">
-                                <el-image
-                                    :src="formData.thumb"
-                                    style="width: 300px; height: 200px"
-                                    @click="handleOpenCropper"
-                                >
-                                    <div slot="placeholder" class="image-slot">
-                                        加载中<span class="dot">...</span>
-                                    </div>
-                                </el-image>
+                                <div @click="handleOpenCropper('thumb')">
+                                    <el-image
+                                        :src="formData.thumb"
+                                        style="width: 300px; height: 200px"
+                                    >
+                                        <div slot="placeholder" class="image-slot">
+                                            加载中<span class="dot">...</span>
+                                        </div>
+                                    </el-image>
+                                </div>
                             </el-form-item>
                             
                             <el-form-item label="项目图标" prop="logo">
                                 <el-upload
                                     class="avatar-uploader"
                                     action="/api/upload/file"
+                                    ref="logo"
                                     :headers="globalHeaders"
                                     :show-file-list="false"
+                                    :on-change="file => handleLogoChnage(file, 'logo')"
                                     :on-success="handleAvatarSuccess"
-                                    :before-upload="beforeAvatarUpload">
+                                    :before-upload="beforeAvatarUpload"
+                                    :auto-upload="false"
+                                >
                                     <el-avatar
-                                        v-if="imageUrl"
+                                        v-if="formData.logo"
                                         shape="square"
                                         :size="50"
-                                        :src="imageUrl"
+                                        :src="formData.logo"
                                         class="avatar"></el-avatar>
                                     <span v-else class="avatar"><i class="el-icon-plus avatar-uploader-icon"></i></span>
                                 </el-upload>
+                                <!-- <span class="avatar" @click="handleOpenCropper('icon')"><i class="el-icon-plus avatar-uploader-icon"></i></span> -->
                             </el-form-item>
                             <el-form-item label="仓库地址" prop="gitUrl">
                                 <el-input
@@ -173,9 +179,17 @@ export default {
         }
     },
     methods: {
-        handleOpenCropper() {
-            debugger;
-            this.$router.push({ name: 'project-cropper' });
+        openCropper(file, type, imageBlogUrl) {
+            console.log('file', file, type);
+            this.$router.push({
+                name: `project-${this.pageType}-cropper`,
+                query: {
+                    pageType: this.pageType,
+                    type,
+                    imageBlogUrl
+                },
+                params: this.$route.parmas
+            });
         },
         editorInit() {
             require('brace/ext/language_tools');
@@ -199,26 +213,37 @@ export default {
         handleConfrim(formName) {
             this.$refs[formName].validate((valid) => {
                 if (!valid) {
-                     return false;
+                    return false;
                 }
                 this.$store.dispatch(`project/${this.pageType}`, this.formData);
             });
         },
         handleClick() {},
+        handleLogoChnage(file, field) {
+            if (this.beforeAvatarUpload(file.raw)) {
+                const imageBlogUrl = URL.createObjectURL(file.raw);
+                this.formData[field] = imageBlogUrl;
+                this.openCropper(file, field, imageBlogUrl);
+            }
+        },
         handleAvatarSuccess(res, file) {
+            debugger;
             this.imageUrl = URL.createObjectURL(file.raw);
         },
+        isImage(type) {
+            return ['image/jpeg', 'image/png'].includes(type);
+        },
+        isLt2M(size) {
+            return size / 1024 / 1024 < 2;
+        },
         beforeAvatarUpload(file) {
-            const isImage = ['image/jpeg', 'image/png'].includes(file.type);
-            const isLt2M = file.size / 1024 / 1024 < 2;
-
-            if (!isImage) {
+            if (!this.isImage(file.type)) {
                 this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
             }
-            if (!isLt2M) {
+            if (!this.isLt2M(file.size)) {
                 this.$message.error('上传头像图片大小不能超过 2MB!');
             }
-            return isImage && isLt2M;
+            return this.isImage(file.type) && this.isLt2M(file.size);
         }
     },
 };

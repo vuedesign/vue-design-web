@@ -27,9 +27,9 @@ export default {
             children: [
                 {
                     path: 'cropper',
-                    name: 'project-cropper',
+                    name: 'project-add-cropper',
                     meta: {
-                        label: '修改项目'
+                        label: '图片裁剪'
                     },
                     component: () => import(/* webpackChunkName: "cropper" */ './pages/ProjectCropper')
                 }
@@ -41,7 +41,17 @@ export default {
             meta: {
                 label: '修改项目'
             },
-            component: () => import(/* webpackChunkName: "project" */ './pages/Edit')
+            component: () => import(/* webpackChunkName: "project" */ './pages/Edit'),
+            children: [
+                {
+                    path: 'cropper',
+                    name: 'project-edit-cropper',
+                    meta: {
+                        label: '图片裁剪'
+                    },
+                    component: () => import(/* webpackChunkName: "cropper" */ './pages/ProjectCropper')
+                }
+            ]
         }
     ]
 };
