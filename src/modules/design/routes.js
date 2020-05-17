@@ -3,13 +3,12 @@
  */
 
 export default {
-    path: 'buiding',
-    name: 'buiding',
+    path: 'design/:uuid',
+    name: 'project-design',
     meta: {
-        label: '生成器'
+        label: '设计面板'
     },
     component: () => import('./pages/Index'),
-    redirect: { name: 'building-module' },
     children: [
     ]
 };

@@ -3,16 +3,32 @@
         <dl>
             <dt>项目 ({{ total }})</dt>
             <dd class="btn btn-add" @click="handleAddClick">
-                <span class="icon-add"></span>
+                <div class="item">
+                    <div class="item-inner">
+                        <span class="icon-add"></span>
+                    </div>
+                </div>
             </dd>
             <dd v-for="item in list"
                 :key="item.id"
-                @click="handleEditClick(item)">
-                <div class="item-inner">
-                    <h5>{{ item.name }}</h5>
-                    <p>{{ item.description }}</p>
+            >
+                <div class="item">
+                    <div class="item-inner">
+                        <h5>{{ item.name }}</h5>
+                        <p>{{ item.description }}</p>
+                    </div>
+                    <ul class="item-bar">
+                        <li @click="handleDesignClick(item)">
+                            <vue-design-iconfont type="setting" />
+                        </li>
+                        <li @click="handleEditClick(item)">
+                            <vue-design-iconfont type="brush" />
+                        </li>
+                        <li @click="handleDeleteClick(item)">
+                            <vue-design-iconfont type="empty" />
+                        </li>
+                    </ul>
                 </div>
-                <div class="item-bar"></div>
             </dd>
         </dl>
     </div>
@@ -48,6 +64,28 @@ export default {
                 name: 'project-edit',
                 params: { uuid }
             });
+        },
+        async handleDeleteClick({ uuid }) {
+            const isDelete = await this.$confirm('此操作将删除该项目, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => true).catch(() => false);
+
+            if (isDelete) {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });   
+                return;
+            }
+            this.$store.dispatch('project/destroy', { uuid });
+        },
+        handleDesignClick({ uuid }) {
+            this.$router.push({
+                name: 'project-design',
+                params: { uuid }
+            });
         }
     }
 };
@@ -55,8 +93,44 @@ export default {
 
 <style lang="scss" scope>
     .project-list {
-        padding: 40px;
+        padding: 32px;
         width: 100%;
+
+        .item-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .item-bar {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            height: 28px;
+            z-index: 2;
+
+            li {
+                width: 28px;
+                line-height: 28px;
+                height: 28px;
+                text-align: center;
+
+                i {
+                    color: #999;
+                }
+            }
+        }
+        
+        dl {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
         dt {
             clear: both;
             width: 100%;
@@ -66,39 +140,40 @@ export default {
             color: #666;
         }
         dd {
-            float: left;
-            width: 300px;
-            height: 200px;
-            margin-right: 20px;
-            margin-left: 20px;
-            margin-bottom: 40px;
-            background-color: #fff;
+            width: 25%;
+            height: auto;
             padding: 10px;
-            padding-bottom: 30px;
+
             &:hover {
-                box-shadow: 0 0 1px 2px rgba($color: #000000, $alpha: .02);
-                cursor: pointer;
+                .item {
+                    box-shadow: 0 0 1px 2px rgba($color: #000000, $alpha: .02);
+                    cursor: pointer;
+                }
                 &.btn-add {
-                    background-color: rgba($color: #000000, $alpha: .07);
-                    box-shadow: 0 0 1px 2px rgba($color: #000000, $alpha: .01) inset;
-                    .icon-add::after,
-                    .icon-add::before {
-                        background-color: #fff;
+                    .item {
+                        background-color: rgba($color: #000000, $alpha: .07);
+                        box-shadow: 0 0 1px 2px rgba($color: #000000, $alpha: .01) inset;
+                        .icon-add::after,
+                        .icon-add::before {
+                            background-color: #fff;
+                        }
                     }
                 }
             }
             &.btn-add {
-                padding: 0;
-                display: flex;
-                background-color: rgba($color: #000000, $alpha: .05);
-                align-items: center;
-                justify-content: center;
+                .item {
+                    display: flex;
+                    background-color: rgba($color: #000000, $alpha: .05);
+                    align-items: center;
+                    justify-content: center;
+                }
             }
-            .item-inner {
+            .item {
                 display: block;
                 position: relative;
-                width: auto;
-                height: 160px;
+                width: 100%;
+                height: 0;
+                padding-top: 66.666%;
                 background-color: #fff;
                 display: flex;
                 flex-direction: column;
@@ -120,9 +195,13 @@ export default {
     }
 
     .icon-add {
-        position: relative;
+        position: absolute;
         width: 48px;
         height: 48px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
         &::after{
             position: absolute;
             top: 22px;
@@ -142,4 +221,37 @@ export default {
             background-color: #eef5f9;
         }
     }
+
+    @media (max-width: 800px) {
+        .project-list {
+            dd {
+                width: 50%;
+            }
+        }
+    }
+
+    @media (min-width: 700px) and (max-width: 1100px) {
+        .project-list {
+            dd {
+                width: 33.333%;
+            }
+        }
+    }
+
+    @media (min-width: 1101px) and (max-width: 1500px) {
+        .project-list {
+            dd {
+                width: 25%;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1501px) {
+        .project-list {
+            dd {
+                width: 20%;
+            }
+        }
+    }
+
 </style>

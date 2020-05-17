@@ -20,31 +20,36 @@ const actions = {
         const res = await apis.findData(getters.filter);
         commit('LIST', res.rows);
         commit('TOTAL', res.count);
-        console.log('project find:', res);
     },
     findOne: async({ commit }, uuid) => {
         const res = await apis.findOneData({ uuid });
         commit('DETAIL', res);
     },
-    add: async(store, formData) => {
+    add: async({ dispatch }, formData) => {
         await apis.createData(formData);
+        await dispatch('find');
         Message.success('项目创建成功！');
         await waiting();
         router.push({
             name: 'project'
         });
     },
-    edit: async(store, formData) => {
+    edit: async({ dispatch }, formData) => {
         await apis.editData(formData);
+        await dispatch('find');
         Message.success('项目编辑成功！');
         await waiting();
         router.push({
             name: 'project'
         });
     },
-    check: async(store, { field, value, uuid }) => {
-        const res = await apis.checkData({ field, value, uuid });
-        return res;
+    check: (store, { field, value, uuid }) => {
+        return apis.checkData({ field, value, uuid });
+    },
+    destroy: async({ dispatch }, { uuid }) => {
+        await apis.destroyData({ uuid });
+        await dispatch('find');
+        Message.success('项目删除成功！');
     }
 };
 
