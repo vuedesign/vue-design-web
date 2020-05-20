@@ -13,18 +13,20 @@
                 :key="item.id"
             >
                 <div class="item">
-                    <div class="item-inner">
+                    <div class="item-inner" @click="handleDesignClick(item)">
                         <h5>{{ item.name }}</h5>
                         <p>{{ item.description }}</p>
                     </div>
                     <ul class="item-bar">
+                        <!--
                         <li @click="handleDesignClick(item)">
                             <vue-design-iconfont type="setting" />
                         </li>
-                        <li @click="handleEditClick(item)">
+                        -->
+                        <li @click.stop="handleEditClick(item)">
                             <vue-design-iconfont type="brush" />
                         </li>
-                        <li @click="handleDeleteClick(item)">
+                        <li @click.stop="handleDeleteClick(item)">
                             <vue-design-iconfont type="empty" />
                         </li>
                     </ul>
@@ -103,6 +105,10 @@ export default {
             width: 100%;
             height: 100%;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
         .item-bar {
@@ -113,6 +119,7 @@ export default {
             display: flex;
             height: 28px;
             z-index: 2;
+            justify-content: flex-end;
 
             li {
                 width: 28px;

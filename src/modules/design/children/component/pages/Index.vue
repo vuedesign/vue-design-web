@@ -1,12 +1,12 @@
 <template>
-    <div class="design-module">
-        <design-title-bar :title="title">
+    <div class="design-component">
+        <design-panel-bar :title="title">
             <dd v-if="currentComponent === 'add'" @click="handleBackList">
                 <i class="el-icon-back" />
                 <span>返回</span>
             </dd>
             <dd v-else @click="handleAdd"><vue-design-iconfont type="folder-add" /></dd>
-        </design-title-bar>
+        </design-panel-bar>
         <design-panel-main>
             <component :is="currentComponent" @cancel="handleBackList" />
             module
@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import DesignTitleBar from '../components/DesignTitleBar';
+import DesignPanelBar from '@modules/design/components/DesignPanelBar';
 import DesignPanelMain from '@modules/design/components/DesignPanelMain';
 import DesignModuleAdd from './Add';
 import DesignModuleList from './List';
 
 export default {
-    name: 'design-module',
+    name: 'design-component',
     components: {
-        DesignTitleBar,
+        DesignPanelBar,
         DesignPanelMain,
         add: DesignModuleAdd,
         list: DesignModuleList
@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         title() {
-            let titleList = ['模块列表'];
+            let titleList = ['组件列表'];
             if (this.currentComponent === 'add') {
                 titleList.push('添加');
             }
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scope>
-    .design-module{
+    .design-component{
         width: 100%;
         height: 100%;
         display: flex;

@@ -33,3 +33,9 @@ export const waiting = (time = 1000) => {
         }, time);
     });
 };
+
+export const formValidate = (form) => {
+    return new Promise((resolve) => {
+        form.validate(valid => resolve(valid));
+    });
+};

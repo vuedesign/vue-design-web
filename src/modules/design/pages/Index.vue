@@ -3,27 +3,27 @@
         <design-header />
         <div class="design-body">
             <div class="design-left">
-                <design-module />
+                <design-component />
             </div>
             <div class="design-main">
-                <design-module />
+                <design-component />
             </div>
             <div class="design-right">
-                <design-module />
+                <design-component />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import DesignModule from '../children/module/pages/Index';
+import DesignComponent from '../children/component/pages/Index';
 import DesignHeader from '../components/DesignHeader';
 
 export default {
     name: 'project',
     components: {
         DesignHeader,
-        DesignModule
+        DesignComponent
     },
     data() {
         return {

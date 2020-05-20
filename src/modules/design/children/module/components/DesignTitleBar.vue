@@ -1,5 +1,5 @@
 <template>
-    <header class="design-panel-bar">
+    <header class="design-title-bar">
         <dl>
             <slot name="title" v-if="this.$slots.title" />
             <dt v-else>{{ title }}</dt>
@@ -12,7 +12,7 @@
 // import { mapGetters } from 'vuex';
 
 export default {
-    name: 'design-panel-bar',
+    name: 'design-title-bar',
     props: {
         title: {
             type: String,
@@ -27,12 +27,12 @@ export default {
 </script>
 
 <style lang="scss" scope>
-    .design-panel-bar {
-        height: 28px;
-        line-height: 28px;
+    .design-title-bar {
+        height: 40px;
+        line-height: 40px;
         padding: 0 8px;
         width: 100%;
-        background-color: #fff;
+        background-color: #eef5f9;
 
         dl {
             display: flex;
@@ -44,7 +44,7 @@ export default {
         }
 
         dd {
-            min-width: 28px;
+            min-width: 40px;
             text-align: center;
             cursor: pointer;
             i,
