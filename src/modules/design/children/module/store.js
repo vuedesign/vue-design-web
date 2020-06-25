@@ -1,8 +1,9 @@
 /**
- * Created by wujian on 2018/3/18.
+ * Created by wujian on 2020/3/18.
  */
 import * as apis from './apis';
 import { Message } from 'element-ui';
+import { list2tree } from '@vendors/utils';
 
 const state = {
     filter: {},
@@ -58,6 +59,9 @@ const mutations = {
 
 const getters = {
     list: state => state.list,
+    listTree: state => {
+        return list2tree(state.list);
+    },
     detail: state => state.detail,
     filter: state => state.filter,
     total: state => state.total

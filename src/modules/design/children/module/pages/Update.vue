@@ -6,6 +6,20 @@
         :model="formData"
         label-width="80px"
         size="small">
+        <el-form-item label="父模块" prop="name">
+            <el-select v-model="formData.parentId" placeholder="请选择">
+                <el-option
+                    label="无父类"
+                    :value="0">
+                </el-option>
+                <el-option
+                    v-for="item in list"
+                    :key="item.uuid"
+                    :label="item.description"
+                    :value="item.id">
+                </el-option>
+            </el-select>
+        </el-form-item>
         <el-form-item label="模块名称" prop="name">
             <el-input v-model="formData.name"></el-input>
         </el-form-item>
@@ -25,7 +39,7 @@
 
 <script>
 import validates from '../validates';
-import { formValidate } from '@vendors/utils';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'design-module-update',
@@ -40,16 +54,22 @@ export default {
             formData: {
                 name: '',
                 description: '',
-                isMenu: true
+                isMenu: true,
+                parent_id: 0
             }
         };
+    },
+    computed: {
+        ...mapGetters('design/module', [
+            'list'
+        ])
     },
     methods: {
         handleCancel() {
             this.$emit('cancel');
         },
         async handleConfirm(formName) {
-            const valid = await formValidate(this.$refs[formName]);
+            const valid = await this.$refs[formName].validate().catch(() => false);
             if (!valid) {
                 return;
             }

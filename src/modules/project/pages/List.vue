@@ -199,35 +199,36 @@ export default {
                 }
             }
         }
-    }
 
-    .icon-add {
-        position: absolute;
-        width: 48px;
-        height: 48px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-        &::after{
+        .icon-add {
             position: absolute;
-            top: 22px;
-            content: '';
-            display: block;
             width: 48px;
-            height: 4px;
-            background-color: #eef5f9;
-        }
-        &::before {
-            position: absolute;
-            left: 22px;
-            content: '';
-            display: block;
             height: 48px;
-            width: 4px;
-            background-color: #eef5f9;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            &::after{
+                position: absolute;
+                top: 22px;
+                content: '';
+                display: block;
+                width: 48px;
+                height: 4px;
+                background-color: #eef5f9;
+            }
+            &::before {
+                position: absolute;
+                left: 22px;
+                content: '';
+                display: block;
+                height: 48px;
+                width: 4px;
+                background-color: #eef5f9;
+            }
         }
     }
+
 
     @media (max-width: 800px) {
         .project-list {

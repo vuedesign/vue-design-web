@@ -9,7 +9,6 @@
         </design-title-bar>
         <design-panel-main>
             <component :is="currentComponent" @cancel="handleBackList" />
-            module
         </design-panel-main>
     </div>
 </template>
@@ -33,6 +32,9 @@ export default {
             visible: false,
             currentComponent: 'list'
         };
+    },
+    created() {
+        this.$store.dispatch('design/module/find');
     },
     computed: {
         title() {
