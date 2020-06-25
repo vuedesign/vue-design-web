@@ -1,12 +1,21 @@
 <template>
     <div class="design-module-list">
         <template v-if="listTree && listTree.length">
-            <el-tree :data="listTree" :props="defaultProps" @node-click="handleNodeClick">
+            <el-tree
+                :data="listTree"
+                :props="defaultProps"
+                @node-click="handleNodeClick"
+                default-expand-all
+            >
                 <span class="custom-tree-node" slot-scope="{ node, data }">
                     <span class="custom-tree-node-icon"><vue-design-iconfont :type="getFolderIcon(node.expanded)" /></span>
                     <span class="custom-tree-node-title">{{ node.label }}</span>
-                    <span class="custom-tree-node-btn-add"><vue-design-iconfont type="add" @click="() => append(data)" /></span>
-                    <span class="custom-tree-node-btn-del"><vue-design-iconfont type="trash" @click="() => remove(node, data)" /></span>
+                    <span class="custom-tree-node-btn-add" v-if="data.children">
+                        <vue-design-iconfont type="add" @click="() => append(data)" />
+                    </span>
+                    <span class="custom-tree-node-btn-del" v-if="!data.children">
+                        <vue-design-iconfont type="trash" @click="() => remove(node, data)" />
+                    </span>
                 </span>
             </el-tree>
         </template>

@@ -17,9 +17,9 @@ const actions = {
         }
         console.log('res', res);
     },
-    login: async({ commit }, fromData) => {
+    login: async({ commit, rootGetters }, fromData) => {
         const res = await apis.loginData(fromData);
-        console.log('res', res);
+        console.log('res', res, rootGetters);
         commit('global/TOKEN', res.token, {
             root: true
         });

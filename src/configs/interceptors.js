@@ -1,43 +1,36 @@
-/**
- * 注：vued依赖本文件, 不能删
- */
-
 import { store, router } from 'vue-design-core';
+import { REQ_SUCCESS_STATUS_CODE } from './constants';
 import {
-    REQ_SUCCESS_STATUS_CODE
-} from './constants';
+    onGlobalConfig,
+    onHttpRequestSuccess,
+    onHttpRequestFailure,
+    onHttpResponseSuccess,
+    onHttpResponseFailure,
+    onRouterBeforeEach,
+    onRouterAfterEach,
+    onRouterBeforeResolve
+} from 'vue-design-core/lib/interceptors';
 
-// let token = 'VHJK324567YU345667POIU';
-export const isTimestampDisabled = false;
+// 拦截器配置
+onGlobalConfig(config => {
+    // 时间戳注入开关
+    config.isTimestampDisabled = false;
+});
 
-/**
- * ajax请求成功
- * @param config
- * @returns {*}
- */
-export const ajaxRequestSuccess = (config) => {
+// 请求成功
+onHttpRequestSuccess(config => {
     const token = store.getters['global/token'];
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`
     }
     return config;
-};
+});
 
-/**
- * ajax请求失败
- * @param error
- * @returns {Promise<never>}
- */
-export const ajaxRequestFailure = (error) => {
-    return Promise.reject(error);
-};
+// 请求失败
+onHttpRequestFailure(error => Promise.reject(error));
 
-/**
- * ajax返回成功
- * @param response
- * @returns {*}
- */
-export const ajaxResponseSuccess = (response) => {
+// 返回成功
+onHttpResponseSuccess((response) => {
     if (response.code === REQ_SUCCESS_STATUS_CODE) {
         return response.data;
     } else {
@@ -46,24 +39,20 @@ export const ajaxResponseSuccess = (response) => {
         });
     }
     return Promise.reject(response);
-};
+});
 
-/**
- * ajax返回失败
- * @param error
- * @returns {Promise<never>}
- */
-export const ajaxResponseFailure = (error) => {
-    return Promise.reject(error);
-};
+// 返回失败
+onHttpResponseFailure(error => Promise.reject(error));
 
-export const routerBeforeEach = ({ to, next }) => {
-    store.commit('global/BREADCRUMB', to);
+// 路由进入之前
+onRouterBeforeEach(({ to, next }) => {
+    store.commit('common/SEO_TITLE', to);
     next();
-};
+});
 
-export const routerBeforeResolve = ({ next }) => {
+// 路由进入之后
+onRouterAfterEach(() => {});
+
+onRouterBeforeResolve(({ next }) => {
     next();
-};
-
-export const routerAfterEach = () => {};
+});

@@ -25,7 +25,7 @@ const actions = {
     },
     userinfo: async({ commit }) => {
         const res = await apis.userinfoData();
-        console.log('res----------------', res);
+        console.log('res----------------xxx', res);
         commit('USERINFO', res);
     }
 };
