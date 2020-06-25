@@ -6,14 +6,14 @@
         :model="formData"
         label-width="80px"
         size="small">
-        <el-form-item label="父模块" prop="name">
+        <el-form-item label="父级模块" prop="parentId">
             <el-select v-model="formData.parentId" placeholder="请选择">
                 <el-option
-                    label="无父类"
-                    :value="0">
+                    label="无父模块"
+                    :value="PARENT_ID">
                 </el-option>
                 <el-option
-                    v-for="item in list"
+                    v-for="item in parentList"
                     :key="item.uuid"
                     :label="item.description"
                     :value="item.id">
@@ -26,7 +26,7 @@
         <el-form-item label="模块描述" prop="description">
             <el-input v-model="formData.description"></el-input>
         </el-form-item>
-        <el-form-item label="模块描述" required>
+        <el-form-item label="设为菜单">
             <el-switch v-model="formData.isMenu"></el-switch>
         </el-form-item>
         <el-divider></el-divider>
@@ -40,6 +40,7 @@
 <script>
 import validates from '../validates';
 import { mapGetters } from 'vuex';
+import { PARENT_ID } from '../constants';
 
 export default {
     name: 'design-module-update',
@@ -51,18 +52,22 @@ export default {
     },
     data() {
         return {
+            PARENT_ID,
             formData: {
                 name: '',
                 description: '',
                 isMenu: true,
-                parent_id: 0
+                parentId: PARENT_ID
             }
         };
     },
     computed: {
         ...mapGetters('design/module', [
             'list'
-        ])
+        ]),
+        parentList() {
+            return this.list.filter(item => item.parentId === PARENT_ID);
+        }
     },
     methods: {
         handleCancel() {

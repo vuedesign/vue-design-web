@@ -1,7 +1,8 @@
 <template>
     <div class="design-module-edit">
-        <module-update 
-
+        <module-update
+            @confirm="handleConfirm"
+            @cancel="handleCancel"
         />
     </div>
 </template>

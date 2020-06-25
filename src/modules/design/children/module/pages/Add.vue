@@ -1,6 +1,9 @@
 <template>
     <div class="design-module-add">
-        <module-update @confirm="handleConfirm" />
+        <module-update
+            @confirm="handleConfirm"
+            @cancel="handleCancel"
+        />
     </div>
 </template>
 
