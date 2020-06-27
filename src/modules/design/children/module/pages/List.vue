@@ -8,7 +8,7 @@
                 default-expand-all
             >
                 <span class="custom-tree-node" slot-scope="{ node, data }" :class="{ 'module': data.type === 'module' }">
-                    <span class="custom-tree-node-icon"><vue-design-iconfont :type="getFolderIcon(node.expanded)" /></span>
+                    <span class="custom-tree-node-icon"><vue-design-iconfont :type="getFolderIcon(node.expanded, data.type)" /></span>
                     <span class="custom-tree-node-title">{{ node.label }}</span>
                     <span class="custom-tree-node-btn-add" v-if="data.children">
                         <vue-design-iconfont type="add" @click="() => append(data)" />
@@ -50,7 +50,10 @@ export default {
         handleNodeClick(data, node) {
             console.log('handleNodeClick', data, node);
         },
-        getFolderIcon(expanded) {
+        getFolderIcon(expanded, type) {
+            if (type === 'file') {
+                return 'document';
+            }
             return expanded ? 'folder-open' : 'folder';
         }
     }
