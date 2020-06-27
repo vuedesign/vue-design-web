@@ -57,10 +57,36 @@ const mutations = {
     }
 };
 
+function fileMap2children(list) {
+    return list.map(item => {
+        if (!item.children) {
+            item['children'] = [];
+        }  else {
+            item['children'] = fileMap2children(item.children);
+        }
+        if (item.fileMap && item.fileMap.length) {
+            item.fileMap.forEach(fmi => {
+                item.children.push(fmi);
+            });
+        }
+        return item;
+    });
+}
+
 const getters = {
     list: state => state.list,
     listTree: state => {
-        return list2tree(state.list);
+        console.log('state.list', state.list);
+        if (!state.list.length) {
+            return [];
+        }
+        // 为模块加上类型，以区分file、filoder、module
+        state.list = state.list.map(item => {
+            item.type = 'module';
+            return item;
+        });
+        const list = list2tree(state.list);
+        return fileMap2children(list);
     },
     detail: state => state.detail,
     filter: state => state.filter,

@@ -39,8 +39,9 @@
 
 <script>
 import validates from '../validates';
+import { cloneDeep } from 'lodash';
 import { mapGetters } from 'vuex';
-import { PARENT_ID } from '../constants';
+import { PARENT_ID, FILE_MAP } from '../constants';
 
 export default {
     name: 'design-module-update',
@@ -57,7 +58,8 @@ export default {
                 name: '',
                 description: '',
                 isMenu: true,
-                parentId: PARENT_ID
+                parentId: PARENT_ID,
+                fileMap: cloneDeep(FILE_MAP)
             }
         };
     },

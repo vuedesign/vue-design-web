@@ -14,5 +14,6 @@ export default {
     .design-panel-main {
         flex: 1;
         width: 100%;
+        overflow: hidden;
     }
 </style>

@@ -7,7 +7,7 @@
                 @node-click="handleNodeClick"
                 default-expand-all
             >
-                <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span class="custom-tree-node" slot-scope="{ node, data }" :class="{ 'module': data.type === 'module' }">
                     <span class="custom-tree-node-icon"><vue-design-iconfont :type="getFolderIcon(node.expanded)" /></span>
                     <span class="custom-tree-node-title">{{ node.label }}</span>
                     <span class="custom-tree-node-btn-add" v-if="data.children">
@@ -42,7 +42,7 @@ export default {
         return {
             dialogVisible: false,
             defaultProps: {
-                label: 'description'
+                label: 'name'
             }
         };
     },
@@ -62,14 +62,23 @@ export default {
         height: 100%;
         padding: 0;
         background-color: #f9f9f9;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .custom-tree-node-icon {
+        i {
+            color: #666;
+        }
     }
     .custom-tree-node {
         display: flex;
         width: 100%;
-    }
-    .custom-tree-node-icon {
-        i {
-            color: #409EFF;
+        &.module {
+            .custom-tree-node-icon {
+                i {
+                    color: #409EFF;
+                }
+            }
         }
     }
     .custom-tree-node-title {
