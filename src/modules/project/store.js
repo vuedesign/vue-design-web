@@ -12,7 +12,8 @@ const state = {
     detail: {},
     total: 0,
     selectIcon: '',
-    currentBlob: null
+    currentBlob: null,
+    currentProjectUuid: null
 };
 
 const actions = {
@@ -68,6 +69,9 @@ const mutations = {
     },
     CURRENT_BLOB(state, payload) {
         state.currentBlob = payload;
+    },
+    CURRENT_PROJECT_UUID(state, payload) {
+        state.currentProjectUuid = payload;
     }
 };
 
@@ -76,7 +80,8 @@ const getters = {
     detail: state => state.detail,
     filter: state => state.filter,
     total: state => state.total,
-    currentBlob: state => state.currentBlob
+    currentBlob: state => state.currentBlob,
+    currentProjectUuid: state => state.currentProjectUuid
 };
 
 export default {

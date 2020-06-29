@@ -27,7 +27,11 @@
             <el-input v-model="formData.description"></el-input>
         </el-form-item>
         <el-form-item label="设为菜单">
-            <el-switch v-model="formData.isMenu"></el-switch>
+            <el-switch
+                v-model="formData.isMenu"
+                :active-value="1"
+                :inactive-value="0"
+            ></el-switch>
         </el-form-item>
         <el-divider></el-divider>
         <div class="btn-group">
@@ -52,18 +56,23 @@ export default {
         }
     },
     data() {
+        console.log(this.detail);
         return {
             PARENT_ID,
             formData: {
                 name: '',
                 description: '',
-                isMenu: true,
+                isMenu: 1,
                 parentId: PARENT_ID,
+                projectId: null,
                 fileMap: cloneDeep(FILE_MAP)
             }
         };
     },
     computed: {
+        ...mapGetters('project', [
+            'detail'
+        ]),
         ...mapGetters('design/module', [
             'list'
         ]),
@@ -80,6 +89,7 @@ export default {
             if (!valid) {
                 return;
             }
+            this.formData.projectId = this.detail.id;
             this.$emit('confirm', this.formData);
         }
     }

@@ -34,7 +34,11 @@ export default {
         };
     },
     created() {
-        this.$store.dispatch('design/module/find');
+        console.log('ddd');
+        // this.$store.commit('design/module/FILTER', {
+        //     projectId: 
+        // });
+        // this.$store.dispatch('design/module/find');
     },
     computed: {
         title() {

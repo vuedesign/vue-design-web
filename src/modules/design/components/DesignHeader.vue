@@ -5,7 +5,7 @@
                 <el-dropdown @command="handleCommand">
                     <div class="design-header-project-label">
                         <vue-design-iconfont type="manage" />
-                        <span class="text" v-if="projectDetail">{{ projectDetail.description }}</span>
+                        <span class="text" v-if="detail">{{ detail.description }}</span>
                         <i class="el-icon-arrow-down el-icon--right"></i>
                     </div>
                     <el-dropdown-menu slot="dropdown">
@@ -48,22 +48,30 @@ export default {
     },
     data() {
         return {
-            drawer: false,
-            currentProjectUuid: this.$route.params.uuid
+            drawer: false
         };
     },
     computed: {
         ...mapGetters('project', [
-            'list'
-        ]),
-        projectDetail() {
-            return this.list.find(item => item.uuid === this.currentProjectUuid);
-        }
+            'list',
+            'detail',
+            'currentProjectUuid'
+        ])
     },
     created() {
+        const uuid = this.$route.params.uuid;
         this.$store.dispatch('project/find');
+        this.checkProject(uuid);
     },
     methods: {
+        async checkProject(uuid) {
+            this.$store.commit('project/CURRENT_PROJECT_UUID', uuid);
+            await this.$store.dispatch('project/findOne', uuid);
+            this.$store.commit('design/module/FILTER', {
+                projectId: this.detail.id
+            });
+            await this.$store.dispatch('design/module/find');
+        },
         handleOpen() {
             this.drawer = !this.drawer;
             this.addVisible = false;
@@ -72,7 +80,7 @@ export default {
             done();
         },
         handleCommand(uuid) {
-            this.currentProjectUuid = uuid;
+            this.checkProject(uuid);
             this.$router.push({
                 name: 'project-design',
                 params: {
@@ -96,6 +104,10 @@ export default {
         padding: 0 8px;
         padding-top: 10px;
         display: flex;
+    }
+
+    .design-header-main {
+        flex: 1;
     }
 
     .design-header-project {

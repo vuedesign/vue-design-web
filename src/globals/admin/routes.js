@@ -3,7 +3,7 @@ export default [
         path: '/',
         name: 'admin',
         meta: {
-            label: '首页'
+            label: '项目'
         },
         redirect: {
             name: 'project'

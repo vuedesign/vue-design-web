@@ -34,7 +34,6 @@ export default {
     },
     computed: {
         ...mapGetters('design/module', [
-            'list',
             'listTree'
         ])
     },
