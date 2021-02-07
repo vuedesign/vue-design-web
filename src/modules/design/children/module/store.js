@@ -77,16 +77,17 @@ const getters = {
     list: state => state.list,
     listTree: state => {
         console.log('state.list', state.list);
-        if (!state.list.length) {
+        let list = state.list;
+        if (!list.length) {
             return [];
         }
         // 为模块加上类型，以区分file、filoder、module
-        state.list = state.list.map(item => {
+        list = list.map(item => {
             item.type = 'module';
             return item;
         });
-        const list = list2tree(state.list);
-        return fileMap2children(list);
+        const tree = list2tree(list);
+        return fileMap2children(tree);
     },
     detail: state => state.detail,
     filter: state => state.filter,

@@ -22,37 +22,44 @@ export default {
             this.$emit('cancel');
         },
         handleConfirm(formData) {
+            const files = cloneDeep(FILE_MAP);
             Object.assign(formData, {
-                files: this.getFileList()
+                files: this.getFiles(files),
+                components: this.getComponents(files)
             });
             this.$store.dispatch('design/module/add', formData);
             console.log('formData', formData);
         },
-        getFileList() {
-            const files = this.getFiles();
-            return files.map(item => {
-                return {
-                    name: item,
-                    type: item.split('.').pop(),
-                    content: '',
-                    path: ''
-                };
+        getComponents(files) {
+            let componentList = [];
+            files.forEach(item => {
+                if (item.type === 'dir' && item.children) {
+                    item.children.forEach(cItem => {
+                        if (cItem.type === 'component') {
+                            componentList.push({
+                                name: cItem.name,
+                                type: item.name,
+                                html_tag: '',
+                                tag_id: '',
+                                options: '',
+                                content: ''
+                            });
+                        }
+                    });
+                }
             });
+            return componentList;
         },
-        getFiles() {
-            const files = cloneDeep(FILE_MAP);
+        getFiles(files) {
             let fileList = [];
             files.forEach(item => {
                 if (item.type === 'file') {
-                    fileList.push(item.name);
-                } else {
-                    if (item.children && item.children) {
-                        item.children.forEach(citem => {
-                            if (citem.type === 'file') {
-                                fileList.push(citem.name);
-                            }
-                        });
-                    }
+                    fileList.push({
+                        name: item.name,
+                        type: item.name.split('.').pop(),
+                        path: '',
+                        content: ''
+                    });
                 }
             });
             return fileList;

@@ -11,7 +11,7 @@ export const FILE_MAP = [
         name: 'pages',
         children: [
             {
-                type: 'file',
+                type: 'component',
                 name: 'Index.vue'
             }
         ]

@@ -3,6 +3,7 @@
  */
 
 import module from './children/module/store';
+import pulgin from './children/plugin/store';
 
 const state = {
     selectIcon: ''
@@ -24,6 +25,7 @@ export default {
     getters,
     mutations,
     modules: {
-        module
+        module,
+        pulgin
     }
 };

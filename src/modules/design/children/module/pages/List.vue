@@ -13,7 +13,7 @@
                     <span class="custom-tree-node-btn-add" v-if="data.children">
                         <vue-design-iconfont type="add" @click="() => append(data)" />
                     </span>
-                    <span class="custom-tree-node-btn-del" v-if="!data.children">
+                    <span class="custom-tree-node-btn-del" v-if="showDelBtn(data)">
                         <vue-design-iconfont type="trash" @click="() => remove(node, data)" />
                     </span>
                 </span>
@@ -46,6 +46,9 @@ export default {
         };
     },
     methods: {
+        showDelBtn(data) {
+            return data.type === 'component' && !data.children && data.name !== 'Index.vue';
+        },
         handleNodeClick(data, node) {
             console.log('handleNodeClick', data, node);
         },
