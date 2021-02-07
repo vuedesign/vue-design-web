@@ -1,93 +1,50 @@
-/**
- * Created by wujian on 2018/3/18.
- */
-import * as apis from './apis';
-import { Message } from 'element-ui';
-import { waiting } from '@vendors/utils';
-import { router } from 'vue-design-core';
+import { findData, findOneData } from './api';
 
 const state = {
-    filter: {},
+    detail: {
+        id: 0,
+        name: '',
+        description: ''
+    },
     list: [],
-    detail: {},
-    total: 0,
-    selectIcon: '',
-    currentBlob: null,
-    currentProjectUuid: null
-};
-
-const actions = {
-    find: async({ commit, getters }) => {
-        const res = await apis.findData(getters.filter);
-        commit('LIST', res.rows);
-        commit('TOTAL', res.count);
-    },
-    findOne: async({ commit }, uuid) => {
-        const res = await apis.findOneData({ uuid });
-        commit('DETAIL', res);
-    },
-    add: async({ dispatch }, formData) => {
-        await apis.createData(formData);
-        await dispatch('find');
-        Message.success('项目创建成功！');
-        await waiting();
-        router.push({
-            name: 'project'
-        });
-    },
-    edit: async({ dispatch }, formData) => {
-        await apis.editData(formData);
-        await dispatch('find');
-        Message.success('项目编辑成功！');
-        await waiting();
-        router.push({
-            name: 'project'
-        });
-    },
-    check: (store, { field, value, uuid }) => {
-        return apis.checkData({ field, value, uuid });
-    },
-    destroy: async({ dispatch }, { uuid }) => {
-        await apis.destroyData({ uuid });
-        await dispatch('find');
-        Message.success('项目删除成功！');
-    }
+    total: 0
 };
 
 const mutations = {
-    LIST(state, payload) {
-        state.list = payload;
+    LIST(state, list) {
+        state.list = list;
     },
-    FILTER(state, payload) {
-        state.filter = payload;
+    TOTAL(state, total) {
+        state.total = total;
     },
-    TOTAL(state, payload) {
-        state.total = payload;
+    DETAIL(state, detail) {
+        state.detail = detail;
+    }
+};
+
+const actions = {
+    find: async({ commit }) => {
+        const res = await findData();
+        console.log('res', res);
+        commit('LIST', res.list);
+        commit('TOTAL', res.total);
     },
-    DETAIL(state, payload) {
-        state.detail = payload;
-    },
-    CURRENT_BLOB(state, payload) {
-        state.currentBlob = payload;
-    },
-    CURRENT_PROJECT_UUID(state, payload) {
-        state.currentProjectUuid = payload;
+    findOne: async({ commit }, id) => {
+        const res = await findOneData(id);
+        commit('DETAIL', res);
     }
 };
 
 const getters = {
-    list: state => state.list,
     detail: state => state.detail,
-    filter: state => state.filter,
-    total: state => state.total,
-    currentBlob: state => state.currentBlob,
-    currentProjectUuid: state => state.currentProjectUuid
+    list: state => state.list,
+    total: state => state.total
 };
 
 export default {
     namespaced: true,
     state,
-    actions,
     mutations,
+    actions,
     getters
 };
