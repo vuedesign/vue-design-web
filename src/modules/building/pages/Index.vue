@@ -17,6 +17,9 @@ import BuildingConfigs from '../components/BuildingConfigs';
 import BuildingContent from '../components/BuildingContent';
 import ToolBar from '../components/ToolBar';
 
+window.getso = window.getso || null;
+// getso.unset();
+
 export default {
     name: 'building',
     components: {

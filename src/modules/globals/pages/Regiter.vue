@@ -1,14 +1,14 @@
 <template>
-    <a-layout-content class="page-login">
-        <div class="page-login-inner">
-            <div class="page-login-left"></div>
-            <div class="page-login-right">
-                <div class="page-login-right-inner">
-                    <a-divider orientation="left">登录</a-divider>
+    <a-layout-content class="page-regiter">
+        <div class="page-regiter-inner">
+            <div class="page-regiter-left"></div>
+            <div class="page-regiter-right">
+                <div class="page-regiter-right-inner">
+                    <a-divider orientation="left">注册</a-divider>
                     <a-form
                         layout="horizontal"
                         :model="formData"
-                        @submit="handleLogin"
+                        @submit="handleRegiter"
                         @submit.native.prevent
                     >
                         <a-form-item
@@ -37,12 +37,12 @@
                                 type="primary"
                                 html-type="submit"
                                 :disabled="formData.account === '' || formData.password === ''"
-                            >登 录</a-button>
+                            >注 册</a-button>
                             <a-button
                                 block
                                 type="link"
-                                @click="handleGotoRegiter"
-                            >注 册</a-button>
+                                @click="handleGotoLogin"
+                            >登 录</a-button>
                         </a-form-item>
                     </a-form>
                 </div>
@@ -71,45 +71,45 @@ export default {
             password: 'string'
         });
 
-        const handleLogin = () => {
-            store.dispatch('globals/login', formData);
+        const handleRegiter = () => {
+            store.dispatch('globals/regiter', formData);
         };
 
-        const handleGotoRegiter = () => {
+        const handleGotoLogin = () => {
             router.push({
-                name: 'regiter'
+                name: 'login'
             });
         };
 
         return {
             formData,
-            handleLogin,
-            handleGotoRegiter
+            handleRegiter,
+            handleGotoLogin
         };
     }
 };
 </script>
 
 <style scoped lang="scss">
-.page-login {
+.page-regiter {
     padding: 100px;
 }
 
-.page-login-inner {
+.page-regiter-inner {
     width: 800px;
     margin: 0 auto;
     display: flex;
     min-height: 300px;;
 }
 
-.page-login-left {
+.page-regiter-left {
     flex: 1;
 }
-.page-login-right {
+.page-regiter-right {
     width: 300px;
 }
 
-.page-login-right-inner {
+.page-regiter-right-inner {
     border: 1px solid #eee;
     height: 100%;
     padding: 20px 40px 0 40px;
@@ -117,7 +117,7 @@ export default {
 
 </style>
 <style lang="scss">
-.page-login {
+.page-regiter {
     .login-item {
         > div {
             width: 100%;

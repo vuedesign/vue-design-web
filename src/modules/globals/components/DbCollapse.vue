@@ -67,7 +67,7 @@ export default {
     }
 
     .db-collapse-header {
-        background-color: #f9f9f9;
+        // background-color: #fefefe;
         padding: 0 16px;
         height: 32px;
         line-height: 32px;

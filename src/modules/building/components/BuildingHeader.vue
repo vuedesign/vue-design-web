@@ -57,14 +57,14 @@ export default {
 .building-header {
     display: flex;
     width: 100%;
-    height: 40px;
+    height: 48px;
     padding: 0;
     background-color: #fff;
-    border-bottom: 1px solid #ABBBCA;
+    border-bottom: 1px solid #d6dfe7;
 }
 
 .project-name {
-    padding: 11px 12px 12px 12px;
+    padding: 15px 12px 12px 15px;
     line-height: 16px;
 
     span {

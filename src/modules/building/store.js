@@ -1,5 +1,8 @@
-import page from './children/component/store';
-import api from './children/api/store';
+import component from './children/component/store';
+import icon from './children/icon/store';
+import material from './children/material/store';
+import page from './children/page/store';
+import editor from './children/editor/store';
 
 export default {
     namespaced: true,
@@ -26,7 +29,10 @@ export default {
         uuidList: state => state.uuidList,
     },
     modules: {
+        component,
+        icon,
+        material,
         page,
-        api
+        editor
     }
 };

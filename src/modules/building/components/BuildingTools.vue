@@ -11,12 +11,16 @@
 <script>
 import { useCurrentToolBar } from '../services/toolBar';
 import ComponentTools from '../children/component/components/ComponentTools';
+import IconTools from '../children/icon/components/IconTools';
+import MaterialTools from '../children/material/components/MaterialTools';
 import PageTools from '../children/page/components/PageTools';
 
 export default {
     name: 'building-tools',
     components: {
         ComponentTools,
+        IconTools,
+        MaterialTools,
         PageTools
     },
     setup() {

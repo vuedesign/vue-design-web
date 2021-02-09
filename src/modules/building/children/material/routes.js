@@ -1,5 +1,5 @@
 export default {
-    name: 'building-api',
-    path: 'api',
+    name: 'building-meterial',
+    path: 'meterial',
     component: () => import('./pages/Index.vue')
 };

@@ -1,9 +1,9 @@
 <template>
     <layout-panel
-        class="building-component-tools"
-        title="组件"
+        class="building-material-tools"
+        title="素材"
     >
-        <div class="building-component-tools-search">
+        <div class="building-material-tools-search">
             <a-input
                 placeholder="查找组件"
                 v-model:value="currentComponent"
@@ -60,7 +60,7 @@ import {
 import Sortable from 'sortablejs';
 
 export default {
-    name: 'component-tools',
+    name: 'material-tools',
     components: {
         FileSearchOutlined,
         DbCollapse,
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.building-component-tools {
+.building-material-tools {
     background-color: #fff;
     position: relative;
 
@@ -195,7 +195,7 @@ export default {
 
 </style>
 <style lang="scss">
-.building-component-tools-search {
+.building-material-tools-search {
     padding: 8px;
     .ant-input {
         background-color: transparent;

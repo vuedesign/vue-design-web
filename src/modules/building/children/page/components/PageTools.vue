@@ -1,5 +1,8 @@
 <template>
-    <div class="building-page-tools">
+    <layout-panel
+        class="building-page-tools"
+        title="页面"
+    >
         <a-directory-tree
             multiple
             default-expand-all
@@ -33,12 +36,16 @@
                     is-leaf />
             </a-tree-node>
         </a-directory-tree>
-    </div>
+    </layout-panel>
 </template>
 
 <script>
+import LayoutPanel from '@modules/building/components/LayoutPanel';
 
 export default {
+    components: {
+        LayoutPanel
+    },
     name: 'page-tools',
     setup() {
         const handleSelect = (keys, event) => {

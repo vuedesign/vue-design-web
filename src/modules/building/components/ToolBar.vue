@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 .tool-bar {
     position: fixed;
-    top: 45px;
+    top: 53px;
     left: 246px;
 
     ul {

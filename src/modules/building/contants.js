@@ -30,14 +30,9 @@ export const TOOL_BAR_LIST = readonly([
         value: 'component'
     },
     {
-        label: '页面',
-        icon: 'icon-doc',
-        value: 'page'
-    },
-    {
-        label: '分组',
-        icon: 'icon-folder',
-        value: 'group'
+        label: '图标',
+        icon: 'icon-server',
+        value: 'icon'
     },
     {
         label: '素材',
@@ -45,8 +40,8 @@ export const TOOL_BAR_LIST = readonly([
         value: 'material'
     },
     {
-        label: '接口',
-        icon: 'icon-server',
-        value: 'api'
+        label: '页面',
+        icon: 'icon-doc',
+        value: 'page'
     }
 ]);
