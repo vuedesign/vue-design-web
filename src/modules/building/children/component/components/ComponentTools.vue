@@ -57,7 +57,7 @@ import {
     BarChartOutlined,
     RadarChartOutlined
 } from '@ant-design/icons-vue';
-import Sortable from 'sortablejs';
+// import Sortable from 'sortablejs';
 
 export default {
     name: 'component-tools',
@@ -120,17 +120,17 @@ export default {
         ]);
 
         onMounted(() => {
-            console.log('toolList', toolList.value);
-            toolList.value.forEach(item => {
-                const el = document.getElementById(item.id);
-                Sortable.create(el, {
-                    group: {
-                        name: item.id,
-                        pull: 'clone'
-                    },
-                    sort: false
-                });
-            });
+            // console.log('toolList', toolList.value);
+            // toolList.value.forEach(item => {
+            //     const el = document.getElementById(item.id);
+            //     Sortable.create(el, {
+            //         group: {
+            //             name: item.id,
+            //             pull: 'clone'
+            //         },
+            //         sort: false
+            //     });
+            // });
         });
 
         return {

@@ -44,8 +44,8 @@ export default {
         const pageName = computed(() => store.getters['building/editor/pageName']);
 
         onMounted(() => {
-            const target = document.getElementById('editor-panel');
-            window.getso = new Gesto(target, {
+            const targets = Array.from(document.querySelectorAll('.editor-panel'));
+            window.getso = new Gesto(targets, {
                 container: window,
                 pinchOutside: true,
             }).on('drag', e => {

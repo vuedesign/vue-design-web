@@ -4,25 +4,17 @@
         theme="light"
         width="241px"
     >
-        <component :is="`${currentToolBar}Configs`" />
+        <config />
     </a-layout-sider>
 </template>
 
 <script>
-import { useCurrentToolBar } from '../services/toolBar';
-import ComponentConfigs from '../children/component/components/ComponentConfigs';
+import config from '../children/config/Index';
 
 export default {
     name: 'building-configs',
     components: {
-        ComponentConfigs
-    },
-    setup() {
-        const { currentToolBar } = useCurrentToolBar();
-
-        return {
-            currentToolBar
-        };
+        config
     }
 };
 </script>

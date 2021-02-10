@@ -1,8 +1,12 @@
 <template>
     <editor-panel>
-        <div class="vd-page" @drop="handleDrop">
+        <div
+            class="vd-page"
+            :style="currentPageStyle"
+            @drop="handleDrop"
+        >
             <render-component
-                v-for="item in currentComponentOptions"
+                v-for="item in componentTree"
                 :key="item.id"
                 :option="item"
             />
@@ -29,16 +33,18 @@ export default {
 
         // store.commit('building/UUID_LIST', [uuidv4()]);
 
-        const currentComponentOptions = computed(() => store.getters['building/editor/currentComponentOptions']);
+        const componentTree = computed(() => store.getters['building/componentTree']);
+        const currentPageStyle = computed(() => store.getters['building/currentPageStyle']);
 
-        console.log('currentComponentOptions', currentComponentOptions.value);
+        console.log('componentTreeOptions', componentTree.value);
 
         const handleDrop = (event) => {
             console.log('event', event);
         };
 
         return {
-            currentComponentOptions,
+            componentTree,
+            currentPageStyle,
             handleDrop
         };
     }
@@ -49,8 +55,8 @@ export default {
 .vd-page {
     position: relative;
     width: 100%;
-    min-height: 100%;
-    display: flex;
+    height: 100%;
+    display: block;
 }
 
 </style>
