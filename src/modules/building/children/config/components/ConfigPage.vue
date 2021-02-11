@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 import LayoutPanel from '@modules/building/components/LayoutPanel';
 
@@ -92,6 +92,7 @@ export default {
     setup() {
         const store = useStore();
         const currentPageStyle = computed(() => store.getters['building/currentPageStyle']);
+        const currentPageCustomState = computed(() => store.getters['building/currentPageCustomState']);
 
         const display = computed({
             set(display) {
@@ -108,7 +109,18 @@ export default {
             { value: 'flex', label: '弹性' }
         ];
 
-        const size = ref('default');
+        const size = computed({
+            set(size) {
+                if (size === 'default') {
+                    store.commit('building/UPDATE_CURRENT_PAGE_STYLE', { width: '100%', height: '100%' });
+                }
+                store.commit('building/UPDATE_CURRENT_PAGE_CUSTOM_STATE', { size });
+            },
+            get() {
+                return currentPageCustomState.value.size;
+            }
+        });
+
         const sizeOptions = [
             { value: 'default', label: '默认' },
             { value: 'custom', label: '定义' },
@@ -132,7 +144,18 @@ export default {
             }
         });
 
-        const position = ref('default');
+        const position = computed({
+            set(position) {
+                if (position === 'default') {
+                    store.commit('building/UPDATE_CURRENT_PAGE_STYLE', { left: 0, top: 0 });
+                }
+                store.commit('building/UPDATE_CURRENT_PAGE_CUSTOM_STATE', { position });
+            },
+            get() {
+                return currentPageCustomState.value.position;
+            }
+        });
+
         const positionOptions = [
             { value: 'default', label: '默认' },
             { value: 'custom', label: '定义' },
@@ -167,7 +190,8 @@ export default {
             position,
             positionOptions,
             left,
-            top
+            top,
+            currentPageCustomState
         };
     }
 };

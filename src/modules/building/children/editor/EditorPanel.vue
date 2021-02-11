@@ -86,5 +86,6 @@ export default {
 
 .editor-panel-content {
     background-color: #f9f9f9;
+    overflow: hidden;
 }
 </style>

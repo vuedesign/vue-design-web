@@ -4,6 +4,7 @@ import material from './children/material/store';
 import page from './children/page/store';
 import editor from './children/editor/store';
 import config from './children/config/store';
+// import { getItem } from '@core/localStore';
 
 const state = {
     currentToolBar: 'component',
@@ -50,6 +51,10 @@ const state = {
         }
     ],
     currentPageOptions: {
+        customState: {
+            size: 'default',
+            position: 'default'
+        },
         props: {
             style: {
                 display: 'flex',
@@ -69,6 +74,9 @@ const mutations = {
     },
     UPDATE_CURRENT_PAGE_STYLE(state, style) {
         Object.assign(state.currentPageOptions.props.style, style);
+    },
+    UPDATE_CURRENT_PAGE_CUSTOM_STATE(state, customState) {
+        Object.assign(state.currentPageOptions.customState, customState);
     }
 };
 
@@ -77,6 +85,7 @@ const actions = {};
 const getters = {
     currentToolBar: state => state.currentToolBar,
     componentTree: state => state.componentTree,
+    currentPageCustomState: state => state.currentPageOptions.customState,
     currentPageStyle: state => state.currentPageOptions.props.style,
     currentPageOptions: state => state.currentPageOptions
 };
