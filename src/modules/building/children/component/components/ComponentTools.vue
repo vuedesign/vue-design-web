@@ -3,6 +3,14 @@
         class="building-component-tools"
         title="组件"
     >
+        <template v-slot:tools>
+            <li class="btn-item">
+                <folder-add-outlined />
+            </li>
+            <li class="btn-item">
+                <plus-square-outlined />
+            </li>
+        </template>
         <div class="building-component-tools-search">
             <a-input
                 placeholder="查找组件"
@@ -51,6 +59,8 @@ import DbCollapse from '@modules/globals/components/DbCollapse';
 import LayoutPanel from '@modules/building/components/LayoutPanel';
 import { TOOL_TREE } from '../constants';
 import {
+    FolderAddOutlined,
+    PlusSquareOutlined,
     FileSearchOutlined,
     AreaChartOutlined,
     PieChartOutlined,
@@ -62,13 +72,15 @@ import {
 export default {
     name: 'component-tools',
     components: {
-        FileSearchOutlined,
+        LayoutPanel,
         DbCollapse,
+        FolderAddOutlined,
+        PlusSquareOutlined,
+        FileSearchOutlined,
         AreaChartOutlined,
         PieChartOutlined,
         BarChartOutlined,
-        RadarChartOutlined,
-        LayoutPanel
+        RadarChartOutlined
     },
     setup() {
         const currentComponent = ref('');
@@ -146,7 +158,9 @@ export default {
 .building-component-tools {
     background-color: #fff;
     position: relative;
+}
 
+.building-component-tools .component-list {
     ul {
         width: 100%;
         text-align: center;

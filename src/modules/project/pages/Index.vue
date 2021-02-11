@@ -16,7 +16,7 @@
             <ul>
                 <li>
                     <div class="item">
-                        <div class="item-inner btn-add">
+                        <div class="item-inner btn-add" @click="handleAddProject">
                             <plus-outlined />
                             <span>创建</span>
                         </div>
@@ -84,10 +84,11 @@
                 </li>
             </ul>
         </div>
+        <project-add v-model:visible="visible" />
     </a-layout-content>
 </template>
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import {
@@ -101,6 +102,7 @@ import {
     FilterOutlined,
     ApartmentOutlined
 } from '@ant-design/icons-vue';
+import ProjectAdd from './ProjectAdd';
 
 export default {
     name: 'db-project',
@@ -113,7 +115,8 @@ export default {
         FolderOutlined,
         SettingOutlined,
         FilterOutlined,
-        ApartmentOutlined
+        ApartmentOutlined,
+        ProjectAdd
     },
     setup() {
         const router = useRouter();
@@ -133,9 +136,17 @@ export default {
             });
         };
 
+        const visible = ref(false);
+
+        const handleAddProject = () => {
+            visible.value = true;
+        };
+
         return {
+            visible,
             list,
-            handleBuilding
+            handleBuilding,
+            handleAddProject
         };
     }
 };

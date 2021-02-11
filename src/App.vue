@@ -8,7 +8,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,5 +23,7 @@ export default {
 }
 ul, ol, li {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 </style>

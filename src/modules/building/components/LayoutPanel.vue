@@ -40,14 +40,30 @@ export default {
     background-color: #f9f9f9;
     padding: 0 8px;
     border-bottom: 1px solid #e8eef3;
+    display: flex;
+
     h4 {
         font-size: 13px;
         font-weight: 400;
+    }
+
+    > ul {
+        flex: 1;
+        justify-content: flex-end;
+        display: flex;
     }
 }
 
 .layout-panel-content {
     flex: 1;
     overflow: hidden;
+}
+</style>
+<style lang="scss">
+.layout-panel-header {
+    .btn-item {
+        padding: 0 5px;
+        cursor: pointer;
+    }
 }
 </style>

@@ -3,6 +3,14 @@
         class="building-page-tools"
         title="页面"
     >
+        <template v-slot:tools>
+            <li class="btn-item">
+                <folder-add-outlined />
+            </li>
+            <li class="btn-item">
+                <plus-square-outlined />
+            </li>
+        </template>
         <a-directory-tree
             multiple
             default-expand-all
@@ -41,10 +49,16 @@
 
 <script>
 import LayoutPanel from '@modules/building/components/LayoutPanel';
+import {
+    FolderAddOutlined,
+    PlusSquareOutlined
+} from '@ant-design/icons-vue';
 
 export default {
     components: {
-        LayoutPanel
+        LayoutPanel,
+        FolderAddOutlined,
+        PlusSquareOutlined,
     },
     name: 'page-tools',
     setup() {
