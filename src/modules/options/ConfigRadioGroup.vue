@@ -9,7 +9,9 @@
                 v-for="item in options"
                 :key="item.value"
                 :value="item.value"
-            >{{ item.label }}</a-radio-button>
+            >
+                {{ item.label }}
+            </a-radio-button>
         </a-radio-group>
     </div>
 </template>
@@ -25,9 +27,11 @@ export default defineComponent({
             default: () => []
         },
         value: {
-            type: [Number, String]
+            type: [Number, String],
+            default: ''
         }
     },
+    emits: ['update:value'],
     setup(props, { emit }) {
         const data = computed({
             set(value) {

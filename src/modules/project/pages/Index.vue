@@ -13,6 +13,11 @@
             </ul>
         </div>
         <div class="list-content">
+            <!-- <a-row>
+                <a-col :xs="2" :sm="4" :md="6" :lg="8" :xl="10">Col</a-col>
+                <a-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">Col</a-col>
+                <a-col :xs="2" :sm="4" :md="6" :lg="8" :xl="10">Col</a-col>
+            </a-row> -->
             <ul>
                 <li>
                     <div class="item">
@@ -32,7 +37,7 @@
                                 shape="round"
                                 @click="handleBuilding(item)"
                             >
-                                <template v-slot:icon>
+                                <template #icon>
                                     <form-outlined />
                                 </template>
                                 编辑
@@ -42,10 +47,10 @@
                             <a-dropdown
                                 trigger="click"
                                 placement="bottomRight"
-                                :overlayStyle="{ width: '100px' }"
+                                :overlay-style="{ width: '100px' }"
                             >
                                 <ellipsis-outlined @click="e => e.preventDefault()" />
-                                <template v-slot:overlay>
+                                <template #overlay>
                                     <a-menu>
                                         <a-menu-item>
                                             <form-outlined />
@@ -62,9 +67,9 @@
                                         <a-menu-divider />
                                         <a-sub-menu
                                             key="test"
-                                            popupClassName="class-sub-menu"
+                                            popup-class-name="class-sub-menu"
                                         >
-                                            <template v-slot:title>
+                                            <template #title>
                                                 <folder-outlined />
                                                 分类
                                             </template>
@@ -80,7 +85,9 @@
                             </a-dropdown>
                         </div>
                     </div>
-                    <div class="title">{{ item.description }}</div>
+                    <div class="title">
+                        {{ item.description }}
+                    </div>
                 </li>
             </ul>
         </div>

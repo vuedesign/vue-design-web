@@ -5,12 +5,12 @@
     >
         <div class="building-material-tools-search">
             <a-input
-                placeholder="查找组件"
-                v-model:value="currentComponent"
-                size="small"
                 ref="userNameInput"
+                v-model:value="currentComponent"
+                placeholder="查找组件"
+                size="small"
             >
-                <template v-slot:prefix>
+                <template #prefix>
                     <file-search-outlined />
                 </template>
             </a-input>
@@ -18,18 +18,19 @@
         <db-collapse
             v-for="item in toolList"
             :key="item.id"
-            :title="item.title"
             v-model:is-active="item.isActive"
+            :title="item.title"
         >
             <ul
-                class="component-list"
                 v-if="item.children && item.children.length"
                 :id="item.id"
+                class="component-list"
             >
                 <li
                     v-for="i in item.children"
                     :key="i.value"
-                    :data-id="i.value">
+                    :data-id="i.value"
+                >
                     <component
                         :is="i.value"
                         class="icon"

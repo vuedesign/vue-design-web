@@ -5,11 +5,17 @@
 	},
 	"extends": [
 		"eslint:recommended",
-        "plugin:vue/essential"
+        "plugin:vue/essential",
+        "plugin:vue/vue3-essential",
+        "plugin:vue/vue3-strongly-recommended",
+        "plugin:vue/strongly-recommended",
+        "plugin:vue/vue3-recommended",
+        "plugin:vue/recommended"
 	],
 	"parserOptions": {
 		"parser": "babel-eslint"
-	},
+    },
+    "plugins": ["vue"],
 	"rules": {
 		"no-useless-constructor": "off",
 		"semi": [
@@ -34,7 +40,7 @@
 			"ignores": []
 		}],
 		"vue/max-attributes-per-line": ["error", {
-			"singleline": 2,
+			"singleline": 3,
 			"multiline": {
 				"max": 1,
 				"allowFirstLine": false

@@ -6,7 +6,7 @@
                 class="icon-back"
                 @click="handleBack"
             />
-            <span class="label" v-if="detail.name">{{ detail.name }}</span>
+            <span v-if="detail && detail.name" class="label">{{ detail.name }}</span>
         </div>
     </a-layout-header>
 </template>

@@ -32,7 +32,7 @@
                                 shape="round"
                                 @click="handleBuilding(item)"
                             >
-                                <template v-slot:icon>
+                                <template #icon>
                                     <form-outlined />
                                 </template>
                                 编辑
@@ -42,10 +42,10 @@
                             <a-dropdown
                                 trigger="click"
                                 placement="bottomRight"
-                                :overlayStyle="{ width: '100px' }"
+                                :overlay-style="{ width: '100px' }"
                             >
                                 <ellipsis-outlined @click="e => e.preventDefault()" />
-                                <template v-slot:overlay>
+                                <template #overlay>
                                     <a-menu>
                                         <a-menu-item>
                                             <form-outlined />
@@ -62,9 +62,9 @@
                                         <a-menu-divider />
                                         <a-sub-menu
                                             key="test"
-                                            popupClassName="class-sub-menu"
+                                            popup-class-name="class-sub-menu"
                                         >
-                                            <template v-slot:title>
+                                            <template #title>
                                                 <folder-outlined />
                                                 分类
                                             </template>
@@ -80,7 +80,9 @@
                             </a-dropdown>
                         </div>
                     </div>
-                    <div class="title">{{ item.description }}</div>
+                    <div class="title">
+                        {{ item.description }}
+                    </div>
                 </li>
             </ul>
         </div>

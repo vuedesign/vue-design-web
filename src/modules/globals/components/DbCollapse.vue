@@ -7,8 +7,8 @@
             </span>
         </header>
         <section
-            class="db-collapse-content"
             ref="root"
+            class="db-collapse-content"
             :class="{ 'active': isActive }"
         >
             <div ref="rootInner" class="db-collapse-content-inner">
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 import {
     CaretRightOutlined
 } from '@ant-design/icons-vue';
@@ -37,19 +37,39 @@ export default {
         title: {
             type: String,
             default: ''
+        },
+        itemHeight: {
+            type: Number,
+            default: 33
+        },
+        itemNum: {
+            type: Number,
+            default: 1
         }
     },
+    emits: ['update:isActive'],
     setup(props, { emit }) {
         const root = ref(null);
         const rootInner = ref(null);
 
+        function updateStyle(isActive) {
+            if (root.value?.style) {
+                root.value.style.height = isActive ? `${props.itemHeight * props.itemNum}px` : 0;
+            }
+        }
+
         onMounted(() => {
-            root.value.style.height = props.isActive ? `${rootInner.value.clientHeight}px` : 0;
+            updateStyle(props.isActive);
+        });
+
+        watchEffect(() => {
+            updateStyle(props.isActive);
         });
 
         const handleHeaderClick = () => {
-            root.value.style.height = props.isActive ? 0 : `${rootInner.value.clientHeight}px`;
-            emit('update:isActive', !props.isActive);
+            const isActive = !props.isActive;
+            updateStyle(isActive);
+            emit('update:isActive', isActive);
         };
 
         return {
@@ -68,7 +88,7 @@ export default {
 
     .db-collapse-header {
         // background-color: #fefefe;
-        padding: 0 16px;
+        padding: 0 8px;
         height: 32px;
         line-height: 32px;
         display: flex;
@@ -80,7 +100,7 @@ export default {
         }
 
         span {
-            color: #397097;
+            color:#c6e4ff;
         }
     }
 

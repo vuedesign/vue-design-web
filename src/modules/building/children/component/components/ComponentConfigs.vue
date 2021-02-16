@@ -1,5 +1,7 @@
 <template>
-    <div class="building-component-configs">conponent-configs</div>
+    <div class="building-component-configs">
+        conponent-configs
+    </div>
 </template>
 
 <script>

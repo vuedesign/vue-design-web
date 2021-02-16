@@ -1,15 +1,15 @@
 <template>
     <a-layout-content class="page-login">
         <div class="page-login-inner">
-            <div class="page-login-left"></div>
-            <div class="page-login-right">
-                <div class="page-login-right-inner">
-                    <a-divider orientation="left">登录</a-divider>
+            <div class="page-login-left">
+                <div class="page-login-left-inner">
+                    <a-divider orientation="left">
+                        登录
+                    </a-divider>
                     <a-form
                         layout="horizontal"
                         :model="formData"
-                        @submit="handleLogin"
-                        @submit.native.prevent
+                        :wrapper-col="wrapperCol"
                     >
                         <a-form-item
                             class="login-item"
@@ -18,7 +18,9 @@
                                 v-model:value="formData.account"
                                 placeholder="用户名/手机号/邮箱"
                             >
-                                <template #prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
+                                <template #prefix>
+                                    <UserOutlined style="color:rgba(0,0,0,.25)" />
+                                </template>
                             </a-input>
                         </a-form-item>
                         <a-form-item
@@ -27,26 +29,34 @@
                             <a-input
                                 v-model:value="formData.password"
                                 type="password"
-                                placeholder="密码">
-                                <template #prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
+                                placeholder="密码"
+                            >
+                                <template #prefix>
+                                    <LockOutlined style="color:rgba(0,0,0,.25)" />
+                                </template>
                             </a-input>
                         </a-form-item>
                         <a-form-item class="login-item">
                             <a-button
                                 block
                                 type="primary"
-                                html-type="submit"
                                 :disabled="formData.account === '' || formData.password === ''"
-                            >登 录</a-button>
+                                @click="handleLogin"
+                            >
+                                登 录
+                            </a-button>
                             <a-button
                                 block
                                 type="link"
                                 @click="handleGotoRegiter"
-                            >注 册</a-button>
+                            >
+                                注 册
+                            </a-button>
                         </a-form-item>
                     </a-form>
                 </div>
             </div>
+            <div class="page-login-right" />
         </div>
     </a-layout-content>
 </template>
@@ -84,7 +94,8 @@ export default {
         return {
             formData,
             handleLogin,
-            handleGotoRegiter
+            handleGotoRegiter,
+            wrapperCol: { span: 24 }
         };
     }
 };
@@ -102,14 +113,14 @@ export default {
     min-height: 300px;;
 }
 
-.page-login-left {
+.page-login-right {
     flex: 1;
 }
-.page-login-right {
+.page-login-left {
     width: 300px;
 }
 
-.page-login-right-inner {
+.page-login-left-inner {
     border: 1px solid #eee;
     height: 100%;
     padding: 20px 40px 0 40px;

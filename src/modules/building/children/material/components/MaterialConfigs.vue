@@ -1,5 +1,7 @@
 <template>
-    <div class="building-material-configs">conponent-configs</div>
+    <div class="building-material-configs">
+        conponent-configs
+    </div>
 </template>
 
 <script>

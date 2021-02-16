@@ -1,7 +1,7 @@
 <template>
     <layout-panel
         title="图标"
-    ></layout-panel>
+    />
 </template>
 <script>
 import LayoutPanel from '@modules/building/components/LayoutPanel';

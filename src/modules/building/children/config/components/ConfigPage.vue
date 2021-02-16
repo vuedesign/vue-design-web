@@ -13,6 +13,15 @@
                     />
                 </dd>
             </dl>
+            <dl v-if="display === 'flex'" class="children">
+                <dt>弹性反向</dt>
+                <dd>
+                    <config-radio-group
+                        v-model:value="flexDirection"
+                        :options="flexDirectionOptions"
+                    />
+                </dd>
+            </dl>
             <dl class="border-top">
                 <dt>大小</dt>
                 <dd>
@@ -22,28 +31,29 @@
                     />
                 </dd>
             </dl>
-            <ul class="children" v-if="size === 'custom'">
-                <li>
+            <section
+                v-if="size === 'custom'"
+                class="children"
+            >
+                <a-space>
                     <a-input
-                        size="small"
                         v-model:value="width"
+                        size="small"
                     >
                         <template #prefix>
                             <span>W</span>
                         </template>
                     </a-input>
-                </li>
-                <li>
                     <a-input
-                        size="small"
                         v-model:value="height"
+                        size="small"
                     >
                         <template #prefix>
-                            <span> H</span>
+                            <span>H</span>
                         </template>
                     </a-input>
-                </li>
-            </ul>
+                </a-space>
+            </section>
             <dl class="border-top">
                 <dt>位置</dt>
                 <dd>
@@ -53,28 +63,29 @@
                     />
                 </dd>
             </dl>
-            <ul class="children" v-if="position === 'custom'">
-                <li>
+            <section
+                v-if="position === 'custom'"
+                class="children"
+            >
+                <a-space>
                     <a-input
-                        size="small"
                         v-model:value="left"
+                        size="small"
                     >
                         <template #prefix>
                             <span>X</span>
                         </template>
                     </a-input>
-                </li>
-                <li>
                     <a-input
-                        size="small"
                         v-model:value="top"
+                        size="small"
                     >
                         <template #prefix>
                             <span>Y</span>
                         </template>
                     </a-input>
-                </li>
-            </ul>
+                </a-space>
+            </section>
         </section>
     </layout-panel>
 </template>
@@ -107,6 +118,21 @@ export default {
         const displayOptions = [
             { value: 'block', label: '默认' },
             { value: 'flex', label: '弹性' }
+        ];
+
+        const flexDirection = computed({
+            set(flexDirection) {
+                store.commit('building/UPDATE_CURRENT_PAGE_STYLE', {
+                    flexDirection
+                });
+            },
+            get() {
+                return currentPageStyle.value.flexDirection;
+            }
+        });
+        const flexDirectionOptions = [
+            { value: 'row', label: '水平' },
+            { value: 'column', label: '垂直' }
         ];
 
         const size = computed({
@@ -183,6 +209,8 @@ export default {
             currentPageStyle,
             displayOptions,
             display,
+            flexDirection,
+            flexDirectionOptions,
             size,
             sizeOptions,
             width,
@@ -201,14 +229,15 @@ export default {
 .config-page-content {
     background-color: transparent;
 
+    .children {
+        padding: 0 8px 8px 8px;
+    }
+
     dl {
         display: flex;
         padding: 8px;
         justify-content: space-between;
         margin: 0;
-        &.children {
-            padding-left: 24px;
-        }
         &.border-top {
             border-top: 1px solid #f9f9f9;
         }

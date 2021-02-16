@@ -3,7 +3,9 @@
         class="building-page-configs"
         theme="light"
         width="240px"
-    >configs</a-layout-sider>
+    >
+        configs
+    </a-layout-sider>
 </template>
 
 <script>

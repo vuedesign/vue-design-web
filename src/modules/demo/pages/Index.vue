@@ -2,9 +2,13 @@
     <a-layout-content style="padding: 0 50px">
         <a-input id="file" type="file" />
         <div class="box" style="display: flex; flex-direction: column;background-color: #333;width: 100%; height: 200px;">
-            <div class="box-item" style="background-color: red;">1</div>
+            <div class="box-item" style="background-color: red;">
+                1
+            </div>
             <div class="box-item" style="background-color: blue; flex: 1 0 0;">
-                <div style="height: 300px; background-color: #999;">1</div>
+                <div style="height: 300px; background-color: #999;">
+                    1
+                </div>
             </div>
         </div>
     </a-layout-content>

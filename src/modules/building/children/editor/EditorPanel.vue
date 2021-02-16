@@ -1,7 +1,7 @@
 <template>
     <div
-        class="editor-panel"
         id="editor-panel"
+        class="editor-panel"
         :style="{
             transform: `translate(${position.tx}px, ${position.ty}px) scale(${position.scale})`,
             width: `${position.width}px`,
@@ -19,6 +19,7 @@
             <span>{{ position.width }} X {{ position.height }}</span>
         </header>
         <section
+            id="editor-panel-content"
             class="editor-panel-content"
             :style="{
                 width: `${position.width}px`,
@@ -88,5 +89,6 @@ export default {
     background-color: #f9f9f9;
     overflow: hidden;
     box-shadow: 0 0 1px 2px rgba(0, 0, 0, .01);
+    position: relative;
 }
 </style>

@@ -3,7 +3,7 @@
         class="building-page-tools"
         title="页面"
     >
-        <template v-slot:tools>
+        <template #tools>
             <li class="btn-item">
                 <folder-add-outlined />
             </li>
@@ -31,17 +31,20 @@
                 <a-tree-node
                     key="0-0-1"
                     title="leaf 0-1"
-                    is-leaf />
+                    is-leaf
+                />
             </a-tree-node>
             <a-tree-node key="0-1" title="parent 1">
                 <a-tree-node
                     key="0-1-0"
                     title="leaf 1-0"
-                    is-leaf />
+                    is-leaf
+                />
                 <a-tree-node
                     key="0-1-1"
                     title="leaf 1-1"
-                    is-leaf />
+                    is-leaf
+                />
             </a-tree-node>
         </a-directory-tree>
     </layout-panel>
@@ -55,12 +58,12 @@ import {
 } from '@ant-design/icons-vue';
 
 export default {
+    name: 'page-tools',
     components: {
         LayoutPanel,
         FolderAddOutlined,
         PlusSquareOutlined,
     },
-    name: 'page-tools',
     setup() {
         const handleSelect = (keys, event) => {
             console.log('Trigger Select', keys, event);

@@ -9,8 +9,8 @@
         @cancel="handleCancel"
     >
         <a-form
-            name="custom-validation"
             ref="formRef"
+            name="custom-validation"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
             :model="formData"
@@ -32,7 +32,8 @@
                 required
                 has-feedback
                 label="项目描述"
-                name="description">
+                name="description"
+            >
                 <a-textarea
                     v-model:value="formData.description"
                     type="text"
@@ -55,6 +56,7 @@ export default defineComponent({
             default: true
         }
     },
+    emits: ['update:visible'],
     setup(props, { emit }) {
 
         const displayVisible = toRef(props, 'visible');

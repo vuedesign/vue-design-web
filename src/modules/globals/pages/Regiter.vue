@@ -1,15 +1,15 @@
 <template>
     <a-layout-content class="page-regiter">
         <div class="page-regiter-inner">
-            <div class="page-regiter-left"></div>
-            <div class="page-regiter-right">
-                <div class="page-regiter-right-inner">
-                    <a-divider orientation="left">注册</a-divider>
+            <div class="page-regiter-left">
+                <div class="page-regiter-left-inner">
+                    <a-divider orientation="left">
+                        注册
+                    </a-divider>
                     <a-form
                         layout="horizontal"
                         :model="formData"
-                        @submit="handleRegiter"
-                        @submit.native.prevent
+                        :wrapper-col="wrapperCol"
                     >
                         <a-form-item
                             class="login-item"
@@ -18,7 +18,9 @@
                                 v-model:value="formData.account"
                                 placeholder="用户名/手机号/邮箱"
                             >
-                                <template #prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
+                                <template #prefix>
+                                    <UserOutlined style="color:rgba(0,0,0,.25)" />
+                                </template>
                             </a-input>
                         </a-form-item>
                         <a-form-item
@@ -27,26 +29,34 @@
                             <a-input
                                 v-model:value="formData.password"
                                 type="password"
-                                placeholder="密码">
-                                <template #prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
+                                placeholder="密码"
+                            >
+                                <template #prefix>
+                                    <LockOutlined style="color:rgba(0,0,0,.25)" />
+                                </template>
                             </a-input>
                         </a-form-item>
                         <a-form-item class="login-item">
                             <a-button
                                 block
                                 type="primary"
-                                html-type="submit"
                                 :disabled="formData.account === '' || formData.password === ''"
-                            >注 册</a-button>
+                                @click="handleRegiter"
+                            >
+                                注 册
+                            </a-button>
                             <a-button
                                 block
                                 type="link"
                                 @click="handleGotoLogin"
-                            >登 录</a-button>
+                            >
+                                登 录
+                            </a-button>
                         </a-form-item>
                     </a-form>
                 </div>
             </div>
+            <div class="page-regiter-right" />
         </div>
     </a-layout-content>
 </template>
@@ -84,7 +94,8 @@ export default {
         return {
             formData,
             handleRegiter,
-            handleGotoLogin
+            handleGotoLogin,
+            wrapperCol: { span: 24 }
         };
     }
 };
@@ -102,26 +113,17 @@ export default {
     min-height: 300px;;
 }
 
-.page-regiter-left {
+.page-regiter-right {
     flex: 1;
 }
-.page-regiter-right {
+.page-regiter-left {
     width: 300px;
 }
 
-.page-regiter-right-inner {
+.page-regiter-left-inner {
     border: 1px solid #eee;
     height: 100%;
     padding: 20px 40px 0 40px;
 }
 
-</style>
-<style lang="scss">
-.page-regiter {
-    .login-item {
-        > div {
-            width: 100%;
-        }
-    }
-}
 </style>

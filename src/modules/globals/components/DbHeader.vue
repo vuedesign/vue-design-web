@@ -1,6 +1,6 @@
 <template>
     <a-layout-header class="db-header">
-        <div class="logo" >
+        <div class="logo">
             <span>VUE.Design</span>
         </div>
         <nav class="nav">
@@ -15,7 +15,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="avatar">
+        <div v-if="profile" class="avatar">
             <a-avatar
                 class="avatar-inner"
                 :src="profile.avatar"

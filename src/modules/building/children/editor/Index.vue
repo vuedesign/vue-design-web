@@ -4,28 +4,38 @@
             class="vd-page"
             :style="currentPageStyle"
             @drop="handleDrop"
+            @dragover="handleDropover"
+            @dragenter="handleDragenter"
         >
             <render-component
                 v-for="item in componentTree"
-                :key="item.id"
+                :key="item.uuid"
                 :option="item"
+                :current-uuid="item.uuid"
+                @slot-dragover="handleDropover"
+                @slot-drop="handleDrop"
+                @slect="handleSelect"
             />
         </div>
+        <context-menu />
     </editor-panel>
 </template>
 
 <script>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import EditorPanel from './EditorPanel';
 import RenderComponent from './RenderComponent.vue';
+import ContextMenu from './ContextMenu.vue';
+import componentList from '../component/componentList';
 
 export default {
     name: 'building-content',
     components: {
         EditorPanel,
-        RenderComponent
+        RenderComponent,
+        ContextMenu
     },
     setup() {
 
@@ -38,14 +48,98 @@ export default {
 
         console.log('componentTreeOptions', componentTree.value);
 
+        // let flag = false;
+        let currentTargetUuid = null;
+
+        // function createDragger(uuid, style) {
+        //     let div = document.getElementById(uuid);
+        //     if (!div) {
+        //         div = document.createElement('div');
+        //     }
+        //     div.id = uuid;
+        //     div.style.border = '1px solid #eafe22';
+        //     div.style.position = 'fixed';
+        //     for(let i in style) {
+        //         div.style[i] = style[i];
+        //     }
+        //     if (!document.getElementById(uuid)) {
+        //         document.body.appendChild(div);
+        //     }
+        // }
+
         const handleDrop = (event) => {
-            console.log('event', event);
+            event.preventDefault();
+            event.stopPropagation();
+            if (document.querySelector('.drop-cache')) {
+                document.querySelector('.drop-cache').remove();
+            }
+            const id = event.dataTransfer.getData('text');
+            console.log('componentList.value', componentList.value, id);
+            let options = {};
+
+            componentList.value.forEach(item => {
+                if (item && item.children && item.children.length > 0) {
+                    const current = item.children.find(i => i.value === id);
+                    if (current) {
+                        console.log('current', current.options);
+                        Object.assign(options, current.options, {
+                            uuid: uuidv4()
+                        });
+                    }
+                }
+            });
+            console.log('options', options);
+            store.commit('building/ADD_COMPONENT', {
+                uuid: currentTargetUuid,
+                options,
+                slot: true
+            });
+
+            // createDragger(options.uuid, {
+            //     left: '200px',
+            //     top: '100px',
+            //     width: '200px',
+            //     height: '50px'
+            // });
+
+            store.commit('building/UPDATE_CURRENT_UUID', options.uuid);
+
+            console.log('2', currentTargetUuid);
+        };
+
+        const handleDropover = (event) => {
+            event.preventDefault();
+            // console.log('1', currentTargetUuid);
+            // if (!flag) {
+            //     flag = true;
+            //     const id = event.dataTransfer.getData('text');
+            //     console.log('event', id);
+            //     console.log('event', event);
+            //     const newItem = document.createElement('div');
+            //     newItem.className = 'drop-cache';
+            //     newItem.innerHTML = '======';
+            //     event.target.appendChild(newItem);
+            // }
+        };
+
+        const handleDragenter = (event) => {
+            event.preventDefault();
+            console.log('handleDragenter', event);
+            currentTargetUuid = event.target.dataset.uuid;
+            console.log('1', currentTargetUuid);
+        };
+
+        const handleSelect = item => {
+            console.log('item', item);
         };
 
         return {
             componentTree,
             currentPageStyle,
-            handleDrop
+            handleDrop,
+            handleDropover,
+            handleDragenter,
+            handleSelect
         };
     }
 };
@@ -59,4 +153,14 @@ export default {
     display: block;
 }
 
+</style>
+<style lang="scss">
+.vd-page {
+    .drop-cache {
+        display: block;
+        width: 100%;
+        height: 20px;
+        background-color: cornflowerblue;
+    }
+}
 </style>
