@@ -147,7 +147,7 @@ export default ref([
         ]
     },
     {
-        id: 'data',
+        id: 'data-input',
         title: '数据录入',
         isActive: true,
         children: [
@@ -234,6 +234,182 @@ export default ref([
             {
                 label: '上传',
                 value: 'Upload',
+                draggable: true
+            }
+        ]
+    },
+    {
+        id: 'data-show',
+        title: '数据展示',
+        isActive: true,
+        children: [
+            {
+                label: '头像',
+                value: 'Avatar',
+                draggable: true
+            },
+            {
+                label: '徽标数',
+                value: 'Badge',
+                draggable: true
+            },
+            {
+                label: '日历',
+                value: 'Calendar',
+                draggable: true
+            },
+            {
+                label: '卡片',
+                value: 'Card',
+                draggable: true
+            },
+            {
+                label: '走马灯',
+                value: 'Carousel',
+                draggable: true
+            },
+            {
+                label: '折叠面板',
+                value: 'Collapse',
+                draggable: true
+            },
+            {
+                label: '评论',
+                value: 'Comment',
+                draggable: true
+            },
+            {
+                label: '描述列表',
+                value: 'Descriptions',
+                draggable: true
+            },
+            {
+                label: '空状态',
+                value: 'Empty',
+                draggable: true
+            },
+            {
+                label: '图片',
+                value: 'Image',
+                draggable: true
+            },
+            {
+                label: '列表',
+                value: 'List',
+                draggable: true
+            },
+            {
+                label: '气泡卡片',
+                value: 'Popover',
+                draggable: true
+            },
+            {
+                label: '统计数值',
+                value: 'Statistic',
+                draggable: true
+            },
+            {
+                label: '表格',
+                value: 'Table',
+                draggable: true
+            },
+            {
+                label: '标签页',
+                value: 'Tabs',
+                draggable: true
+            },
+            {
+                label: '标签',
+                value: 'Tag',
+                draggable: true
+            },
+            {
+                label: '时间轴',
+                value: 'Timeline',
+                draggable: true
+            },
+            {
+                label: '文字提示',
+                value: 'Tooltip',
+                draggable: true
+            },
+            {
+                label: '树形控件',
+                value: 'Tree',
+                draggable: true
+            }
+        ]
+    },
+    {
+        id: 'feedback',
+        title: '反馈',
+        isActive: true,
+        children: [
+            {
+                label: '警告提示',
+                value: 'Alert',
+                draggable: true
+            },
+            {
+                label: '抽屉',
+                value: 'Drawer',
+                draggable: true
+            },
+            {
+                label: '全局提示',
+                value: 'Message',
+                draggable: true
+            },
+            {
+                label: '对话框',
+                value: 'Modal',
+                draggable: true
+            },
+            {
+                label: '通知提醒框',
+                value: 'Notification',
+                draggable: true
+            },
+            {
+                label: '气泡确认框',
+                value: 'Popconfirm',
+                draggable: true
+            },
+            {
+                label: '进度条',
+                value: 'Progress',
+                draggable: true
+            },
+            {
+                label: '结果',
+                value: 'Result',
+                draggable: true
+            },
+            {
+                label: '骨架屏',
+                value: 'Skeleton',
+                draggable: true
+            },
+            {
+                label: '加载中',
+                value: 'Spin',
+                draggable: true
+            }
+        ]
+    },
+    {
+        id: 'other',
+        title: '其他',
+        isActive: true,
+        children: [
+            {
+                label: '锚点',
+                value: 'Anchor',
+                draggable: true
+            },
+            {
+                label: '回到顶部',
+                value: 'Anchor',
                 draggable: true
             }
         ]

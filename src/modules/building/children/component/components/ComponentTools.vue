@@ -1,7 +1,7 @@
 <template>
     <layout-panel
         class="building-component-tools"
-        title="组件"
+        :title="`组件 (${currentComponenttotal})`"
     >
         <!-- <template #tools>
             <li class="btn-item">
@@ -45,15 +45,6 @@
                     >
                         <span>{{ child.value }}</span>
                         <span class="title">{{ child.label }}</span>
-                        <!-- <ul v-if="child.children && child.children.length">
-                            <li
-                                v-for="i in child.children"
-                                :key="i.value"
-                            >
-                                <span>{{ i.value }}</span>
-                                <span class="title">{{ i.label }}</span>
-                            </li>
-                        </ul> -->
                     </li>
                 </ul>
             </db-collapse>
@@ -62,7 +53,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { cloneDeep } from 'lodash';
 import DbCollapse from '@modules/globals/components/DbCollapse';
 import LayoutPanel from '@modules/building/components/LayoutPanel';
@@ -82,6 +73,14 @@ export default {
     setup() {
         const search = ref('');
         const componentList = ref(cloneDeep(COMPONENT_LIST.value));
+
+        const currentComponenttotal = computed(() => {
+            let total = 0;
+            componentList.value.forEach(item => {
+                total += item.children.length;
+            });
+            return total;
+        });
 
         const handleSearch = (event) => {
             console.log('event', event.target.value);
@@ -121,6 +120,7 @@ export default {
             search,
             handleSearch,
             componentList,
+            currentComponenttotal,
             handleDragstart,
             handleDrag,
             handleDragend
