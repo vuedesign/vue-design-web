@@ -44,7 +44,7 @@
     </a-modal>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, reactive, ref, toRef } from 'vue';
 import { addRules } from '../rules';
 
