@@ -91,9 +91,10 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useStore } from 'vuex';
 import LayoutPanel from '@modules/building/components/LayoutPanel';
+import Tools from '../../editor/tools';
 
 export default {
     name: 'config-page',
@@ -203,6 +204,22 @@ export default {
             get() {
                 return currentPageStyle.value.top;
             }
+        });
+
+        const componentTree = computed(() => store.getters['building/componentTree']);
+
+        watch([
+            display,
+            flexDirection,
+            left,
+            top
+        ], () => {
+            componentTree.value.forEach(item => {
+                const toolTarget = document.getElementById(item.uuid);
+                setTimeout(() => {
+                    new Tools(toolTarget);
+                }, 0);
+            });
         });
 
         return {

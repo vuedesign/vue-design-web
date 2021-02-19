@@ -1,9 +1,7 @@
-import { ref } from 'vue';
-
-export default ref([
+export default [
     {
-        id: 'common',
-        title: '通用',
+        value: 'common',
+        label: '通用',
         isActive: true,
         children: [
             {
@@ -29,8 +27,8 @@ export default ref([
         ]
     },
     {
-        id: 'layout',
-        title: '布局',
+        value: 'layout',
+        label: '布局',
         isActive: true,
         children: [
             {
@@ -55,7 +53,7 @@ export default ref([
                             backgroundColor: '#eee',
                             padding: '10px',
                             margin: '20px',
-                            borderRadius: '3px'
+                            borderRadius: '10px'
                         }
                     },
                     children: [],
@@ -110,8 +108,8 @@ export default ref([
         ]
     },
     {
-        id: 'nav',
-        title: '导航',
+        value: 'nav',
+        label: '导航',
         isActive: true,
         children: [
             {
@@ -147,8 +145,8 @@ export default ref([
         ]
     },
     {
-        id: 'data-input',
-        title: '数据录入',
+        value: 'data-input',
+        label: '数据录入',
         isActive: true,
         children: [
             {
@@ -239,8 +237,8 @@ export default ref([
         ]
     },
     {
-        id: 'data-show',
-        title: '数据展示',
+        value: 'data-show',
+        label: '数据展示',
         isActive: true,
         children: [
             {
@@ -341,8 +339,8 @@ export default ref([
         ]
     },
     {
-        id: 'feedback',
-        title: '反馈',
+        value: 'feedback',
+        label: '反馈',
         isActive: true,
         children: [
             {
@@ -398,8 +396,8 @@ export default ref([
         ]
     },
     {
-        id: 'other',
-        title: '其他',
+        value: 'other',
+        label: '其他',
         isActive: true,
         children: [
             {
@@ -414,4 +412,4 @@ export default ref([
             }
         ]
     }
-]);
+];

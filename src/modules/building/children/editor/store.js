@@ -4,7 +4,7 @@ const state = {
         ty: 8,
         scale: 1,
         width: 800,
-        height: 500
+        height: 1000
     },
     pageName: '页面1',
     contextMenu: {

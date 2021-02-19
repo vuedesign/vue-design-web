@@ -156,6 +156,7 @@ export default {
 </style>
 <style lang="scss">
 .vd-page {
+    overflow: hidden;
     .drop-cache {
         display: block;
         width: 100%;

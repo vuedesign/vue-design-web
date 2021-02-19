@@ -24,14 +24,14 @@
         <div class="building-component-tools-content">
             <db-collapse
                 v-for="item in componentList"
-                :key="item.id"
+                :key="item.value"
                 v-model:is-active="item.isActive"
-                :title="item.title"
+                :title="item.label"
                 :item-num="item.children && item.children.length"
             >
                 <ul
                     v-if="item.children && item.children.length"
-                    :id="item.id"
+                    :id="item.value"
                     class="component-list"
                 >
                     <li
@@ -72,7 +72,7 @@ export default {
     },
     setup() {
         const search = ref('');
-        const componentList = ref(cloneDeep(COMPONENT_LIST.value));
+        const componentList = ref(cloneDeep(COMPONENT_LIST));
 
         const currentComponenttotal = computed(() => {
             let total = 0;
@@ -86,17 +86,17 @@ export default {
             console.log('event', event.target.value);
             const searchValue = event.target.value;
             if (searchValue === '') {
-                componentList.value = cloneDeep(COMPONENT_LIST.value);
+                componentList.value = cloneDeep(COMPONENT_LIST);
                 return;
             }
-            const list = cloneDeep(COMPONENT_LIST.value);
+            const list = cloneDeep(COMPONENT_LIST);
             componentList.value = list.filter(item => {
                 item.children = item.children.filter(i => {
                     return i.value.toLowerCase().indexOf(searchValue) > -1 || i.label.indexOf(searchValue) > -1;
                 });
                 return item.children.length > 0;
             });
-            console.log('list', list);
+            // console.log('list', list);
         };
 
         const handleDragstart = (event) => {

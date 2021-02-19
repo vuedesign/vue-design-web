@@ -8,9 +8,9 @@ class Tools {
         this.resetSelect();
         const rect = el.getBoundingClientRect();
         const contentRect = this.editorPanelContent.getBoundingClientRect();
-        this.tool = this.createElement(`tool-${this.el.id}`);
-        this.tool.setAttribute('data-uuid', this.el.id);
+        this.tool = this.createElement(this.el.id);
         const style = this.getStyle(rect, contentRect);
+        console.log('style', style);
         this.updateStyle(this.tool, style);
         this.bindEvents(this.tool, style);
     }
@@ -28,7 +28,6 @@ class Tools {
             event.target.classList.add(ACTIVE),
             this.options && this.options.select && this.options.select({
                 target: event.target,
-                event,
                 style
             });
         });
@@ -43,11 +42,13 @@ class Tools {
         });
     }
 
-    createElement(id) {
-        let tool = document.getElementById(id);
+    createElement(uuid) {
+        const toolId = `tool-${uuid}`;
+        let tool = document.getElementById(toolId);
         if (!tool) {
             tool = document.createElement('div');
-            tool.id = id;
+            tool.setAttribute('data-uuid', uuid);
+            tool.setAttribute('id', toolId);
             tool.className = `tool ${ACTIVE}`;
             this.editorPanelContent.appendChild(tool);
         }
