@@ -9,13 +9,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { useCurrentToolBar } from '../services/toolBar';
-import ComponentTools from '../children/component/components/ComponentTools';
-import IconTools from '../children/icon/components/IconTools';
-import MaterialTools from '../children/material/components/MaterialTools';
-import PageTools from '../children/page/components/PageTools';
+import ComponentTools from '../children/component/components/ComponentTools.vue';
+import IconTools from '../children/icon/components/IconTools.vue';
+import MaterialTools from '../children/material/components/MaterialTools.vue';
+import PageTools from '../children/page/components/PageTools.vue';
 
-export default {
+export default defineComponent({
     name: 'building-tools',
     components: {
         ComponentTools,
@@ -30,7 +31,7 @@ export default {
             currentToolBar
         };
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

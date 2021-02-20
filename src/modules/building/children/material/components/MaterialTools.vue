@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import DbCollapse from '@modules/globals/components/DbCollapse';
-import LayoutPanel from '@modules/building/components/LayoutPanel';
+import { ref, onMounted, defineComponent } from 'vue';
+import DbCollapse from '@modules/globals/components/DbCollapse.vue';
+import LayoutPanel from '@modules/building/components/LayoutPanel.vue';
 import { TOOL_TREE } from '../constants';
 import {
     FileSearchOutlined,
@@ -60,7 +60,7 @@ import {
 } from '@ant-design/icons-vue';
 import Sortable from 'sortablejs';
 
-export default {
+export default defineComponent({
     name: 'material-tools',
     components: {
         FileSearchOutlined,
@@ -140,7 +140,7 @@ export default {
             toolList
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

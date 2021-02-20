@@ -5,7 +5,7 @@
 <script>
 import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
-import ConfigPage from './components/ConfigPage';
+import ConfigPage from './components/ConfigPage.vue';
 
 export default defineComponent({
     name: 'config',

@@ -1,24 +1,24 @@
 <template>
     <a-layout-header class="building-header">
         <div class="project-name">
-            <iconfont
-                type="icon-menu-more"
-                class="icon-back"
-                @click="handleBack"
-            />
+            <appstore-outlined class="icon-back" @click="handleBack" />
             <span v-if="detail && detail.name" class="label">{{ detail.name }}</span>
         </div>
     </a-layout-header>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { MENU_LIST } from '../contants';
+import { AppstoreOutlined } from '@ant-design/icons-vue';
 
-export default {
+export default defineComponent({
     name: 'building-header',
+    components: {
+        AppstoreOutlined
+    },
     setup() {
         const route = useRoute();
         const router = useRouter();
@@ -50,7 +50,7 @@ export default {
             handleBack
         };
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

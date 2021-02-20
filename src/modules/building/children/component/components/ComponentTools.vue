@@ -53,17 +53,17 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, defineComponent } from 'vue';
 import { cloneDeep } from 'lodash';
-import DbCollapse from '@modules/globals/components/DbCollapse';
-import LayoutPanel from '@modules/building/components/LayoutPanel';
+import DbCollapse from '@modules/globals/components/DbCollapse.vue';
+import LayoutPanel from '@modules/building/components/LayoutPanel.vue';
 import { TOOL_TREE } from '../constants';
 import COMPONENT_LIST from '../componentList';
 import {
     FileSearchOutlined,
 } from '@ant-design/icons-vue';
 
-export default {
+export default defineComponent({
     name: 'component-tools',
     components: {
         LayoutPanel,
@@ -126,7 +126,7 @@ export default {
             handleDragend
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

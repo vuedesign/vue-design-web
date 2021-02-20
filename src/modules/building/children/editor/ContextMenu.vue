@@ -37,7 +37,7 @@
     </div>
 </template>
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import {
     DeleteOutlined,
@@ -47,7 +47,7 @@ import {
     AlignRightOutlined
 } from '@ant-design/icons-vue';
 
-export default {
+export default defineComponent({
     name: 'context-menu',
     components: {
         DeleteOutlined,
@@ -82,7 +82,7 @@ export default {
             handleGotoSubMenu
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

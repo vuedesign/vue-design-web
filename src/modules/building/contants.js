@@ -26,22 +26,22 @@ export const MENU_LIST = readonly([
 export const TOOL_BAR_LIST = readonly([
     {
         label: '组件',
-        icon: 'icon-module',
+        icon: 'build-outlined',
         value: 'component'
     },
     {
         label: '图标',
-        icon: 'icon-server',
+        icon: 'smile-outlined',
         value: 'icon'
     },
     {
         label: '素材',
-        icon: 'icon-picture',
+        icon: 'picture-outlined',
         value: 'material'
     },
     {
         label: '页面',
-        icon: 'icon-doc',
+        icon: 'file-text-outlined',
         value: 'page'
     }
 ]);

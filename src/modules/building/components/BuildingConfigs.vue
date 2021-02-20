@@ -9,14 +9,15 @@
 </template>
 
 <script>
-import config from '../children/config/Index';
+import { defineComponent } from 'vue';
+import config from '../children/config/Index.vue';
 
-export default {
+export default defineComponent({
     name: 'building-configs',
     components: {
         config
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -109,7 +109,7 @@ import {
     FilterOutlined,
     ApartmentOutlined
 } from '@ant-design/icons-vue';
-import ProjectAdd from './ProjectAdd';
+import ProjectAdd from './ProjectAdd.vue';
 
 export default {
     name: 'db-project',

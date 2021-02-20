@@ -5,7 +5,10 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
-		"lint": "vue-cli-service lint --fix"
+        "lint": "vue-cli-service lint --fix",
+        "dev:vite": "vite",
+        "build:vite": "vite build",
+        "serve:vite": "vite preview"
 	},
 	"dependencies": {
 		"@vue/composition-api": "^1.0.0-rc.1",
@@ -21,6 +24,7 @@
 		"vuex": "^4.0.0"
 	},
 	"devDependencies": {
+		"@vitejs/plugin-vue": "^1.1.4",
 		"@vue/cli-plugin-babel": "^4.5.11",
 		"@vue/cli-plugin-eslint": "^4.5.11",
 		"@vue/cli-service": "^4.5.11",
@@ -35,7 +39,8 @@
 		"less": "^2.7.3",
 		"less-loader": "^6.2.0",
 		"sass": "^1.32.6",
-		"sass-loader": "^10.1.1"
+		"sass-loader": "^10.1.1",
+		"vite": "^2.0.1"
 	},
 	"browserslist": [
 		"> 1%",

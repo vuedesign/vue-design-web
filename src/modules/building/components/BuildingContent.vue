@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Editor from '../children/editor/Index';
+import Editor from '../children/editor/Index.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'building-content',
     components: {
         Editor
@@ -31,7 +31,7 @@ export default {
             handleClick
         };
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

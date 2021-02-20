@@ -31,13 +31,13 @@
     </div>
 </template>
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import Gesto from 'gesto';
 
 const EDITOR_PANEL_HEADER_HEIGHT = 24;
 
-export default {
+export default defineComponent({
     name: 'icon-tools',
     setup() {
         const store = useStore();
@@ -63,7 +63,7 @@ export default {
             panelHeight: EDITOR_PANEL_HEADER_HEIGHT
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

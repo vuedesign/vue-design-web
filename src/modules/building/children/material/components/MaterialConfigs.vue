@@ -5,13 +5,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'building-material-configs',
     setup() {
         return {};
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

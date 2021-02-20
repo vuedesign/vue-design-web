@@ -1,9 +1,8 @@
-import ConfigRadioGroup from './ConfigRadioGroup';
+import ConfigRadioGroup from './ConfigRadioGroup.vue';
 
 const components =  {
     'config-radio-group': ConfigRadioGroup
 };
-
 
 export default {
     install: (app, options) => {

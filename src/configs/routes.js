@@ -12,7 +12,7 @@ export default [
         redirect: {
             name: 'project'
         },
-        component: () => import(`@modules/globals/components/DbContainer`),
+        component: () => import(`../modules/globals/components/DbContainer.vue`),
         children: [
             ...project,
             ...template,

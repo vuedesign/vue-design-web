@@ -1,8 +1,10 @@
-const axios = require('axios');
+import axios from 'axios';
+
+// const baseURL = process && process.env ? process.env.baseURL : import.meta.env.baseURL;
 
 export default (interceptors) =>  {
     const instance = axios.create({
-        baseURL: process.env.baseURL || interceptors.baseURL || ''
+        baseURL: import.meta.env.baseURL || interceptors.baseURL || ''
     });
 
     instance.setAuthorization = (Authorization) => {

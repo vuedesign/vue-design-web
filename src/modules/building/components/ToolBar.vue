@@ -7,18 +7,26 @@
                 :class="{ 'active': currentToolBar === item.value }"
                 @click="handleTooBarClick(item)"
             >
-                <iconfont :type="item.icon" />
+                <component :is="item.icon" />
             </li>
         </ul>
     </nav>
 </template>
 
 <script>
+import { defineComponent } from 'vue';
+import { BuildOutlined, SmileOutlined, PictureOutlined, FileTextOutlined } from '@ant-design/icons-vue';
 import { TOOL_BAR_LIST } from '../contants';
 import { useCurrentToolBar } from '../services/toolBar';
 
-export default {
+export default defineComponent({
     name: 'tool-bar',
+    components: {
+        BuildOutlined,
+        SmileOutlined,
+        PictureOutlined,
+        FileTextOutlined
+    },
     setup() {
 
         const { currentToolBar, updateCurrentToolBar } = useCurrentToolBar();
@@ -33,7 +41,7 @@ export default {
             tooBarList: TOOL_BAR_LIST
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import DbHeader from './DbHeader';
-import DbFooter from './DbFooter';
+import DbHeader from './DbHeader.vue';
+import DbFooter from './DbFooter.vue';
 
 export default {
     name: 'db-container',

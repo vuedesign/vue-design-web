@@ -4,12 +4,13 @@
     />
 </template>
 <script>
-import LayoutPanel from '@modules/building/components/LayoutPanel';
+import { defineComponent } from 'vue';
+import LayoutPanel from '@modules/building/components/LayoutPanel.vue';
 
-export default {
+export default defineComponent({
     name: 'icon-tools',
     components: {
         LayoutPanel
     }
-};
+});
 </script>

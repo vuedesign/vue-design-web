@@ -22,15 +22,15 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import { v4 as uuidv4 } from 'uuid';
-import EditorPanel from './EditorPanel';
+import EditorPanel from './EditorPanel.vue';
 import RenderComponent from './RenderComponent.vue';
 import ContextMenu from './ContextMenu.vue';
-import componentList from '../component/componentList';
+import COMPONENT_LIST from '../component/componentList';
 
-export default {
+export default defineComponent({
     name: 'building-content',
     components: {
         EditorPanel,
@@ -40,8 +40,6 @@ export default {
     setup() {
 
         const store = useStore();
-
-        // store.commit('building/UUID_LIST', [uuidv4()]);
 
         const componentTree = computed(() => store.getters['building/componentTree']);
         const currentPageStyle = computed(() => store.getters['building/currentPageStyle']);
@@ -74,10 +72,10 @@ export default {
                 document.querySelector('.drop-cache').remove();
             }
             const id = event.dataTransfer.getData('text');
-            console.log('componentList.value', componentList.value, id);
+            console.log('componentList.value', COMPONENT_LIST, id);
             let options = {};
 
-            componentList.value.forEach(item => {
+            COMPONENT_LIST.forEach(item => {
                 if (item && item.children && item.children.length > 0) {
                     const current = item.children.find(i => i.value === id);
                     if (current) {
@@ -142,7 +140,7 @@ export default {
             handleSelect
         };
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

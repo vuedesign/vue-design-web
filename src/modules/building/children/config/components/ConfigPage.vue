@@ -93,7 +93,7 @@
 <script>
 import { computed, watch } from 'vue';
 import { useStore } from 'vuex';
-import LayoutPanel from '@modules/building/components/LayoutPanel';
+import LayoutPanel from '@modules/building/components/LayoutPanel.vue';
 import Tools from '../../editor/tools';
 
 export default {

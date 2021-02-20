@@ -13,7 +13,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'layout-panel',
     props: {
         title: {
@@ -23,7 +25,7 @@ export default {
     },
     setup() {
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

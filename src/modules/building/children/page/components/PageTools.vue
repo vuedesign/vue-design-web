@@ -51,13 +51,14 @@
 </template>
 
 <script>
-import LayoutPanel from '@modules/building/components/LayoutPanel';
+import { defineComponent } from 'vue';
+import LayoutPanel from '@modules/building/components/LayoutPanel.vue';
 import {
     FolderAddOutlined,
     PlusSquareOutlined
 } from '@ant-design/icons-vue';
 
-export default {
+export default defineComponent({
     name: 'page-tools',
     components: {
         LayoutPanel,
@@ -78,7 +79,7 @@ export default {
             handleExpand
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

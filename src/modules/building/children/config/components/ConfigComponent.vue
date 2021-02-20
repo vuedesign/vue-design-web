@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
-export default {
+export default defineComponent({
     name: 'building-page-configs',
     setup() {
         const store = useStore();
@@ -23,7 +23,7 @@ export default {
             currentPageStyle
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>
