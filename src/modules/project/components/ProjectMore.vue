@@ -2,12 +2,15 @@
     <a-dropdown
         trigger="click"
         placement="bottomRight"
-        :overlay-style="{ width: '100px' }"
+        :overlay-style="{ width: '120px' }"
         @visible-change="handleVisibleChange"
     >
         <ellipsis-outlined />
         <template #overlay>
-            <a-menu @click="handleMenu">
+            <a-menu
+                @click="handleMenu"
+                v-model:selectedKeys="selectedKeys"
+            >
                 <project-more-menu
                     v-for="(item) in moreMenuList"
                     :menu-item="item"
@@ -19,7 +22,7 @@
 </template>
 
 <script>
-import { defineComponent, toRef, ref } from 'vue';
+import { defineComponent, toRef, ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
 import {
     EllipsisOutlined,
@@ -33,50 +36,89 @@ export default defineComponent({
         ProjectMoreMenu
     },
     props: {
-        projectId: {
-            type: Number
+        projectItem: {
+            type: Object,
+            default: () => ({})
         }
     },
     setup(props, { emit }) {
         const store = useStore();
-        const projectId = toRef(props, 'projectId');
+        const projectItem = toRef(props, 'projectItem');
+        const { id } = projectItem.value;
+        const selectedKeys = computed(() => {
+            const tagIds = props.projectItem.tagIds;
+            return !tagIds ? [] : tagIds.split(',').map(Number);
+        });
+        const tagList = computed(() => store.getters['globals/tagList']);
 
         const moreMenuList = ref([
             { label: '重命名', value: 'rename', icon: 'form-outlined'},
             { label: '复制', value: 'copy', icon: 'copy-outlined'},
             { label: '删除', value: 'delete', icon: 'delete-outlined'},
             { label: 'divider', value: 'divider', icon: ''},
-            { label: '分类', value: 'category', icon: 'folder-outlined', children: [
-                { label: '分类1', value: 'category-1', icon: 'delete-outlined'},
-                { label: '分类2', value: 'category-2', icon: 'delete-outlined'},
+            { label: '打标签', value: 'tags', icon: 'tags-outlined', children: [
+                // { label: '标签1', value: 'category-1', icon: 'delete-outlined'}
             ]},
             { label: '设置', value: 'setting', icon: 'setting-outlined'},
         ]);
 
+        watch(tagList, () => {
+            const index = moreMenuList.value.findIndex(item => item.value === 'tags');
+            let categoryChildren = [];
+            tagList.value.forEach(item => {
+                categoryChildren.push({
+                    label: item.name,
+                    value: item.id,
+                    icon: 'tag-outlined'
+                })
+            });
+            moreMenuList.value[index].children = categoryChildren;
+            console.log('tagList======', tagList, categoryChildren);
+        });
+
         const handleVisibleChange = (visible) => {
+            console.log('projectItem', projectItem.value);
             console.log('visible', visible);
             // event.stopPropagation();
             store.commit('project/UPDATE_ACTIVCE_STATE', {
-                id: projectId.value,
+                id,
                 active: visible
             });
         };
 
         const handleMenu = ({ item, key, keyPath }) => {
             store.commit('project/UPDATE_ACTIVCE_STATE', {
-                id: projectId.value,
+                id,
                 active: false
             });
+
+            if (keyPath.pop() === 'tags') {
+                console.log('selectedKeys', selectedKeys);
+                const index = selectedKeys.value.findIndex(item => Number(item) === Number(key));
+                if (index > -1) {
+                    selectedKeys.value.splice(index, 1);
+                } else {
+                    selectedKeys.value.push(key);
+                }
+                console.log('selectedKeys', selectedKeys.value);
+                store.dispatch('project/updateField', {
+                    id,
+                    field: 'tagIds',
+                    type: 'string',
+                    value: selectedKeys.value.join(',')
+                });
+            }
             console.log('handleMenu item', item);
             console.log('handleMenu key', key);
             console.log('handleMenu keyPath', keyPath);
         };
 
         return {
-            projectId,
+            projectItem,
             handleVisibleChange,
             handleMenu,
-            moreMenuList
+            moreMenuList,
+            selectedKeys
         };
     }
 });

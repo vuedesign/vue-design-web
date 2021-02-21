@@ -1,4 +1,4 @@
-import { findData, findOneData } from './api';
+import { findData, findOneData, updateFielData } from './api';
 
 const state = {
     detail: {
@@ -57,6 +57,15 @@ const actions = {
     findOne: async({ commit }, id) => {
         const res = await findOneData(id);
         commit('DETAIL', res);
+    },
+    updateField: async({ dispatch }, { id, field, value, type }) => {
+        const res = await updateFielData(id, {
+            field,
+            value,
+            type
+        });
+        await dispatch('find');
+        console.log('res', res);
     }
 };
 

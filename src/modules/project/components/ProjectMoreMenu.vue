@@ -17,6 +17,7 @@
     <a-menu-item
         v-else
         :key="menuItem.value"
+        :title="menuItem.label"
     >
         <component :is="menuItem.icon" />
         {{ menuItem.label }}
@@ -29,8 +30,9 @@ import {
     FormOutlined,
     DeleteOutlined,
     CopyOutlined,
-    FolderOutlined,
+    TagsOutlined,
     SettingOutlined,
+    TagOutlined
 } from '@ant-design/icons-vue';
 
 export default defineComponent({
@@ -39,8 +41,9 @@ export default defineComponent({
         FormOutlined,
         DeleteOutlined,
         CopyOutlined,
-        FolderOutlined,
+        TagsOutlined,
         SettingOutlined,
+        TagOutlined
     },
     props: {
         menuItem: {
@@ -53,6 +56,6 @@ export default defineComponent({
 
 <style>
 .class-sub-menu {
-    width: 100px;
+    min-width: 120px;
 }
 </style>

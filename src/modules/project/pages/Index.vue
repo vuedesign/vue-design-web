@@ -14,10 +14,36 @@
                     <filter-outlined />
                     <span>时间排序</span>
                 </li> -->
-                <li>
-                    <apartment-outlined />
-                    <span>分组</span>
-                </li>
+                <a-dropdown
+                    trigger="click"
+                    placement="bottomLeft"
+                    :overlay-style="{ width: '120px' }"
+                    @visible-change="handleVisibleChange"
+                >
+                    <li :class="{ active: isTagFilter }">
+                        <tag-outlined v-if="isTagFilter" />
+                        <tags-outlined v-else />
+                        <span>{{ currentTagLabel }}</span>
+                        <caret-up-outlined class="tag-filter-icon" v-if="isTagOpen" />
+                        <caret-down-outlined class="tag-filter-icon" v-else />
+                    </li>
+                    <template #overlay>
+                        <a-menu
+                            @click="handleTagFilter"
+                            v-model:selectedKeys="selectedTagKeys"
+                        >
+                            <a-menu-item :key="0">
+                                <tags-outlined />
+                                全部
+                            </a-menu-item>
+                            <project-more-menu
+                                v-for="(item) in tagList"
+                                :menu-item="item"
+                                :key="item.value"
+                            />
+                        </a-menu>
+                    </template>
+                </a-dropdown>
             </ul>
         </div>
         <div class="list-content">
@@ -52,7 +78,7 @@
                             </a-button>
                         </div>
                         <div class="item-more">
-                            <project-more :project-id="item.id" />
+                            <project-more :project-item="item" />
                         </div>
                     </div>
                     <div class="title">
@@ -79,31 +105,47 @@ import { useStore } from 'vuex';
 import {
     PlusOutlined,
     FilterOutlined,
-    ApartmentOutlined,
-    ClockCircleOutlined
+    ClockCircleOutlined,
+    TagsOutlined,
+    TagOutlined,
+    CaretDownOutlined,
+    CaretUpOutlined
 } from '@ant-design/icons-vue';
 import ProjectAdd from './ProjectAdd.vue';
 import ProjectMore from '../components/ProjectMore.vue';
+import ProjectMoreMenu from '../components/ProjectMoreMenu.vue';
 
 export default {
     name: 'page-project',
     components: {
         PlusOutlined,
         FilterOutlined,
-        ApartmentOutlined,
         ClockCircleOutlined,
+        TagsOutlined,
+        TagOutlined,
+        CaretDownOutlined,
+        CaretUpOutlined,
         ProjectAdd,
-        ProjectMore
+        ProjectMore,
+        ProjectMoreMenu
     },
     setup() {
         const router = useRouter();
         const store = useStore();
 
         store.dispatch('project/find');
+        store.dispatch('globals/findTag');
 
         const list = computed(() => store.getters['project/list']);
         const filter = computed(() => store.getters['project/filter']);
         const total = computed(() => store.getters['project/total']);
+        const tagList = computed(() => {
+            return store.getters['globals/tagList'].map(item => ({
+                value: item.id,
+                label: item.name,
+                icon: 'tag-outlined'
+            }));
+        });
 
         const currentPage = computed({
             get() {
@@ -139,6 +181,26 @@ export default {
             });
         };
 
+        const selectedTagKeys = ref([0]);
+        const isTagFilter = ref(false);
+        const currentTagLabel = ref('标签过滤');
+        const isTagOpen = ref(false);
+        const handleTagFilter = ({ item, key, keyPath }) => {
+            selectedTagKeys.value = [key];
+            if (key === 0) {
+                isTagFilter.value = false;
+                currentTagLabel.value = '标签过滤';
+            } else {
+                isTagFilter.value = true;
+                currentTagLabel.value = item.title;
+            }
+            isTagOpen.value = false;
+        };
+
+        const handleVisibleChange = (visible) => {
+            isTagOpen.value = visible;
+        };
+
         return {
             visible,
             list,
@@ -148,7 +210,14 @@ export default {
             handleGotoWorkbench,
             handleAddProject,
             handleToggleOrderTime,
-            isOrderTime
+            isOrderTime,
+            tagList,
+            selectedTagKeys,
+            handleTagFilter,
+            isTagFilter,
+            currentTagLabel,
+            handleVisibleChange,
+            isTagOpen
         };
     }
 };
@@ -170,16 +239,18 @@ export default {
 
     li {
         margin-right: 20px;
+        cursor: pointer;
 
         span {
             padding-left: 5px;
         }
 
-        &.btn-order-time {
-            cursor: pointer;
-            &.active {
-                color: #1890ff;
-            }
+        &.active {
+            color: #1890ff;
+        }
+
+        .tag-filter-icon {
+            color: #aaa;
         }
     }
 }

@@ -1,10 +1,15 @@
-import { findProfileData, loginData } from './api';
+import { findProfileData, loginData, findTagData } from './api';
 import { router, http } from '@core';
 
 const TOKEN_KEY = 'DESIGN_TOKEN';
 
 const state = {
-    profile: {}
+    profile: {},
+    tag: {
+        list: [],
+        filter: {},
+        total: 0
+    }
 };
 
 const actions = {
@@ -21,6 +26,12 @@ const actions = {
         router.push({
             name: 'project'
         });
+    },
+    findTag: async({ commit }) => {
+        const res = await findTagData();
+        commit('TAG_LIST', res.list);
+        commit('TAG_TOTAL', res.total);
+        console.log('findTag', res);
     }
 };
 
@@ -30,6 +41,12 @@ const mutations = {
     },
     PROFILE(state, profile) {
         state.profile = profile;
+    },
+    TAG_LIST(state, tagList) {
+        state.tag.list = tagList;
+    },
+    TAG_TOTAL(state, tagTotal) {
+        state.tag.total = tagTotal;
     }
 };
 
@@ -38,7 +55,9 @@ const getters = {
         const token = window.localStorage.getItem(TOKEN_KEY);
         return token || '';
     },
-    profile: state => state.profile
+    profile: state => state.profile,
+    tagList: state => state.tag.list,
+    tagTotal: state => state.tag.total
 };
 
 export default {

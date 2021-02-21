@@ -7,3 +7,7 @@ export function findData(params = {}) {
 export function findOneData(id) {
     return http.get(`/api/v1/projects/${id}`);
 }
+
+export function updateFielData(id, data) {
+    return http.patch(`/api/v1/projects/${id}`, data);
+}
