@@ -1,7 +1,7 @@
 import { http } from '@core';
 
-export function findData() {
-    return http.get('/api/v1/projects');
+export function findData(params = {}) {
+    return http.get('/api/v1/projects', { params });
 }
 
 export function findOneData(id) {

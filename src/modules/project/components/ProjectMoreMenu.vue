@@ -1,0 +1,58 @@
+<template>
+    <a-sub-menu
+        v-if="menuItem.children && menuItem.children.length"
+        popup-class-name="class-sub-menu"
+    >
+        <template #title>
+            <component :is="menuItem.icon" />
+            {{ menuItem.label }}
+        </template>
+        <project-more-menu
+            v-for="item in menuItem.children"
+            :key="item.value"
+            :menu-item="item"
+        />
+    </a-sub-menu>
+    <a-menu-divider v-else-if="menuItem.label === 'divider'" />
+    <a-menu-item
+        v-else
+        :key="menuItem.value"
+    >
+        <component :is="menuItem.icon" />
+        {{ menuItem.label }}
+    </a-menu-item>
+</template>
+
+<script>
+import { defineComponent, toRef, ref } from 'vue';
+import {
+    FormOutlined,
+    DeleteOutlined,
+    CopyOutlined,
+    FolderOutlined,
+    SettingOutlined,
+} from '@ant-design/icons-vue';
+
+export default defineComponent({
+    name: 'project-more-menu',
+    components: {
+        FormOutlined,
+        DeleteOutlined,
+        CopyOutlined,
+        FolderOutlined,
+        SettingOutlined,
+    },
+    props: {
+        menuItem: {
+            type: Object,
+            default: () => ({})
+        }
+    }
+});
+</script>
+
+<style>
+.class-sub-menu {
+    width: 100px;
+}
+</style>

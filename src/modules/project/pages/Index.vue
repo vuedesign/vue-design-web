@@ -2,10 +2,18 @@
     <a-layout-content class="page-project">
         <div class="list-nav">
             <ul>
-                <li>
-                    <filter-outlined />
+                <li
+                    class="btn-order-time"
+                    :class="{ active: isOrderTime }"
+                    @click="handleToggleOrderTime"
+                >
+                    <clock-circle-outlined />
                     <span>时间排序</span>
                 </li>
+                <!-- <li>
+                    <filter-outlined />
+                    <span>时间排序</span>
+                </li> -->
                 <li>
                     <apartment-outlined />
                     <span>分组</span>
@@ -31,7 +39,7 @@
                     v-for="item in list"
                     :key="item.id"
                 >
-                    <div class="item">
+                    <div class="item" :class="{ active: item.active }">
                         <div class="item-inner">
                             <a-button
                                 shape="round"
@@ -44,45 +52,7 @@
                             </a-button>
                         </div>
                         <div class="item-more">
-                            <a-dropdown
-                                trigger="click"
-                                placement="bottomRight"
-                                :overlay-style="{ width: '100px' }"
-                            >
-                                <ellipsis-outlined @click="e => e.preventDefault()" />
-                                <template #overlay>
-                                    <a-menu>
-                                        <a-menu-item>
-                                            <form-outlined />
-                                            重命名
-                                        </a-menu-item>
-                                        <a-menu-item>
-                                            <copy-outlined />
-                                            克隆
-                                        </a-menu-item>
-                                        <a-menu-item>
-                                            <delete-outlined />
-                                            删除
-                                        </a-menu-item>
-                                        <a-menu-divider />
-                                        <a-sub-menu
-                                            key="test"
-                                            popup-class-name="class-sub-menu"
-                                        >
-                                            <template #title>
-                                                <folder-outlined />
-                                                分类
-                                            </template>
-                                            <a-menu-item>分类1</a-menu-item>
-                                            <a-menu-item>分类2</a-menu-item>
-                                        </a-sub-menu>
-                                        <a-menu-item>
-                                            <setting-outlined />
-                                            设置
-                                        </a-menu-item>
-                                    </a-menu>
-                                </template>
-                            </a-dropdown>
+                            <project-more :project-id="item.id" />
                         </div>
                     </div>
                     <div class="title">
@@ -90,6 +60,14 @@
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class="list-pagination">
+            <a-pagination
+                v-model:current="currentPage"
+                v-model:pageSize="filter.size"
+                :total="total"
+                show-less-items
+            />
         </div>
         <project-add v-model:visible="visible" />
     </a-layout-content>
@@ -100,30 +78,22 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import {
     PlusOutlined,
-    EllipsisOutlined,
-    FormOutlined,
-    DeleteOutlined,
-    CopyOutlined,
-    FolderOutlined,
-    SettingOutlined,
     FilterOutlined,
-    ApartmentOutlined
+    ApartmentOutlined,
+    ClockCircleOutlined
 } from '@ant-design/icons-vue';
 import ProjectAdd from './ProjectAdd.vue';
+import ProjectMore from '../components/ProjectMore.vue';
 
 export default {
     name: 'page-project',
     components: {
         PlusOutlined,
-        EllipsisOutlined,
-        FormOutlined,
-        DeleteOutlined,
-        CopyOutlined,
-        FolderOutlined,
-        SettingOutlined,
         FilterOutlined,
         ApartmentOutlined,
-        ProjectAdd
+        ClockCircleOutlined,
+        ProjectAdd,
+        ProjectMore
     },
     setup() {
         const router = useRouter();
@@ -132,6 +102,19 @@ export default {
         store.dispatch('project/find');
 
         const list = computed(() => store.getters['project/list']);
+        const filter = computed(() => store.getters['project/filter']);
+        const total = computed(() => store.getters['project/total']);
+
+        const currentPage = computed({
+            get() {
+                return filter.value.page;
+            },
+            set(page) {
+                store.dispatch('project/find', {
+                    page
+                });
+            }
+        })
 
         const handleGotoWorkbench = ({ id }) => {
             console.log('item', id);
@@ -144,16 +127,28 @@ export default {
         };
 
         const visible = ref(false);
-
         const handleAddProject = () => {
             visible.value = true;
+        };
+
+        const isOrderTime = ref(false);
+        const handleToggleOrderTime = () => {
+            isOrderTime.value = !isOrderTime.value;
+            store.dispatch('project/find', {
+                order: isOrderTime.value ? 'updatedAt ASC': 'updatedAt DESC'
+            });
         };
 
         return {
             visible,
             list,
+            filter,
+            total,
+            currentPage,
             handleGotoWorkbench,
-            handleAddProject
+            handleAddProject,
+            handleToggleOrderTime,
+            isOrderTime
         };
     }
 };
@@ -178,6 +173,13 @@ export default {
 
         span {
             padding-left: 5px;
+        }
+
+        &.btn-order-time {
+            cursor: pointer;
+            &.active {
+                color: #1890ff;
+            }
         }
     }
 }
@@ -206,7 +208,8 @@ export default {
             position: relative;
             height: 0;
 
-            &:hover {
+            &:hover,
+            &.active {
                 background-color: #F2F2F2;
 
                 .item-inner {
@@ -258,10 +261,9 @@ export default {
         }
     }
 }
-</style>
 
-<style>
-.class-sub-menu {
-    width: 100px;
+.list-pagination {
+    display: flex;
+    justify-content: center;
 }
 </style>

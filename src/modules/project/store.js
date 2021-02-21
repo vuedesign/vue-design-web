@@ -7,6 +7,11 @@ const state = {
         description: ''
     },
     list: [],
+    filter: {
+        page: 1,
+        size: 7,
+        order: 'updatedAt DESC'
+    },
     total: 0
 };
 
@@ -19,14 +24,34 @@ const mutations = {
     },
     DETAIL(state, detail) {
         state.detail = detail;
+    },
+    FILTER(state, filter) {
+        Object.assign(state.filter, filter);
+    },
+    UPDATE_ACTIVCE_STATE(state, { id, active }) {
+        state.list.forEach(item => {
+            if (item.id === id) {
+                item.active = active;
+            } else {
+                item.active = false;
+            }
+        });
+        console.log('state.list', state.list);
     }
 };
 
 const actions = {
-    find: async({ commit }) => {
-        const res = await findData();
-        console.log('res', res);
-        commit('LIST', res.list);
+    find: async({ commit, getters }, query) => {
+        commit('FILTER', query);
+        const res = await findData(getters.filter);
+        const list = res.list.map(item => {
+            return {
+                ...item,
+                active: false
+            };
+        });
+        console.log('res', res, list);
+        commit('LIST', list);
         commit('TOTAL', res.total);
     },
     findOne: async({ commit }, id) => {
@@ -38,7 +63,8 @@ const actions = {
 const getters = {
     detail: state => state.detail,
     list: state => state.list,
-    total: state => state.total
+    total: state => state.total,
+    filter: state => state.filter
 };
 
 export default {
