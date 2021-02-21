@@ -5,13 +5,12 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
-        "lint": "vue-cli-service lint --fix",
-        "dev:vite": "vite",
-        "build:vite": "vite build",
-        "serve:vite": "vite preview"
+		"lint": "vue-cli-service lint --fix",
+		"dev:vite": "vite",
+		"build:vite": "vite build",
+		"serve:vite": "vite preview"
 	},
 	"dependencies": {
-		"@vue/composition-api": "^1.0.0-rc.1",
 		"ant-design-vue": "^2.0.0-rc.9",
 		"axios": "^0.20.0",
 		"core-js": "^3.8.3",
@@ -35,10 +34,10 @@
 		"eslint-friendly-formatter": "^4.0.1",
 		"eslint-loader": "^4.0.2",
 		"eslint-plugin-html": "^6.1.1",
-		"eslint-plugin-vue": "^7.5.0",
+		"eslint-plugin-vue": "^7.6.0",
 		"less": "^2.7.3",
 		"less-loader": "^6.2.0",
-		"sass": "^1.32.6",
+		"sass": "^1.32.8",
 		"sass-loader": "^10.1.1",
 		"vite": "^2.0.1"
 	},

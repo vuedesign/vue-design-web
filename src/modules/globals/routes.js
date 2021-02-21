@@ -5,8 +5,8 @@ export default [
         component: () => import('./pages/Login.vue')
     },
     {
-        name: 'regiter',
-        path: '/regiter',
-        component: () => import('./pages/Regiter.vue')
+        name: 'register',
+        path: '/register',
+        component: () => import('./pages/Register.vue')
     }
 ];

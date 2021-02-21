@@ -1,144 +1,24 @@
 <template>
     <a-layout-content class="page-team">
-        <div class="list-nav">
-            <ul>
-                <li>
-                    <filter-outlined />
-                    <span>时间排序</span>
-                </li>
-                <li>
-                    <apartment-outlined />
-                    <span>分组</span>
-                </li>
-            </ul>
-        </div>
-        <div class="list-content">
-            <ul>
-                <li>
-                    <div class="item">
-                        <div class="item-inner btn-add">
-                            <plus-outlined />
-                            <span>创建</span>
-                        </div>
-                    </div>
-                </li>
-                <li
-                    v-for="item in list"
-                    :key="item.id"
-                >
-                    <div class="item">
-                        <div class="item-inner">
-                            <a-button
-                                shape="round"
-                                @click="handleBuilding(item)"
-                            >
-                                <template #icon>
-                                    <form-outlined />
-                                </template>
-                                编辑
-                            </a-button>
-                        </div>
-                        <div class="item-more">
-                            <a-dropdown
-                                trigger="click"
-                                placement="bottomRight"
-                                :overlay-style="{ width: '100px' }"
-                            >
-                                <ellipsis-outlined @click="e => e.preventDefault()" />
-                                <template #overlay>
-                                    <a-menu>
-                                        <a-menu-item>
-                                            <form-outlined />
-                                            重命名
-                                        </a-menu-item>
-                                        <a-menu-item>
-                                            <copy-outlined />
-                                            克隆
-                                        </a-menu-item>
-                                        <a-menu-item>
-                                            <delete-outlined />
-                                            删除
-                                        </a-menu-item>
-                                        <a-menu-divider />
-                                        <a-sub-menu
-                                            key="test"
-                                            popup-class-name="class-sub-menu"
-                                        >
-                                            <template #title>
-                                                <folder-outlined />
-                                                分类
-                                            </template>
-                                            <a-menu-item>分类1</a-menu-item>
-                                            <a-menu-item>分类2</a-menu-item>
-                                        </a-sub-menu>
-                                        <a-menu-item>
-                                            <setting-outlined />
-                                            设置
-                                        </a-menu-item>
-                                    </a-menu>
-                                </template>
-                            </a-dropdown>
-                        </div>
-                    </div>
-                    <div class="title">
-                        {{ item.description }}
-                    </div>
-                </li>
-            </ul>
-        </div>
+        team
     </a-layout-content>
 </template>
 <script>
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
-import {
-    PlusOutlined,
-    EllipsisOutlined,
-    FormOutlined,
-    DeleteOutlined,
-    CopyOutlined,
-    FolderOutlined,
-    SettingOutlined,
-    FilterOutlined,
-    ApartmentOutlined
-} from '@ant-design/icons-vue';
 
-export default {
+export default defineComponent({
     name: 'db-team',
-    components: {
-        PlusOutlined,
-        EllipsisOutlined,
-        FormOutlined,
-        DeleteOutlined,
-        CopyOutlined,
-        FolderOutlined,
-        SettingOutlined,
-        FilterOutlined,
-        ApartmentOutlined
-    },
     setup() {
-        const router = useRouter();
         const store = useStore();
 
         const list = computed(() => store.getters['team/list']);
 
-        const handleBuilding = ({ id }) => {
-            console.log('item', id);
-            router.push({
-                name: 'building',
-                params: {
-                    id
-                }
-            });
-        };
-
         return {
-            list,
-            handleBuilding
+            list
         };
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

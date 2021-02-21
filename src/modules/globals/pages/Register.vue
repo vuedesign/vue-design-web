@@ -1,10 +1,10 @@
 <template>
-    <a-layout-content class="page-login">
-        <div class="page-login-inner">
-            <div class="page-login-left">
-                <div class="page-login-left-inner">
+    <a-layout-content class="page-regiter">
+        <div class="page-regiter-inner">
+            <div class="page-regiter-left">
+                <div class="page-regiter-left-inner">
                     <a-divider orientation="left">
-                        登录
+                        注册
                     </a-divider>
                     <a-form
                         layout="horizontal"
@@ -41,22 +41,22 @@
                                 block
                                 type="primary"
                                 :disabled="formData.account === '' || formData.password === ''"
-                                @click="handleLogin"
+                                @click="handleRegister"
                             >
-                                登 录
+                                注 册
                             </a-button>
                             <a-button
                                 block
                                 type="link"
-                                @click="handleGotoRegister"
+                                @click="handleGotoLogin"
                             >
-                                注 册
+                                登 录
                             </a-button>
                         </a-form-item>
                     </a-form>
                 </div>
             </div>
-            <div class="page-login-right" />
+            <div class="page-regiter-right" />
         </div>
     </a-layout-content>
 </template>
@@ -67,7 +67,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
-    name: 'login',
+    name: 'register',
     components: {
         UserOutlined,
         LockOutlined
@@ -81,20 +81,20 @@ export default defineComponent({
             password: 'string'
         });
 
-        const handleLogin = () => {
-            store.dispatch('globals/login', formData);
+        const handleRegiter = () => {
+            store.dispatch('globals/register', formData);
         };
 
-        const handleGotoRegiter = () => {
+        const handleGotoLogin = () => {
             router.push({
-                name: 'register'
+                name: 'login'
             });
         };
 
         return {
             formData,
-            handleLogin,
-            handleGotoRegiter,
+            handleRegiter,
+            handleGotoLogin,
             wrapperCol: { span: 24 }
         };
     }
@@ -102,37 +102,28 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.page-login {
+.page-regiter {
     padding: 100px;
 }
 
-.page-login-inner {
+.page-regiter-inner {
     width: 800px;
     margin: 0 auto;
     display: flex;
     min-height: 300px;;
 }
 
-.page-login-right {
+.page-regiter-right {
     flex: 1;
 }
-.page-login-left {
+.page-regiter-left {
     width: 300px;
 }
 
-.page-login-left-inner {
+.page-regiter-left-inner {
     border: 1px solid #eee;
     height: 100%;
     padding: 20px 40px 0 40px;
 }
 
-</style>
-<style lang="scss">
-.page-login {
-    .login-item {
-        > div {
-            width: 100%;
-        }
-    }
-}
 </style>

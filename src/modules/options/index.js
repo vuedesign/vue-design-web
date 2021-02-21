@@ -6,7 +6,7 @@ const components =  {
 
 export default {
     install: (app, options) => {
-        console.log('options', options);
+        // console.log('options', options);
         Object.keys(components).forEach(key => {
             app.component(key, components[key]);
         });

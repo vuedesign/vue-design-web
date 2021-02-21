@@ -35,7 +35,7 @@
                         <div class="item-inner">
                             <a-button
                                 shape="round"
-                                @click="handleBuilding(item)"
+                                @click="handleGotoWorkbench(item)"
                             >
                                 <template #icon>
                                     <form-outlined />
@@ -112,7 +112,7 @@ import {
 import ProjectAdd from './ProjectAdd.vue';
 
 export default {
-    name: 'db-project',
+    name: 'page-project',
     components: {
         PlusOutlined,
         EllipsisOutlined,
@@ -133,10 +133,10 @@ export default {
 
         const list = computed(() => store.getters['project/list']);
 
-        const handleBuilding = ({ id }) => {
+        const handleGotoWorkbench = ({ id }) => {
             console.log('item', id);
             router.push({
-                name: 'building',
+                name: 'workbench',
                 params: {
                     id
                 }
@@ -152,7 +152,7 @@ export default {
         return {
             visible,
             list,
-            handleBuilding,
+            handleGotoWorkbench,
             handleAddProject
         };
     }

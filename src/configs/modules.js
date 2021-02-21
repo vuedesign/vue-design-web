@@ -1,9 +1,9 @@
-import building from '../modules/building/store';
+import workbench from '../modules/workbench/store';
 import project from '../modules/project/store';
 import globals from '../modules/globals/store';
 
 export default {
-    building,
+    workbench,
     project,
     globals
 };
