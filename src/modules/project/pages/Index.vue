@@ -195,6 +195,9 @@ export default {
                 currentTagLabel.value = item.title;
             }
             isTagOpen.value = false;
+            store.dispatch('project/find', {
+                tagId: key
+            });
         };
 
         const handleVisibleChange = (visible) => {

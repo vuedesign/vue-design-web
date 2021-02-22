@@ -73,13 +73,9 @@ export default defineComponent({
                 })
             });
             moreMenuList.value[index].children = categoryChildren;
-            console.log('tagList======', tagList, categoryChildren);
         });
 
         const handleVisibleChange = (visible) => {
-            console.log('projectItem', projectItem.value);
-            console.log('visible', visible);
-            // event.stopPropagation();
             store.commit('project/UPDATE_ACTIVCE_STATE', {
                 id,
                 active: visible

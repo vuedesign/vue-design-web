@@ -10,7 +10,8 @@ const state = {
     filter: {
         page: 1,
         size: 7,
-        order: 'updatedAt DESC'
+        order: 'updatedAt DESC',
+        tagId: 0
     },
     total: 0
 };
