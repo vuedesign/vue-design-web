@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { defineComponent, toRef, ref, computed, watch } from 'vue';
+import { defineComponent, toRef, ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import {
     EllipsisOutlined,
@@ -49,9 +49,9 @@ export default defineComponent({
             const tagIds = props.projectItem.tagIds;
             return !tagIds ? [] : tagIds.split(',').map(Number);
         });
-        const tagList = computed(() => store.getters['globals/tagList']);
 
-        const moreMenuList = ref([
+        const tagList = computed(() => store.getters['globals/tagList']);
+        const menuList = ref([
             { label: '重命名', value: 'rename', icon: 'form-outlined'},
             { label: '复制', value: 'copy', icon: 'copy-outlined'},
             { label: '删除', value: 'delete', icon: 'delete-outlined'},
@@ -61,9 +61,8 @@ export default defineComponent({
             ]},
             { label: '设置', value: 'setting', icon: 'setting-outlined'},
         ]);
-
-        watch(tagList, () => {
-            const index = moreMenuList.value.findIndex(item => item.value === 'tags');
+        const moreMenuList = computed(() => {
+            const index = menuList.value.findIndex(item => item.value === 'tags');
             let categoryChildren = [];
             tagList.value.forEach(item => {
                 categoryChildren.push({
@@ -72,7 +71,8 @@ export default defineComponent({
                     icon: 'tag-outlined'
                 })
             });
-            moreMenuList.value[index].children = categoryChildren;
+            menuList.value[index].children = categoryChildren;
+            return menuList.value;
         });
 
         const handleVisibleChange = (visible) => {
@@ -89,14 +89,12 @@ export default defineComponent({
             });
 
             if (keyPath.pop() === 'tags') {
-                console.log('selectedKeys', selectedKeys);
                 const index = selectedKeys.value.findIndex(item => Number(item) === Number(key));
                 if (index > -1) {
                     selectedKeys.value.splice(index, 1);
                 } else {
                     selectedKeys.value.push(key);
                 }
-                console.log('selectedKeys', selectedKeys.value);
                 store.dispatch('project/updateField', {
                     id,
                     field: 'tagIds',
@@ -104,9 +102,6 @@ export default defineComponent({
                     value: selectedKeys.value.join(',')
                 });
             }
-            console.log('handleMenu item', item);
-            console.log('handleMenu key', key);
-            console.log('handleMenu keyPath', keyPath);
         };
 
         return {
