@@ -228,9 +228,12 @@ export default {
 
 <style scoped lang="scss">
 .page-project {
-    width: 1200px;
+    width: 100%;
+    max-width: 1300px;
     margin: 0 auto;
-    min-height: calc(100% - 158px);
+    padding: 0 50px;
+    min-height: auto;
+    padding-bottom: 20px;
 }
 
 .list-nav {
@@ -281,6 +284,7 @@ export default {
             background-color: #fff;
             position: relative;
             height: 0;
+            border-radius: 3px;
 
             &:hover,
             &.active {
@@ -339,5 +343,22 @@ export default {
 .list-pagination {
     display: flex;
     justify-content: center;
+}
+
+@media screen and (max-width: 1100px) {
+    .list-content {
+        li {
+            width: percentage(1/3);
+        }
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .list-content {
+        li {
+            width: percentage(1/2);
+        }
+    }
 }
 </style>

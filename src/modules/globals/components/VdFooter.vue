@@ -13,6 +13,7 @@ export default {
 <style scoped>
     .vd-footer {
         text-align: center;
-        padding: 10px;
+        padding: 5px 0;
+        color: #999;
     }
 </style>

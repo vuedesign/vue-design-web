@@ -26,5 +26,6 @@ export default {
     width: 100%;
     overflow: hidden;
     background-color: #f9f9f9;
+    overflow-y: auto;
 }
 </style>

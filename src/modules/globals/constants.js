@@ -13,3 +13,10 @@ export const MENU_LIST = [
         label: '规范'
     }
 ];
+
+// 角色：1-超级管理员，2-管理员，3-普通用户
+export const RULE = {
+    1: '超级管理员',
+    2: '管理员',
+    3: '普通用户'
+};

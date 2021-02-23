@@ -15,11 +15,55 @@
                 </li>
             </ul>
         </nav>
-        <div v-if="profile" class="avatar">
-            <a-avatar
-                class="avatar-inner"
-                :src="profile.avatar"
-            />
+        <!-- {{ profile }} -->
+        <div v-if="profile" class="profile">
+            <span class="profile-name">{{ profile.nickname || profile.username }}</span>
+             <a-popover placement="bottomRight" trigger="click">
+                <template #content>
+                    <div class="popover-profile-content">
+                        <dl class="popover-profile-avatar">
+                            <dt>
+                                <a-avatar
+                                    :size="48"
+                                    :src="profile.avatar"
+                                />
+                            </dt>
+                            <dd>
+                                <h5 class="popover-profile-username">
+                                    <span>{{ profile.username }}</span>
+                                </h5>
+                                <p class="popover-profile-rule">{{ rule[profile.rule] }}</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>昵称：</dt>
+                            <dd>{{ profile.nickname }}</dd>
+                        </dl>
+                        <dl>
+                            <dt>邮件：</dt>
+                            <dd>{{ profile.email }}</dd>
+                        </dl>
+                        <dl>
+                            <dt>电话：</dt>
+                            <dd>{{ profile.phone }}</dd>
+                        </dl>
+                        <div class="popover-profile-logout">
+                            <a-button
+                                type="dashed"
+                                block
+                                @click="handleLogout"
+                            >退出登录</a-button>
+                        </div>
+                    </div>
+                </template>
+                <!-- <template #title>
+                    <span>Title</span>
+                </template> -->
+                <a-avatar
+                    class="profile-avatar"
+                    :src="profile.avatar"
+                />
+            </a-popover>
         </div>
     </a-layout-header>
 </template>
@@ -27,8 +71,9 @@
 <script>
 import { computed, readonly, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { message } from 'ant-design-vue';
 import { useStore } from 'vuex';
-import { MENU_LIST } from '../constants';
+import { MENU_LIST, RULE } from '../constants';
 
 export default {
     name: 'vd-header',
@@ -39,6 +84,7 @@ export default {
         const currentNavName = ref(route.name);
 
         const menuList = readonly(MENU_LIST);
+        const rule = readonly(RULE);
 
         store.dispatch('globals/findProfile');
 
@@ -51,11 +97,17 @@ export default {
             });
         };
 
+        const handleLogout = () => {
+            message.info('点击了退出登录按钮');
+        };
+
         return {
             currentNavName,
             menuList,
+            rule,
             handleCheck,
-            profile
+            profile,
+            handleLogout
         };
     }
 };
@@ -64,12 +116,13 @@ export default {
 <style scoped lang="scss">
     .vd-header {
         display: flex;
-        width: 1200px;
+        width: 100%;
+        max-width: 1300px;
         margin: 0 auto;
         height: auto;
         background-color: transparent;
-        padding: 0;
-        padding-top: 24px;
+        padding: 0 50px;
+        padding-top: 16px;
         justify-content: space-between;
     }
     .logo {
@@ -133,14 +186,72 @@ export default {
         }
     }
 
-    .avatar {
-        .avatar-inner {
-            display: block;
-            width: 48px;
-            height: 48px;
-            border: 1px solid #aaa;
-            border-radius: 24px;
-            background-color: #ffffff;
+    .profile {
+        display: flex;
+        padding: 4px 0;
+        .profile-name {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 8px;
         }
+        .profile-avatar {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #fff;
+            border-radius: 20px;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+    }
+
+    .popover-profile-content {
+        width: 220px;
+        dl,
+        dt,
+        dd {
+            margin-bottom: 0;
+        }
+        dl {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        dt {
+            color: #999;
+            font-weight: 400;
+        }
+        dd {
+            color: #333;
+        }
+    }
+
+    .popover-profile-avatar {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+    }
+
+    .popover-profile-username {
+        font-size: 16px;
+        color: #333;
+        line-height: 24px;
+        margin-left: 12px;
+        margin-bottom: 0;
+        margin-top: 2px;
+    }
+
+    .popover-profile-rule {
+        font-size: 12px;
+        color: #666;
+        margin-left: 12px;
+        margin-bottom: 0;
+    }
+
+    .popover-profile-logout {
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+    }
+
+    .logout-notification {
+        z-index: 1040;
     }
 </style>
