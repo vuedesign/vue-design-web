@@ -52,7 +52,7 @@ export default defineComponent({
 
         const tagList = computed(() => store.getters['globals/tagList']);
         const menuList = ref([
-            { label: '重命名', value: 'rename', icon: 'form-outlined'},
+            { label: '编辑', value: 'edit', icon: 'form-outlined'},
             { label: '复制', value: 'copy', icon: 'copy-outlined'},
             { label: '删除', value: 'delete', icon: 'delete-outlined'},
             { label: 'divider', value: 'divider', icon: ''},

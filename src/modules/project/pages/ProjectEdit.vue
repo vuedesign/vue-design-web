@@ -1,7 +1,7 @@
 <template>
     <a-modal
         v-model:visible="displayVisible"
-        title="创建项目"
+        title="编辑项目"
         ok-text="确认"
         cancel-text="取消"
         :confirm-loading="confirmLoading"
@@ -48,10 +48,9 @@
 import { defineComponent, reactive, ref, toRef } from 'vue';
 import { addRules } from '../rules';
 import { useStore } from 'vuex';
-import { message } from 'ant-design-vue';
 
 export default defineComponent({
-    name: 'project-add',
+    name: 'project-edit',
     props: {
         visible: {
             type: Boolean,
@@ -62,6 +61,7 @@ export default defineComponent({
     setup(props, { emit }) {
 
         const store = useStore();
+
         const displayVisible = toRef(props, 'visible');
         const confirmLoading = ref(false);
         const formRef = ref();
@@ -75,21 +75,16 @@ export default defineComponent({
                 .validate()
                 .then(() => {
                     confirmLoading.value = true;
-                    console.log('values', formData);
-                    store.dispatch('project/create', formData)
+                    console.log('values', formData.value);
+                    store.dispatch('project/create', formData.value)
                         .then(res => {
                             emit('update:visible', false);
-                            formData.name = '';
-                            formData.description = '';
-                            message.success('项目创建成功！');
-                        })
-                        .catch(() => {
-                            message.error('项目创建失败！');
-                        })
-                        .finally(() => {
-                            formRef.value.resetFields();
                             confirmLoading.value = false;
                         });
+                    // setTimeout(() => {
+                    //     emit('update:visible', false);
+                    //     confirmLoading.value = false;
+                    // }, 1000);
                 })
                 .catch((error) => {
                     console.log('error', error);

@@ -1,8 +1,13 @@
-import { findData, findOneData, updateFielData } from './api';
+import {
+    findData,
+    findOneData,
+    updateFieldData,
+    createData
+} from './api';
 
 const state = {
     detail: {
-        id: 0,
+        id: null,
         name: '',
         description: ''
     },
@@ -60,13 +65,19 @@ const actions = {
         commit('DETAIL', res);
     },
     updateField: async({ dispatch }, { id, field, value, type }) => {
-        const res = await updateFielData(id, {
+        const res = await updateFieldData(id, {
             field,
             value,
             type
         });
         await dispatch('find');
         console.log('res', res);
+    },
+    create: async({ dispatch }, data = {}) => {
+        return createData(data).then(res => {
+            dispatch('find');
+            return res;
+        });
     }
 };
 

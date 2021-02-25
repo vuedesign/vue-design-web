@@ -74,7 +74,7 @@
                                 <template #icon>
                                     <form-outlined />
                                 </template>
-                                编辑
+                                开始设计
                             </a-button>
                         </div>
                         <div class="item-more">
@@ -112,6 +112,7 @@ import {
     CaretUpOutlined
 } from '@ant-design/icons-vue';
 import ProjectAdd from './ProjectAdd.vue';
+import ProjectEdit from './ProjectEdit.vue';
 import ProjectMore from '../components/ProjectMore.vue';
 import ProjectMoreMenu from '../components/ProjectMoreMenu.vue';
 
@@ -311,6 +312,7 @@ export default {
             display: none;
 
             &.btn-add {
+                display: flex;
                 cursor: pointer;
 
                 span {
