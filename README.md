@@ -1,4 +1,4 @@
-# vue-next 全家同
+# vue-next 全家桶
 
 - vue 3
 - vue-composition-api
