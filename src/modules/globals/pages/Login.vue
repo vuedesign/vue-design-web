@@ -85,7 +85,7 @@ export default defineComponent({
             store.dispatch('globals/login', formData);
         };
 
-        const handleGotoRegiter = () => {
+        const handleGotoRegister = () => {
             router.push({
                 name: 'register'
             });
@@ -94,7 +94,7 @@ export default defineComponent({
         return {
             formData,
             handleLogin,
-            handleGotoRegiter,
+            handleGotoRegister,
             wrapperCol: { span: 24 }
         };
     }
