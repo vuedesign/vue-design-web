@@ -9,7 +9,7 @@
         @cancel="handleCancel"
     >
         <a-form
-            ref="formRef"
+            ref="editFormRef"
             name="custom-validation"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, ref, toRef } from 'vue';
+import { computed, defineComponent, reactive, ref, toRef, watch } from 'vue';
 import { addRules } from '../rules';
 import { useStore } from 'vuex';
 
@@ -55,6 +55,10 @@ export default defineComponent({
         visible: {
             type: Boolean,
             default: true
+        },
+        id: {
+            type: Number,
+            required: true
         }
     },
     emits: ['update:visible'],
@@ -62,16 +66,27 @@ export default defineComponent({
 
         const store = useStore();
 
+        const id = toRef(props, 'id');
+
+        store.dispatch('project/findOne', id);
+
+        const detail = computed(() => store.getters['project/detail']);
+
         const displayVisible = toRef(props, 'visible');
         const confirmLoading = ref(false);
-        const formRef = ref();
+        const editFormRef = ref();
         const formData = reactive({
             name: '',
             description: ''
         });
 
+        watch(detail, (detail) => {
+            debugger;
+            console.log('detail', detail);
+        });
+
         const handleOk = () => {
-            formRef.value
+            editFormRef.value
                 .validate()
                 .then(() => {
                     confirmLoading.value = true;
@@ -99,7 +114,7 @@ export default defineComponent({
             displayVisible,
             handleOk,
             handleCancel,
-            formRef,
+            editFormRef,
             formData,
             addRules,
             confirmLoading,

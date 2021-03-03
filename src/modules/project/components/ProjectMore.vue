@@ -41,6 +41,7 @@ export default defineComponent({
             default: () => ({})
         }
     },
+    emits: ['menu-edit'],
     setup(props, { emit }) {
         const store = useStore();
         const projectItem = toRef(props, 'projectItem');
@@ -88,21 +89,41 @@ export default defineComponent({
                 active: false
             });
 
-            if (keyPath.pop() === 'tags') {
-                const index = selectedKeys.value.findIndex(item => Number(item) === Number(key));
-                if (index > -1) {
-                    selectedKeys.value.splice(index, 1);
-                } else {
-                    selectedKeys.value.push(key);
-                }
-                store.dispatch('project/updateField', {
-                    id,
-                    field: 'tagIds',
-                    type: 'string',
-                    value: selectedKeys.value.join(',')
-                });
+            const menuType = keyPath.pop();
+            switch(menuType) {
+                case 'tags': tags(key);
+                break;
+                case 'edit': emit('menu-edit', projectItem.value);
+                break;
+                case 'copy': copy(id);
+                break;
+                case 'delete': del(id);
+                break;
             }
         };
+
+        function tags(key) {
+            const index = selectedKeys.value.findIndex(item => Number(item) === Number(key));
+            if (index > -1) {
+                selectedKeys.value.splice(index, 1);
+            } else {
+                selectedKeys.value.push(key);
+            }
+            store.dispatch('project/updateField', {
+                id,
+                field: 'tagIds',
+                type: 'string',
+                value: selectedKeys.value.join(',')
+            });
+        }
+
+        function copy(id) {
+            console.log('copy', id);
+        }
+
+        function del(id) {
+            console.log('del', id);
+        }
 
         return {
             projectItem,

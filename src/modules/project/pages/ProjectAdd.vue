@@ -9,7 +9,7 @@
         @cancel="handleCancel"
     >
         <a-form
-            ref="formRef"
+            ref="addFormRef"
             name="custom-validation"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
@@ -64,14 +64,14 @@ export default defineComponent({
         const store = useStore();
         const displayVisible = toRef(props, 'visible');
         const confirmLoading = ref(false);
-        const formRef = ref();
+        const addFormRef = ref();
         const formData = reactive({
             name: '',
             description: ''
         });
 
         const handleOk = () => {
-            formRef.value
+            addFormRef.value
                 .validate()
                 .then(() => {
                     confirmLoading.value = true;
@@ -104,7 +104,7 @@ export default defineComponent({
             displayVisible,
             handleOk,
             handleCancel,
-            formRef,
+            addFormRef,
             formData,
             addRules,
             confirmLoading,

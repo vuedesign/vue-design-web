@@ -78,7 +78,7 @@
                             </a-button>
                         </div>
                         <div class="item-more">
-                            <project-more :project-item="item" />
+                            <project-more :project-item="item" @menu-edit="handleEditProject" />
                         </div>
                     </div>
                     <div class="title">
@@ -95,7 +95,8 @@
                 show-less-items
             />
         </div>
-        <project-add v-model:visible="visible" />
+        <project-add v-model:visible="addVisible" />
+        <project-edit v-model:visible="editVisible" />
     </a-layout-content>
 </template>
 <script>
@@ -127,6 +128,7 @@ export default {
         CaretDownOutlined,
         CaretUpOutlined,
         ProjectAdd,
+        ProjectEdit,
         ProjectMore,
         ProjectMoreMenu
     },
@@ -137,17 +139,11 @@ export default {
         store.dispatch('project/find');
         store.dispatch('globals/findTag');
 
+        // 列表与分页
         const list = computed(() => store.getters['project/list']);
         const filter = computed(() => store.getters['project/filter']);
         const total = computed(() => store.getters['project/total']);
-        const tagList = computed(() => {
-            return store.getters['globals/tagList'].map(item => ({
-                value: item.id,
-                label: item.name,
-                icon: 'tag-outlined'
-            }));
-        });
-
+        // 分页-当前页面
         const currentPage = computed({
             get() {
                 return filter.value.page;
@@ -159,6 +155,7 @@ export default {
             }
         })
 
+        // 跳转到设计面板
         const handleGotoWorkbench = ({ id }) => {
             console.log('item', id);
             router.push({
@@ -169,11 +166,13 @@ export default {
             });
         };
 
-        const visible = ref(false);
+        // 添加项目
+        const addVisible = ref(false);
         const handleAddProject = () => {
-            visible.value = true;
+            addVisible.value = true;
         };
 
+        // 时间排序
         const isOrderTime = ref(false);
         const handleToggleOrderTime = () => {
             isOrderTime.value = !isOrderTime.value;
@@ -182,6 +181,15 @@ export default {
             });
         };
 
+        // 标签列表
+        const tagList = computed(() => {
+            return store.getters['globals/tagList'].map(item => ({
+                value: item.id,
+                label: item.name,
+                icon: 'tag-outlined'
+            }));
+        });
+        // 标签过滤
         const selectedTagKeys = ref([0]);
         const isTagFilter = ref(false);
         const currentTagLabel = ref('标签过滤');
@@ -205,8 +213,15 @@ export default {
             isTagOpen.value = visible;
         };
 
+        // 编辑项目
+        const editVisible = ref(false);
+        const handleEditProject = () => {
+            editVisible.value = true;
+        };
+
         return {
-            visible,
+            addVisible,
+            editVisible,
             list,
             filter,
             total,
@@ -221,7 +236,8 @@ export default {
             isTagFilter,
             currentTagLabel,
             handleVisibleChange,
-            isTagOpen
+            isTagOpen,
+            handleEditProject
         };
     }
 };
