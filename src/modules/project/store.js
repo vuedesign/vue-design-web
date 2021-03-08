@@ -9,7 +9,8 @@ const state = {
     detail: {
         id: null,
         name: '',
-        description: ''
+        description: '',
+        thumb: ''
     },
     list: [],
     filter: {

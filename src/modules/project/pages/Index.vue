@@ -65,7 +65,11 @@
                     v-for="item in list"
                     :key="item.id"
                 >
-                    <div class="item" :class="{ active: item.active }">
+                    <div
+                        class="item"
+                        :class="{ active: item.active }"
+                        :style="{ backgroundImage: `url(/${item.thumb})` }"
+                    >
                         <div class="item-inner">
                             <a-button
                                 shape="round"
@@ -302,6 +306,9 @@ export default {
             position: relative;
             height: 0;
             border-radius: 3px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
 
             &:hover,
             &.active {
@@ -309,6 +316,7 @@ export default {
 
                 .item-inner {
                     display: flex;
+                    background-color: rgba(200, 200, 200, .8);
                 }
 
                 .item-more {
@@ -349,6 +357,8 @@ export default {
             height: 20px;
             text-align: center;
             cursor: pointer;
+            color: #fff;
+            font-weight: 700;
         }
 
         .title {
