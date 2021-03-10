@@ -15,3 +15,7 @@ export function updateFieldData(id, data) {
 export function createData(data) {
     return http.post(`/api/v1/projects`, data);
 }
+
+export function updateData(data) {
+    return http.put(`/api/v1/projects/${data.id}`, data);
+}

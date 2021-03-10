@@ -2,7 +2,8 @@ import {
     findData,
     findOneData,
     updateFieldData,
-    createData
+    createData,
+    updateData
 } from './api';
 
 const state = {
@@ -74,9 +75,16 @@ const actions = {
         await dispatch('find');
         console.log('res', res);
     },
-    create: async({ dispatch }, data = {}) => {
+    create: ({ dispatch }, data = {}) => {
         return createData(data).then(res => {
             dispatch('find');
+            return res;
+        });
+    },
+    update: ({ dispatch }, data = {}) => {
+        return updateData(data).then(res => {
+            dispatch('find');
+            console.log('resresresres===', res);
             return res;
         });
     }

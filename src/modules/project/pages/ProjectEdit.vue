@@ -40,17 +40,29 @@
                     autocomplete="off"
                 />
             </a-form-item>
+            <a-form-item
+                label="项目封面"
+                name="thumb"
+            >
+                <upload-thumb v-model:value="formData.thumb" />
+            </a-form-item>
         </a-form>
     </a-modal>
 </template>
 
 <script>
-import { computed, defineComponent, reactive, ref, toRef, watch } from 'vue';
-import { addRules } from '../rules';
+import { computed, defineComponent, reactive, ref, toRef, watch, watchEffect } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+import { message } from 'ant-design-vue';
+import { addRules } from '../rules';
+import UploadThumb from '../components/UploadThumb.vue';
 
 export default defineComponent({
     name: 'project-edit',
+    components: {
+        UploadThumb
+    },
     props: {
         visible: {
             type: Boolean,
@@ -63,26 +75,40 @@ export default defineComponent({
     },
     emits: ['update:visible'],
     setup(props, { emit }) {
-
         const store = useStore();
-
-        const id = toRef(props, 'id');
-
-        store.dispatch('project/findOne', id);
-
         const detail = computed(() => store.getters['project/detail']);
+        const id = toRef(props, 'id');
 
         const displayVisible = toRef(props, 'visible');
         const confirmLoading = ref(false);
         const editFormRef = ref();
         const formData = reactive({
+            id: '',
             name: '',
-            description: ''
+            description: '',
+            thumb: ''
         });
 
-        watch(detail, (detail) => {
-            debugger;
-            console.log('detail', detail);
+        const resetFormData = () => {
+            formData.id = '';
+            formData.name = '';
+            formData.description = '';
+            formData.thumb = '';
+        }
+
+        watch([id, displayVisible], ([id, displayVisible]) => {
+            if (displayVisible) {
+                store.dispatch('project/findOne', id);
+            }
+        });
+
+        watch(detail, detail => {
+            if (detail) {
+                formData.id = detail.id;
+                formData.name = detail.name;
+                formData.description = detail.description;
+                formData.thumb = detail.thumb;
+            }
         });
 
         const handleOk = () => {
@@ -90,16 +116,19 @@ export default defineComponent({
                 .validate()
                 .then(() => {
                     confirmLoading.value = true;
-                    console.log('values', formData.value);
-                    store.dispatch('project/create', formData.value)
+                    store.dispatch('project/update', formData)
                         .then(res => {
                             emit('update:visible', false);
+                            message.success('项目编辑成功！');
+                        })
+                        .catch(() => {
+                            message.error('项目编辑失败！');
+                        })
+                        .finally(() => {
+                            editFormRef.value.resetFields();
                             confirmLoading.value = false;
+                            resetFormData();
                         });
-                    // setTimeout(() => {
-                    //     emit('update:visible', false);
-                    //     confirmLoading.value = false;
-                    // }, 1000);
                 })
                 .catch((error) => {
                     console.log('error', error);

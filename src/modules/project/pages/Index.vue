@@ -15,7 +15,7 @@
                     <span>时间排序</span>
                 </li> -->
                 <a-dropdown
-                    trigger="click"
+                    :trigger="['click']"
                     placement="bottomLeft"
                     :overlay-style="{ width: '120px' }"
                     @visible-change="handleVisibleChange"
@@ -100,11 +100,11 @@
             />
         </div>
         <project-add v-model:visible="addVisible" />
-        <project-edit v-model:visible="editVisible" />
+        <project-edit v-model:visible="editVisible" :id="currentEditId" />
     </a-layout-content>
 </template>
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import {
@@ -114,14 +114,15 @@ import {
     TagsOutlined,
     TagOutlined,
     CaretDownOutlined,
-    CaretUpOutlined
+    CaretUpOutlined,
+    FormOutlined
 } from '@ant-design/icons-vue';
 import ProjectAdd from './ProjectAdd.vue';
 import ProjectEdit from './ProjectEdit.vue';
 import ProjectMore from '../components/ProjectMore.vue';
 import ProjectMoreMenu from '../components/ProjectMoreMenu.vue';
 
-export default {
+export default defineComponent({
     name: 'page-project',
     components: {
         PlusOutlined,
@@ -131,6 +132,7 @@ export default {
         TagOutlined,
         CaretDownOutlined,
         CaretUpOutlined,
+        FormOutlined,
         ProjectAdd,
         ProjectEdit,
         ProjectMore,
@@ -219,8 +221,11 @@ export default {
 
         // 编辑项目
         const editVisible = ref(false);
-        const handleEditProject = () => {
+        const currentEditId = ref(0);
+        const handleEditProject = (item) => {
+            console.log('item', item);
             editVisible.value = true;
+            currentEditId.value = item.id;
         };
 
         return {
@@ -241,10 +246,11 @@ export default {
             currentTagLabel,
             handleVisibleChange,
             isTagOpen,
-            handleEditProject
+            handleEditProject,
+            currentEditId
         };
     }
-};
+});
 </script>
 
 <style scoped lang="scss">

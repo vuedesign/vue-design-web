@@ -1,6 +1,6 @@
 <template>
     <a-dropdown
-        trigger="click"
+        :trigger="['click']"
         placement="bottomRight"
         :overlay-style="{ width: '120px' }"
         @visible-change="handleVisibleChange"
