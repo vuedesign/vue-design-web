@@ -18,7 +18,7 @@
         <!-- {{ profile }} -->
         <div v-if="profile" class="profile">
             <span class="profile-name">{{ profile.nickname || profile.username }}</span>
-             <a-popover placement="bottomRight" trigger="click">
+            <a-popover placement="bottomRight" trigger="click">
                 <template #content>
                     <div class="popover-profile-content">
                         <dl class="popover-profile-avatar">
@@ -32,7 +32,9 @@
                                 <h5 class="popover-profile-username">
                                     <span>{{ profile.username }}</span>
                                 </h5>
-                                <p class="popover-profile-rule">{{ rule[profile.rule] }}</p>
+                                <p class="popover-profile-rule">
+                                    {{ rule[profile.rule] }}
+                                </p>
                             </dd>
                         </dl>
                         <dl>
@@ -52,13 +54,12 @@
                                 type="dashed"
                                 block
                                 @click="handleLogout"
-                            >退出登录</a-button>
+                            >
+                                退出登录
+                            </a-button>
                         </div>
                     </div>
                 </template>
-                <!-- <template #title>
-                    <span>Title</span>
-                </template> -->
                 <a-avatar
                     class="profile-avatar"
                     :src="profile.avatar"

@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, reactive, ref, toRef } from 'vue';
+import { defineComponent, reactive, ref, toRef } from 'vue';
 import { useStore } from 'vuex';
 import { message } from 'ant-design-vue';
 import { addRules } from '../rules';
@@ -85,16 +85,16 @@ export default defineComponent({
             formData.name = '';
             formData.description = '';
             formData.thumb = '';
-        }
+        };
 
-        const handleOk = async () => {
-            const isValidate = await addFormRef.value.validate().catch((error) => false);
+        const handleOk = async() => {
+            const isValidate = await addFormRef.value.validate().catch(() => false);
             if (!isValidate) {
                 return;
             }
             confirmLoading.value = true;
             store.dispatch('project/create', formData)
-                .then(res => {
+                .then(() => {
                     emit('update:visible', false);
                     resetFormData();
                     addFormRef.value.resetFields();

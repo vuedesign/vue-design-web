@@ -1,7 +1,7 @@
 <template>
     <a-upload
-        class="thumb-uploader"
         v-model:file-list="fileList"
+        class="thumb-uploader"
         :headers="headers"
         name="file"
         list-type="picture-card"
@@ -10,12 +10,14 @@
         :before-upload="beforeUpload"
         @change="handleChange"
     >
-        <div v-if="imageUrl" class="img-inner" :style="{ backgroundImage: `url(${imageUrl})`}"></div>
+        <div v-if="imageUrl" class="img-inner" :style="{ backgroundImage: `url(${imageUrl})`}" />
         <div v-else class="img-inner">
             <div class="img-box">
-                <loading-outlined v-if="loading"></loading-outlined>
-                <plus-outlined :style="{fontSize: '24px', color: '#999'}" v-else></plus-outlined>
-                <div class="ant-upload-text">上传</div>
+                <loading-outlined v-if="loading" />
+                <plus-outlined v-else :style="{fontSize: '24px', color: '#999'}" />
+                <div class="ant-upload-text">
+                    上传
+                </div>
             </div>
         </div>
     </a-upload>

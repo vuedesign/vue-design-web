@@ -24,13 +24,13 @@
                         <tag-outlined v-if="isTagFilter" />
                         <tags-outlined v-else />
                         <span>{{ currentTagLabel }}</span>
-                        <caret-up-outlined class="tag-filter-icon" v-if="isTagOpen" />
-                        <caret-down-outlined class="tag-filter-icon" v-else />
+                        <caret-up-outlined v-if="isTagOpen" class="tag-filter-icon" />
+                        <caret-down-outlined v-else class="tag-filter-icon" />
                     </li>
                     <template #overlay>
                         <a-menu
-                            @click="handleTagFilter"
                             v-model:selectedKeys="selectedTagKeys"
+                            @click="handleTagFilter"
                         >
                             <a-menu-item :key="0">
                                 <tags-outlined />
@@ -38,8 +38,8 @@
                             </a-menu-item>
                             <project-more-menu
                                 v-for="(item) in tagList"
-                                :menu-item="item"
                                 :key="item.value"
+                                :menu-item="item"
                             />
                         </a-menu>
                     </template>
@@ -101,7 +101,7 @@
             />
         </div>
         <project-add v-model:visible="addVisible" />
-        <project-edit v-model:visible="editVisible" :id="currentEditId" />
+        <project-edit :id="currentEditId" v-model:visible="editVisible" />
     </a-layout-content>
 </template>
 <script>
@@ -110,7 +110,6 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import {
     PlusOutlined,
-    FilterOutlined,
     ClockCircleOutlined,
     TagsOutlined,
     TagOutlined,
@@ -127,7 +126,6 @@ export default defineComponent({
     name: 'page-project',
     components: {
         PlusOutlined,
-        FilterOutlined,
         ClockCircleOutlined,
         TagsOutlined,
         TagOutlined,
@@ -160,7 +158,7 @@ export default defineComponent({
                     page
                 });
             }
-        })
+        });
 
         // 跳转到设计面板
         const handleGotoWorkbench = ({ id }) => {
@@ -201,7 +199,7 @@ export default defineComponent({
         const isTagFilter = ref(false);
         const currentTagLabel = ref('标签过滤');
         const isTagOpen = ref(false);
-        const handleTagFilter = ({ item, key, keyPath }) => {
+        const handleTagFilter = ({ item, key }) => {
             selectedTagKeys.value = [key];
             if (key === 0) {
                 isTagFilter.value = false;

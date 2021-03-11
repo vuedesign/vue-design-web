@@ -8,13 +8,13 @@
         <ellipsis-outlined />
         <template #overlay>
             <a-menu
-                @click="handleMenu"
                 v-model:selectedKeys="selectedKeys"
+                @click="handleMenu"
             >
                 <project-more-menu
                     v-for="(item) in moreMenuList"
-                    :menu-item="item"
                     :key="item.value"
+                    :menu-item="item"
                 />
             </a-menu>
         </template>
@@ -22,11 +22,12 @@
 </template>
 
 <script>
-import { defineComponent, toRef, ref, computed } from 'vue';
+import { defineComponent, toRef, computed } from 'vue';
 import { useStore } from 'vuex';
 import {
     EllipsisOutlined,
 } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
 import ProjectMoreMenu from './ProjectMoreMenu.vue';
 
 export default defineComponent({
@@ -44,15 +45,28 @@ export default defineComponent({
     emits: ['menu-edit'],
     setup(props, { emit }) {
         const store = useStore();
-        const projectItem = toRef(props, 'projectItem');
-        const { id } = projectItem.value;
+        const projectDetail = toRef(props, 'projectItem');
+        const { id } = projectDetail.value;
         const selectedKeys = computed(() => {
             const tagIds = props.projectItem.tagIds;
             return !tagIds ? [] : tagIds.split(',').map(Number);
         });
 
+        // 我的标签列表
         const tagList = computed(() => store.getters['globals/tagList']);
-        const menuList = ref([
+
+        const categoryChildren = computed(() => {
+            return tagList.value.map(item => {
+                return {
+                    label: item.name,
+                    value: item.id,
+                    icon: 'tag-outlined'
+                };
+            });
+        });
+
+        // 项目列表-更多菜单
+        const menuList = [
             { label: '编辑', value: 'edit', icon: 'form-outlined'},
             { label: '复制', value: 'copy', icon: 'copy-outlined'},
             { label: '删除', value: 'delete', icon: 'delete-outlined'},
@@ -61,21 +75,17 @@ export default defineComponent({
                 // { label: '标签1', value: 'category-1', icon: 'delete-outlined'}
             ]},
             { label: '设置', value: 'setting', icon: 'setting-outlined'},
-        ]);
+        ];
+
+        // 向更多菜单添加标签列表数据
         const moreMenuList = computed(() => {
-            const index = menuList.value.findIndex(item => item.value === 'tags');
-            let categoryChildren = [];
-            tagList.value.forEach(item => {
-                categoryChildren.push({
-                    label: item.name,
-                    value: item.id,
-                    icon: 'tag-outlined'
-                })
-            });
-            menuList.value[index].children = categoryChildren;
-            return menuList.value;
+            const index = menuList.findIndex(item => item.value === 'tags');
+            const newMenuList = [...menuList];
+            newMenuList[index].children = categoryChildren;
+            return newMenuList;
         });
 
+        // 下拉更多菜单状态
         const handleVisibleChange = (visible) => {
             store.commit('project/UPDATE_ACTIVCE_STATE', {
                 id,
@@ -83,7 +93,8 @@ export default defineComponent({
             });
         };
 
-        const handleMenu = ({ item, key, keyPath }) => {
+        // 点击菜单
+        const handleMenu = ({ key, keyPath }) => {
             store.commit('project/UPDATE_ACTIVCE_STATE', {
                 id,
                 active: false
@@ -91,17 +102,18 @@ export default defineComponent({
 
             const menuType = keyPath.pop();
             switch(menuType) {
-                case 'tags': tags(key);
+            case 'tags': tags(key);
                 break;
-                case 'edit': emit('menu-edit', projectItem.value);
+            case 'edit': emit('menu-edit', projectDetail.value);
                 break;
-                case 'copy': copy(id);
+            case 'copy': copy(id);
                 break;
-                case 'delete': del(id);
+            case 'delete': del(id);
                 break;
             }
         };
 
+        // 大标签
         function tags(key) {
             const index = selectedKeys.value.findIndex(item => Number(item) === Number(key));
             if (index > -1) {
@@ -118,15 +130,20 @@ export default defineComponent({
         }
 
         function copy(id) {
+            message.success('点击了-复制功能-待开发！');
             console.log('copy', id);
         }
 
         function del(id) {
-            console.log('del', id);
+            store.dispatch('project/destroy', id).then(() => {
+                message.success('删除成功！');
+            }).catch(() => {
+                message.error('删除失败！');
+            });
         }
 
         return {
-            projectItem,
+            projectDetail,
             handleVisibleChange,
             handleMenu,
             moreMenuList,

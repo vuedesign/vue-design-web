@@ -19,3 +19,7 @@ export function createData(data) {
 export function updateData(data) {
     return http.put(`/api/v1/projects/${data.id}`, data);
 }
+
+export function destroyData(id) {
+    return http.delete(`/api/v1/projects/${id}`);
+}

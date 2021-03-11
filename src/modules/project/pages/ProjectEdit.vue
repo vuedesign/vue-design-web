@@ -51,9 +51,8 @@
 </template>
 
 <script>
-import { computed, defineComponent, reactive, ref, toRef, watch, watchEffect } from 'vue';
+import { computed, defineComponent, reactive, ref, toRef, watch } from 'vue';
 import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
 import { message } from 'ant-design-vue';
 import { addRules } from '../rules';
 import UploadThumb from '../components/UploadThumb.vue';
@@ -94,7 +93,7 @@ export default defineComponent({
             formData.name = '';
             formData.description = '';
             formData.thumb = '';
-        }
+        };
 
         watch([id, displayVisible], ([id, displayVisible]) => {
             if (displayVisible) {
@@ -112,15 +111,15 @@ export default defineComponent({
             formData.thumb = detail.thumb;
         });
 
-        const handleOk = async () => {
-            const isValidate = await editFormRef.value.validate().catch((error) => false);
+        const handleOk = async() => {
+            const isValidate = await editFormRef.value.validate().catch(() => false);
             if (!isValidate) {
                 return;
             }
 
             confirmLoading.value = true;
             store.dispatch('project/update', formData)
-                .then(res => {
+                .then(() => {
                     emit('update:visible', false);
                     message.success('项目编辑成功！');
                 })

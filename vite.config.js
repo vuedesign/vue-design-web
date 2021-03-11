@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import viteESLint from '@ehutch79/vite-eslint';
 
 function resolve(dir) {
     return path.join(__dirname, dir);
@@ -31,5 +32,5 @@ export default defineConfig({
             '@core': resolve('src/core')
         }
     },
-    plugins: [vue()]
+    plugins: [vue(), viteESLint({ 'include': ['src/**/*.vue', 'src/**/*.js'] })]
 });

@@ -3,7 +3,8 @@ import {
     findOneData,
     updateFieldData,
     createData,
-    updateData
+    updateData,
+    destroyData
 } from './api';
 
 const state = {
@@ -84,7 +85,12 @@ const actions = {
     update: ({ dispatch }, data = {}) => {
         return updateData(data).then(res => {
             dispatch('find');
-            console.log('resresresres===', res);
+            return res;
+        });
+    },
+    destroy: ({ dispatch }, id) => {
+        return destroyData(id).then(res => {
+            dispatch('find');
             return res;
         });
     }

@@ -86,6 +86,6 @@
             "x-invalid-end-tag": true,
             "x-invalid-namespace": true
           }],
-        "vue/no-multiple-template-root": true
+        "vue/no-multiple-template-root": 0
 	}
 }
