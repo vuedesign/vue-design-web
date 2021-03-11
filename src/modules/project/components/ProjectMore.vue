@@ -55,16 +55,6 @@ export default defineComponent({
         // 我的标签列表
         const tagList = computed(() => store.getters['globals/tagList']);
 
-        const categoryChildren = computed(() => {
-            return tagList.value.map(item => {
-                return {
-                    label: item.name,
-                    value: item.id,
-                    icon: 'tag-outlined'
-                };
-            });
-        });
-
         // 项目列表-更多菜单
         const menuList = [
             { label: '编辑', value: 'edit', icon: 'form-outlined'},
@@ -79,6 +69,13 @@ export default defineComponent({
 
         // 向更多菜单添加标签列表数据
         const moreMenuList = computed(() => {
+            const categoryChildren = tagList.value.map(item => {
+                return {
+                    label: item.name,
+                    value: item.id,
+                    icon: 'tag-outlined'
+                };
+            });
             const index = menuList.findIndex(item => item.value === 'tags');
             const newMenuList = [...menuList];
             newMenuList[index].children = categoryChildren;
