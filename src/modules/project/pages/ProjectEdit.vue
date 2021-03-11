@@ -103,35 +103,34 @@ export default defineComponent({
         });
 
         watch(detail, detail => {
-            if (detail) {
-                formData.id = detail.id;
-                formData.name = detail.name;
-                formData.description = detail.description;
-                formData.thumb = detail.thumb;
+            if (!detail) {
+                return;
             }
+            formData.id = detail.id;
+            formData.name = detail.name;
+            formData.description = detail.description;
+            formData.thumb = detail.thumb;
         });
 
-        const handleOk = () => {
-            editFormRef.value
-                .validate()
-                .then(() => {
-                    confirmLoading.value = true;
-                    store.dispatch('project/update', formData)
-                        .then(res => {
-                            emit('update:visible', false);
-                            message.success('项目编辑成功！');
-                        })
-                        .catch(() => {
-                            message.error('项目编辑失败！');
-                        })
-                        .finally(() => {
-                            editFormRef.value.resetFields();
-                            confirmLoading.value = false;
-                            resetFormData();
-                        });
+        const handleOk = async () => {
+            const isValidate = await editFormRef.value.validate().catch((error) => false);
+            if (!isValidate) {
+                return;
+            }
+
+            confirmLoading.value = true;
+            store.dispatch('project/update', formData)
+                .then(res => {
+                    emit('update:visible', false);
+                    message.success('项目编辑成功！');
                 })
-                .catch((error) => {
-                    console.log('error', error);
+                .catch(() => {
+                    message.error('项目编辑失败！');
+                })
+                .finally(() => {
+                    editFormRef.value.resetFields();
+                    confirmLoading.value = false;
+                    resetFormData();
                 });
         };
 

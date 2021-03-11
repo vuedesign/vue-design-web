@@ -87,28 +87,24 @@ export default defineComponent({
             formData.thumb = '';
         }
 
-        const handleOk = () => {
-            addFormRef.value
-                .validate()
-                .then(() => {
-                    confirmLoading.value = true;
-                    console.log('values', formData);
-                    store.dispatch('project/create', formData)
-                        .then(res => {
-                            emit('update:visible', false);
-                            resetFormData();
-                            addFormRef.value.resetFields();
-                            message.success('项目创建成功！');
-                        })
-                        .catch(() => {
-                            message.error('项目创建失败！');
-                        })
-                        .finally(() => {
-                            confirmLoading.value = false;
-                        });
+        const handleOk = async () => {
+            const isValidate = await addFormRef.value.validate().catch((error) => false);
+            if (!isValidate) {
+                return;
+            }
+            confirmLoading.value = true;
+            store.dispatch('project/create', formData)
+                .then(res => {
+                    emit('update:visible', false);
+                    resetFormData();
+                    addFormRef.value.resetFields();
+                    message.success('项目创建成功！');
                 })
-                .catch((error) => {
-                    console.log('error', error);
+                .catch(() => {
+                    message.error('项目创建失败！');
+                })
+                .finally(() => {
+                    confirmLoading.value = false;
                 });
         };
 

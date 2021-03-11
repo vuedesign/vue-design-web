@@ -10,11 +10,13 @@
         :before-upload="beforeUpload"
         @change="handleChange"
     >
-        <img v-if="imageUrl" :src="imageUrl" alt="thumb" />
-        <div v-else>
-            <loading-outlined v-if="loading"></loading-outlined>
-            <plus-outlined v-else></plus-outlined>
-            <div class="ant-upload-text">Upload</div>
+        <div v-if="imageUrl" class="img-inner" :style="{ backgroundImage: `url(${imageUrl})`}"></div>
+        <div v-else class="img-inner">
+            <div class="img-box">
+                <loading-outlined v-if="loading"></loading-outlined>
+                <plus-outlined :style="{fontSize: '24px', color: '#999'}" v-else></plus-outlined>
+                <div class="ant-upload-text">上传</div>
+            </div>
         </div>
     </a-upload>
 </template>
@@ -110,12 +112,30 @@ export default defineComponent({
 <style lang="scss">
 .thumb-uploader > .ant-upload {
     width: 100%;
-    height: 128px;
-    img {
+    height: auto;
+    .img-inner {
         width: 100%;
-        height: auto;
+        height: 0;
+        padding-top: 59%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+
+    .img-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 }
+
 .ant-upload-select-picture-card i {
     font-size: 32px;
     color: #999;

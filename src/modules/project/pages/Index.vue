@@ -72,6 +72,7 @@
                     >
                         <div class="item-inner">
                             <a-button
+                                type="primary"
                                 shape="round"
                                 @click="handleGotoWorkbench(item)"
                             >
@@ -323,6 +324,7 @@ export default defineComponent({
                 .item-inner {
                     display: flex;
                     background-color: rgba(200, 200, 200, .8);
+                    border-radius: 3px;
                 }
 
                 .item-more {
