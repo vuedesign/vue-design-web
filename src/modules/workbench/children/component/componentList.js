@@ -52,7 +52,7 @@ export default [
                             border: '1px solid #aaa',
                             backgroundColor: '#eee',
                             padding: '10px',
-                            margin: '20px',
+                            margin: '5px',
                             borderRadius: '10px'
                         }
                     },

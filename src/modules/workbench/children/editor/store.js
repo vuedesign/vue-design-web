@@ -3,8 +3,8 @@ const state = {
         tx: 50,
         ty: 8,
         scale: 1,
-        width: 800,
-        height: 1000
+        width: 320,
+        height: 568
     },
     pageName: '页面1',
     contextMenu: {

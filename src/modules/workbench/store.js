@@ -7,6 +7,17 @@ import config from './children/config/store';
 // import { getItem } from '@core/localStore';
 
 const state = {
+    event: {},
+    currentDropComponent: {
+        width: 60,
+        height: 60,
+        pageX: 10,
+        pageY: 10,
+        layerX: 0,
+        layerY: 0,
+        isMove: false,
+        cursor: 'default'
+    },
     currentToolBar: 'component',
     componentTree: [
         // {
@@ -108,6 +119,9 @@ const mutations = {
     },
     UPDATE_CURRENT_UUID(state, currentUuid) {
         state.currentUuid = currentUuid;
+    },
+    UPDATE_CURRENT_DROP_COMPONENT(state, styles) {
+        Object.assign(state.currentDropComponent, styles);
     }
 };
 
@@ -119,7 +133,8 @@ const getters = {
     currentPageCustomState: state => state.currentPageOptions.customState,
     currentPageStyle: state => state.currentPageOptions.props.style,
     currentPageOptions: state => state.currentPageOptions,
-    currentUuid: state => state.currentUuid
+    currentUuid: state => state.currentUuid,
+    currentDropComponent: state => state.currentDropComponent
 };
 
 export default {

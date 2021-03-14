@@ -4,8 +4,8 @@
         class="editor-panel"
         :style="{
             transform: `translate(${position.tx}px, ${position.ty}px) scale(${position.scale})`,
-            width: `${position.width}px`,
-            height: `${position.height + panelHeight}px`,
+            width: `${position.width + 10}px`,
+            height: `${position.height + panelHeight + 10}px`,
         }"
     >
         <header
@@ -69,7 +69,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .editor-panel {
     position: relative;
-
+    padding: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 1px 2px rgba(0, 0, 0, .01);
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 .editor-panel-header {
@@ -88,7 +92,6 @@ export default defineComponent({
 .editor-panel-content {
     background-color: #f9f9f9;
     overflow: hidden;
-    box-shadow: 0 0 1px 2px rgba(0, 0, 0, .01);
     position: relative;
 }
 </style>

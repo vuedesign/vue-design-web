@@ -1,23 +1,26 @@
 <template>
     <editor-panel>
-        <div
-            class="vd-page"
-            :style="currentPageStyle"
-            @drop="handleDrop"
-            @dragover="handleDropover"
-            @dragenter="handleDragenter"
-        >
-            <render-component
-                v-for="item in componentTree"
-                :key="item.uuid"
-                :option="item"
-                :current-uuid="item.uuid"
-                @slot-dragover="handleDropover"
-                @slot-drop="handleDrop"
-                @slect="handleSelect"
-            />
+        <div id="editor-panel-tools">
+            <div
+                class="vd-page"
+                :style="currentPageStyle"
+                @drop="handleDrop"
+                @dragover="handleDropover"
+                @dragenter="handleDragenter"
+            >
+                <render-component
+                    v-for="item in componentTree"
+                    :key="item.uuid"
+                    :option="item"
+                    :current-uuid="item.uuid"
+                    @slot-dragover="handleDropover"
+                    @slot-drop="handleDrop"
+                    @slect="handleSelect"
+                />
+            </div>
+            <context-menu />
         </div>
-        <context-menu />
+        <editor-panel-preview />
     </editor-panel>
 </template>
 
@@ -28,6 +31,7 @@ import { v4 as uuidv4 } from 'uuid';
 import EditorPanel from './EditorPanel.vue';
 import RenderComponent from './RenderComponent.vue';
 import ContextMenu from './ContextMenu.vue';
+import EditorPanelPreview from './EditorPanelPreview.vue';
 import COMPONENT_LIST from '../component/componentList';
 
 export default defineComponent({
@@ -35,7 +39,8 @@ export default defineComponent({
     components: {
         EditorPanel,
         RenderComponent,
-        ContextMenu
+        ContextMenu,
+        EditorPanelPreview
     },
     setup() {
 
@@ -161,5 +166,14 @@ export default defineComponent({
         height: 20px;
         background-color: cornflowerblue;
     }
+}
+
+#editor-panel-tools {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
 }
 </style>
