@@ -213,7 +213,7 @@ export default defineComponent({
     position: fixed;
     z-index: 100;
     -webkit-user-drag: none;
-    background-color: rgba(red, .3);
+    // background-color: rgba(red, .3);
 
     .drop-circle-area {
         width: 9px;
