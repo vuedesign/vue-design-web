@@ -96,6 +96,8 @@ export default defineComponent({
         const { left, top, width, height } = defaultStyle.value;
 
         const styleData = reactive({
+            layerX: 0,
+            layerY: 0,
             left,
             top,
             width,
@@ -145,14 +147,14 @@ export default defineComponent({
                 case 'box':
                 case 'move': {
                     styleData.cursor = 'move';
-                    styleData.left = ev.pageX - rect.layerX;
+                    styleData.left = ev.pageX - styleData.layerX;
                     if (styleData.left < 0) {
                         styleData.left = 0;
                     }
                     if (styleData.left > clientWidth - styleData.width) {
                         styleData.left = clientWidth - styleData.width;
                     }
-                    styleData.top = ev.pageY - rect.layerY;
+                    styleData.top = ev.pageY - styleData.layerY;
                     if (styleData.top < 0) {
                         styleData.top = 0;
                     }
@@ -162,38 +164,38 @@ export default defineComponent({
                 }
                     break;
                 case 'top-left':
-                    rect.width = rect.width - (ev.pageX - rect.pageX);
-                    rect.height = rect.height - (ev.pageY - rect.pageY);
-                    rect.pageX = ev.pageX;
-                    rect.pageY = ev.pageY;
+                    styleData.width = styleData.width - (ev.pageX - styleData.layerX - styleData.left);
+                    styleData.height = styleData.height - (ev.pageY - styleData.layerY - styleData.top);
+                    styleData.left = ev.pageX - styleData.layerX;
+                    styleData.top = ev.pageY - styleData.layerY;
                     break;
                 case 'top-right':
-                    rect.width = rect.layerX + (ev.pageX - rect.pageX);
-                    rect.height = rect.height - (ev.pageY - rect.pageY);
-                    rect.pageY = ev.pageY;
+                    styleData.width = ev.pageX - styleData.left;
+                    styleData.height = styleData.height - (ev.pageY - styleData.top);
+                    styleData.top = ev.pageY;
                     break;
                 case 'bottom-left':
-                    rect.width = rect.width - (ev.pageX - rect.pageX);
-                    rect.height = rect.layerY + (ev.pageY - rect.pageY);
-                    rect.pageX = ev.pageX;
+                    styleData.width = styleData.width - (ev.pageX - styleData.left);
+                    styleData.height = ev.pageY - styleData.top;
+                    styleData.left = ev.pageX;
                     break;
                 case 'bottom-right':
-                    rect.width = rect.layerX + (ev.pageX - rect.pageX);
-                    rect.height = rect.layerY + (ev.pageY - rect.pageY);
+                    styleData.width = ev.pageX - styleData.left;
+                    styleData.height = ev.pageY - styleData.top;
                     break;
                 case 'top':
-                    rect.height = rect.height - (ev.pageY - rect.pageY);
-                    rect.pageY = ev.pageY;
+                    styleData.height = styleData.height - (ev.pageY - styleData.top);
+                    styleData.top = ev.pageY;
                     break;
                 case 'right':
-                    rect.width = rect.layerX + (ev.pageX - rect.pageX);
+                    styleData.width = ev.pageX - styleData.left;
                     break;
                 case 'bottom':
-                    rect.height = rect.layerY + (ev.pageY - rect.pageY);
+                    styleData.height = ev.pageY - styleData.top;
                     break;
                 case 'left':
-                    rect.width = rect.width - (ev.pageX - rect.pageX);
-                    rect.pageX = ev.pageX;
+                    styleData.width = styleData.width - (ev.pageX - styleData.left);
+                    styleData.left = ev.pageX;
                     break;
                 }
             } else {
@@ -218,43 +220,43 @@ export default defineComponent({
             switch(type) {
             case 'box':
             case 'move':
-                rect.layerX = ev.layerX;
-                rect.layerY = ev.layerY;
+                styleData.layerX = ev.layerX;
+                styleData.layerY = ev.layerY;
                 styleData.left = ev.pageX - ev.layerX;
                 styleData.top = ev.pageY - ev.layerY;
                 styleData.cursor = 'move';
                 break;
             case 'top-left':
-                rect.layerX = ev.layerX - 3;
-                rect.layerY = ev.layerY - 3;
+                styleData.layerX = ev.layerX - 3;
+                styleData.layerY = ev.layerY - 3;
                 break;
             case 'top-right':
-                rect.layerX = rect.width + ev.layerX - 5;
-                rect.layerY = ev.layerY - 4;
+                styleData.layerX = styleData.width + ev.layerX - 5;
+                styleData.layerY = ev.layerY - 4;
                 break;
             case 'bottom-left':
-                rect.layerX = ev.layerX - 4;
-                rect.layerY = rect.height + ev.layerY - 5;
+                styleData.layerX = ev.layerX - 4;
+                styleData.layerY = styleData.height + ev.layerY - 5;
                 break;
             case 'bottom-right':
-                rect.layerX = rect.width + ev.layerX - 5;
-                rect.layerY = rect.height + ev.layerY - 5;
+                styleData.layerX = styleData.width + ev.layerX - 5;
+                styleData.layerY = styleData.height + ev.layerY - 5;
                 break;
             case 'top':
-                rect.layerX = ev.layerX + 9;
-                rect.layerY = ev.layerY - 4;
+                styleData.layerX = ev.layerX + 9;
+                styleData.layerY = ev.layerY - 4;
                 break;
             case 'right':
-                rect.layerX = rect.width + ev.layerX - 5;
-                rect.layerY = ev.layerY + 9;
+                styleData.layerX = styleData.width + ev.layerX - 5;
+                styleData.layerY = ev.layerY + 9;
                 break;
             case 'bottom':
-                rect.layerX = ev.layerX + 9;
-                rect.layerY = rect.height + ev.layerY - 5;
+                styleData.layerX = ev.layerX + 9;
+                styleData.layerY = styleData.height + ev.layerY - 5;
                 break;
             case 'left':
-                rect.layerX = ev.layerX - 4;
-                rect.layerY = ev.layerY + 9;
+                styleData.layerX = ev.layerX - 4;
+                styleData.layerY = ev.layerY + 9;
                 break;
             }
         };
