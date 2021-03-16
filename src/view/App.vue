@@ -1,14 +1,43 @@
 <template>
     <div class="view-app">
-        <plugin-drop-box>
-            wujian
+        <plugin-drop-box
+            :default-style="{
+                width: 100,
+                height: 32,
+                left: 10,
+                top: 300
+            }"
+        >
+            <a-button
+                type="primary"
+                block
+            >
+                按钮
+            </a-button>
         </plugin-drop-box>
-        {{ currentDropComponent }}
+        <plugin-drop-box>
+            <div :style="{ minWidth: '20px' }">
+                sfsdfsd
+            </div>
+        </plugin-drop-box>
+        <plugin-drop-box
+            :default-style="{
+                width: 200,
+                height: 200,
+                left: 10,
+                top: 10
+            }">
+            <a-tabs v-model:activeKey="activeKey">
+                <a-tab-pane key="1" tab="Tab 1">Content of Tab Pane 1</a-tab-pane>
+                <a-tab-pane key="2" tab="Tab 2" force-render>Content of Tab Pane 2</a-tab-pane>
+                <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
+            </a-tabs>
+        </plugin-drop-box>
     </div>
 </template>
 
 <script>
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import PluginDropBox from '../modules/workbench/components/PluginDropBox.vue';
 
@@ -21,9 +50,11 @@ export default defineComponent({
 
         const store = useStore();
         const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
+        const activeKey = ref('1');
 
         return {
-            currentDropComponent
+            currentDropComponent,
+            activeKey
         };
     }
 });
@@ -51,5 +82,6 @@ ul, ol, li {
 .view-app {
     height: 100%;
     width: 100%;
+    -webkit-user-drag: none;
 }
 </style>

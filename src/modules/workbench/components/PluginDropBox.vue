@@ -1,6 +1,7 @@
 <template>
     <div
         id="plugin-drop-box"
+        ref="pluginDropBox"
         class="plugin-drop-box"
         :style="style"
         @mousedown="ev => handleMousedown('box', ev)"
@@ -51,36 +52,64 @@
         <div class="drop-line drop-line-right"></div>
         <div class="drop-line drop-line-bottom"></div>
         <div class="drop-line drop-line-left"></div>
+        <div
+            class="drop-square-area-move"
+            @mousedown="ev => handleMousedown('move', ev)"
+            @mouseup="ev => handleMouseup('move', ev)"
+        ></div>
     </div>
 </template>
 
 <script>
-import { defineComponent, computed, reactive, ref } from 'vue';
+import { defineComponent, computed, reactive, ref, onMounted, toRefs } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
     name: 'plugin-drop-box',
-    setup() {
+    props: {
+        defaultStyle: {
+            type: Object,
+            default: () => {
+                const width = 100;
+                const height = 100;
+                const left = document.body.clientWidth / 2 - width / 2;
+                const top = document.body.clientHeight / 2 - height / 2;
+                return ({
+                    width,
+                    height,
+                    left,
+                    top
+                });
+            }
+        }
+    },
+    setup(props, { slots }) {
         const store = useStore();
         const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
 
         const rect = reactive({
             layerX: 0,
-            layerY: 0,
-            pageX: 100,
-            pageY: 200,
-            width: 100,
-            height: 100,
+            layerY: 0
+        });
+
+        const { defaultStyle } = toRefs(props);
+        const { left, top, width, height } = defaultStyle.value;
+
+        const styleData = reactive({
+            left,
+            top,
+            width,
+            height,
             cursor: 'default'
         });
 
         const style = computed(() => {
             return {
-                left:  `${rect.pageX - rect.layerX}px`,
-                top:  `${rect.pageY - rect.layerY}px`,
-                width:  `${rect.width}px`,
-                height:  `${rect.height}px`,
-                cursor: rect.cursor
+                left: `${styleData.left}px`,
+                top: `${styleData.top}px`,
+                width: `${styleData.width}px`,
+                height: `${styleData.height}px`,
+                cursor: styleData.cursor
             };
         });
 
@@ -92,14 +121,44 @@ export default defineComponent({
             pageY: 0
         });
 
-        document.addEventListener('mousemove', (ev) => {
-            // console.log('ev.page, ', ev.pageX, rect.pageX);
+        const pluginDropBox = ref();
+
+        onMounted(() => {
+            const children = slots.default();
+            children.forEach(item => {
+                console.log(item);
+            });
+            console.log('onMounted props children pluginDropBox ======== ', props, children, pluginDropBox.value);
+        });
+
+        const doc = document;
+        const { clientWidth, clientHeight } = doc.documentElement;
+
+        console.log('clientHeight', clientHeight);
+
+        doc.addEventListener('mouseleave', () => {
+            isMove.value = false;
+        });
+        doc.addEventListener('mousemove', (ev) => {
             if (isMove.value) {
                 switch(dropType.value) {
-                case 'box': {
-                    rect.pageX = ev.pageX;
-                    rect.pageY = ev.pageY;
-                    rect.cursor = 'move';
+                case 'box':
+                case 'move': {
+                    styleData.cursor = 'move';
+                    styleData.left = ev.pageX - rect.layerX;
+                    if (styleData.left < 0) {
+                        styleData.left = 0;
+                    }
+                    if (styleData.left > clientWidth - styleData.width) {
+                        styleData.left = clientWidth - styleData.width;
+                    }
+                    styleData.top = ev.pageY - rect.layerY;
+                    if (styleData.top < 0) {
+                        styleData.top = 0;
+                    }
+                    if (styleData.top > clientHeight - styleData.height) {
+                        styleData.top = clientHeight - styleData.height;
+                    }
                 }
                     break;
                 case 'top-left':
@@ -152,15 +211,18 @@ export default defineComponent({
         const handleMousedown = (type, ev) => {
             ev.stopPropagation();
             console.log('ev', ev.pageX, ev.layerX, ev);
-            rect.pageX = ev.pageX;
-            rect.pageY = ev.pageY;
+            // rect.pageX = ev.pageX;
+            // rect.pageY = ev.pageY;
             isMove.value = true;
             dropType.value = type;
             switch(type) {
             case 'box':
+            case 'move':
                 rect.layerX = ev.layerX;
                 rect.layerY = ev.layerY;
-                rect.cursor = 'move';
+                styleData.left = ev.pageX - ev.layerX;
+                styleData.top = ev.pageY - ev.layerY;
+                styleData.cursor = 'move';
                 break;
             case 'top-left':
                 rect.layerX = ev.layerX - 3;
@@ -202,7 +264,9 @@ export default defineComponent({
             handleMousedown,
             handleMouseup,
             event,
-            style
+            style,
+            styleData,
+            pluginDropBox
         };
     }
 });
@@ -220,8 +284,9 @@ export default defineComponent({
         height: 9px;
         border: 1px solid red;
         position: absolute;
-        border-radius: 4px;
+        border-radius: 5px;
         -webkit-user-drag: none;
+        z-index: 3;
     }
 
     .drop-circle-area-top-left {
@@ -248,38 +313,39 @@ export default defineComponent({
     .drop-square-area {
         -webkit-user-drag: none;
         position: absolute;
-        // background-color: aquamarine;
+        background-color: transparent;
+        z-index: 2;
     }
 
     .drop-square-area-top {
         height: 9px;
-        left: 9px;
-        right: 9px;
+        left: 7px;
+        right: 7px;
         top: -4px;
         cursor: n-resize;
     }
 
     .drop-square-area-right {
         width: 9px;
-        top: 9px;
+        top: 7px;
         right: -4px;
-        bottom: 9px;
+        bottom: 7px;
         cursor: e-resize;
     }
 
     .drop-square-area-bottom {
         height: 9px;
-        left: 9px;
-        right: 9px;
+        left: 7px;
+        right: 7px;
         bottom: -4px;
         cursor: s-resize;
     }
 
     .drop-square-area-left {
         width: 9px;
-        top: 9px;
+        top: 7px;
         left: -4px;
-        bottom: 9px;
+        bottom: 7px;
         cursor: w-resize;
     }
 
@@ -316,6 +382,16 @@ export default defineComponent({
         bottom: 4px;
         left: 0;
         width: 1px;
+    }
+
+    .drop-square-area-move {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: transparent;
+        z-index: 1;
     }
 }
 </style>
