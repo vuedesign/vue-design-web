@@ -5,18 +5,51 @@
 <script>
 import { defineComponent, onMounted } from 'vue';
 
+/*
+const htmlCode = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="icon" href="/favicon.ico">
+        <title>vue.design</title>
+        <style>
+            html,
+            body,
+            #appView {
+                margin: 0;
+                padding: 0;
+                background-color: #fff;
+                width: 100%;
+                height: 100%;
+            }
+            #appView {
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>
+        <strong>We're sorry but vite doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        </noscript>
+        <div id="appView">dddddsss</div>
+        <scr` + `ipt type="module" src="/src/main.view.js"></scr` + `ipt>
+    </body>
+    </html>
+`;
+*/
+
 export default defineComponent({
     name: 'editor-panel-preview',
     setup() {
         onMounted(() => {
             const iframe = document.getElementById('editor-panel-preview');
-            document.getElementById('editor-panel-tools').addEventListener('mousemove', (event) => {
-                console.log('ddd', event, iframe);
-                // update(iframe);
-            });
+            // update(iframe, htmlCode);
+            iframe.src = '/view/index.html';
         });
-        // function update(iframe) {
-        //     const htmlCode = `<div>dddddd</div>`;
+
+        // function update(iframe, htmlCode) {
         //     const blob = new Blob([htmlCode], {
         //         'type': 'text/html'
         //     });

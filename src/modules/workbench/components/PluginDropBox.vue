@@ -1,6 +1,5 @@
 <template>
     <div
-        id="plugin-drop-box"
         ref="pluginDropBox"
         class="plugin-drop-box"
         :style="style"
