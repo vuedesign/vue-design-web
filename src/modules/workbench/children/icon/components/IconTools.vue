@@ -5,7 +5,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue';
-import LayoutPanel from '@modules/workbench/components/LayoutPanel.vue';
+import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
 
 export default defineComponent({
     name: 'icon-tools',

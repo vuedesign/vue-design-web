@@ -44,7 +44,7 @@
                 label="项目封面"
                 name="thumb"
             >
-                <upload-thumb v-model:value="formData.thumb" />
+                <upload-thumb v-model="formData.thumb" />
             </a-form-item>
         </a-form>
     </a-modal>
@@ -78,7 +78,14 @@ export default defineComponent({
         const detail = computed(() => store.getters['project/detail']);
         const id = toRef(props, 'id');
 
-        const displayVisible = toRef(props, 'visible');
+        const displayVisible = computed({
+            set(visible) {
+                emit('update:visible', visible);
+            },
+            get() {
+                return props.visible;
+            }
+        });
         const confirmLoading = ref(false);
         const editFormRef = ref();
         const formData = reactive({

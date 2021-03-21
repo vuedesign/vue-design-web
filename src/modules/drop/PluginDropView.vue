@@ -1,7 +1,6 @@
 <template>
     <div
-        ref="pluginDropBox"
-        class="plugin-drop-box"
+        class="plugin-drop-view"
         :style="style"
         @mousedown="ev => handleMousedown('box', ev)"
         @mouseup="ev => handleMouseup('box', ev)"
@@ -64,7 +63,7 @@ import { defineComponent, computed, reactive, ref, onMounted, toRefs } from 'vue
 import { useStore } from 'vuex';
 
 export default defineComponent({
-    name: 'plugin-drop-box',
+    name: 'plugin-drop-view',
     props: {
         defaultStyle: {
             type: Object,
@@ -274,7 +273,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.plugin-drop-box {
+.plugin-drop-view {
     position: fixed;
     z-index: 100;
     -webkit-user-drag: none;

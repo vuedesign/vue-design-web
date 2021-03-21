@@ -1,7 +1,7 @@
 <template>
     <editor-panel>
         <div id="editor-panel-tools">
-            <div
+            <!-- <div
                 class="vd-page"
                 :style="currentPageStyle"
                 @drop="handleDrop"
@@ -17,10 +17,10 @@
                     @slot-drop="handleDrop"
                     @slect="handleSelect"
                 />
-            </div>
+            </div> -->
             <context-menu />
         </div>
-        <editor-panel-preview />
+        <!-- <editor-panel-preview /> -->
     </editor-panel>
 </template>
 
@@ -29,18 +29,18 @@ import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import { v4 as uuidv4 } from 'uuid';
 import EditorPanel from './EditorPanel.vue';
-import RenderComponent from './RenderComponent.vue';
+// import RenderComponent from './RenderComponent.vue';
 import ContextMenu from './ContextMenu.vue';
-import EditorPanelPreview from './EditorPanelPreview.vue';
+// import EditorPanelPreview from './EditorPanelPreview.vue';
 import COMPONENT_LIST from '../component/componentList';
 
 export default defineComponent({
     name: 'workbench-content',
     components: {
         EditorPanel,
-        RenderComponent,
+        // RenderComponent,
         ContextMenu,
-        EditorPanelPreview
+        // EditorPanelPreview
     },
     setup() {
 
@@ -49,7 +49,7 @@ export default defineComponent({
         const componentTree = computed(() => store.getters['workbench/componentTree']);
         const currentPageStyle = computed(() => store.getters['workbench/currentPageStyle']);
 
-        console.log('componentTreeOptions', componentTree.value);
+        console.log('componentTreeOptions', componentTree);
 
         // let flag = false;
         let currentTargetUuid = null;

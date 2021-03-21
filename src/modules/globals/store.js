@@ -1,5 +1,5 @@
 import { findProfileData, loginData, findTagData } from './api';
-import { router, http } from '@core';
+import { router, http } from '@/core';
 
 const TOKEN_KEY = 'DESIGN_TOKEN';
 

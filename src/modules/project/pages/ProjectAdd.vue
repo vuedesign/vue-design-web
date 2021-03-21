@@ -44,14 +44,14 @@
                 label="项目封面"
                 name="thumb"
             >
-                <upload-thumb v-model:thumb="formData.thumb" />
+                <upload-thumb v-model="formData.thumb" />
             </a-form-item>
         </a-form>
     </a-modal>
 </template>
 
 <script>
-import { defineComponent, reactive, ref, toRef } from 'vue';
+import { computed, defineComponent, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { message } from 'ant-design-vue';
 import { addRules } from '../rules';
@@ -72,7 +72,14 @@ export default defineComponent({
     setup(props, { emit }) {
 
         const store = useStore();
-        const displayVisible = toRef(props, 'visible');
+        const displayVisible = computed({
+            set(visible) {
+                emit('update:visible', visible);
+            },
+            get() {
+                return props.visible;
+            }
+        });
         const confirmLoading = ref(false);
         const addFormRef = ref();
         const formData = reactive({

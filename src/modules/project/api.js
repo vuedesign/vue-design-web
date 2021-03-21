@@ -1,4 +1,4 @@
-import { http } from '@core';
+import { http } from '@/core';
 
 export function findData(params = {}) {
     return http.get('/api/v1/projects', { params });

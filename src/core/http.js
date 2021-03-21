@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-// const baseURL = process && process.env ? process.env.baseURL : import.meta.env.baseURL;
-
 export default (interceptors) =>  {
+    console.log('import.meta.env.VITE_API_BASE_URL', import.meta.env.VITE_API_BASE_URL);
     const instance = axios.create({
-        baseURL: import.meta.env.baseURL || interceptors.baseURL || ''
+        baseURL: import.meta.env.VITE_API_BASE_URL || interceptors.baseURL || ''
     });
 
     instance.setAuthorization = (Authorization) => {

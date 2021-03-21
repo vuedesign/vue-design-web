@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path';
+import { resolve } from 'path';
 import viteESLint from '@ehutch79/vite-eslint';
-
-function resolve(dir) {
-    return path.join(__dirname, dir);
-}
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    build: {
+        rollupOptions: {
+          input: {
+            main: resolve(__dirname, 'index.html'),
+            'main.view': resolve(__dirname, 'view/index.html')
+          }
+        }
+    },
     server: {
         open: '/',
         proxy: {
@@ -23,13 +27,9 @@ export default defineConfig({
         }
     },
     resolve: {
-        // extensions: ['.js', '.vue', '.json', '.less'],
+        extensions: ['.js', '.vue', '.json', '.less', '.scss'],
         alias: {
-            '@': resolve('src'),
-            '@modules': resolve('src/modules'),
-            '@configs': resolve('src/configs'),
-            '@assets': resolve('src/assets'),
-            '@core': resolve('src/core')
+            '@': resolve('src')
         }
     },
     plugins: [vue(), viteESLint({ 'include': ['src/**/*.vue', 'src/**/*.js'] })]

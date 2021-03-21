@@ -4,7 +4,7 @@ import createHttp from './http';
 import interceptors from './interceptors';
 
 const http = createHttp(interceptors);
-import('@configs/interceptors');
+import('@/configs/interceptors');
 
 export {
     store,

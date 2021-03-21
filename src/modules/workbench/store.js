@@ -4,9 +4,10 @@ import material from './children/material/store';
 import page from './children/page/store';
 import editor from './children/editor/store';
 import config from './children/config/store';
-// import { getItem } from '@core/localStore';
+// import { getItem } from '@/core/localStore';
 
 const state = {
+    viewIframe: null,
     event: {},
     currentDropComponent: {
         width: 60,
@@ -122,12 +123,16 @@ const mutations = {
     },
     UPDATE_CURRENT_DROP_COMPONENT(state, styles) {
         Object.assign(state.currentDropComponent, styles);
+    },
+    SET_VIEW_IFRAME(state, iframe) {
+        state.viewIframe = iframe;
     }
 };
 
 const actions = {};
 
 const getters = {
+    viewIframe: state => state.viewIframe,
     currentToolBar: state => state.currentToolBar,
     componentTree: state => state.componentTree,
     currentPageCustomState: state => state.currentPageOptions.customState,

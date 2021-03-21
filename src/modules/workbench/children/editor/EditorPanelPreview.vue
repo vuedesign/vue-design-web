@@ -4,6 +4,7 @@
 
 <script>
 import { defineComponent, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
 /*
 const htmlCode = `<!DOCTYPE html>
@@ -43,10 +44,12 @@ const htmlCode = `<!DOCTYPE html>
 export default defineComponent({
     name: 'editor-panel-preview',
     setup() {
+        const store = useStore();
         onMounted(() => {
             const iframe = document.getElementById('editor-panel-preview');
             // update(iframe, htmlCode);
             iframe.src = '/view/index.html';
+            store.commit('workbench/SET_VIEW_IFRAME', iframe);
         });
 
         // function update(iframe, htmlCode) {

@@ -1,4 +1,4 @@
-import { http } from '@core';
+import { http } from '@/core';
 
 export function findProfileData() {
     return http.get('/api/v1/auth/profile');

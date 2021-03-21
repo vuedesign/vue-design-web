@@ -1,6 +1,6 @@
 <template>
     <div class="view-app">
-        <plugin-drop-box
+        <plugin-drop-view
             :default-style="{
                 width: 100,
                 height: 32,
@@ -14,13 +14,13 @@
             >
                 按钮
             </a-button>
-        </plugin-drop-box>
-        <plugin-drop-box>
+        </plugin-drop-view>
+        <plugin-drop-view>
             <div :style="{ minWidth: '20px' }">
                 sfsdfsd
             </div>
-        </plugin-drop-box>
-        <plugin-drop-box
+        </plugin-drop-view>
+        <plugin-drop-view
             :default-style="{
                 width: 200,
                 height: 200,
@@ -33,20 +33,16 @@
                 <a-tab-pane key="2" tab="Tab 2" force-render>Content of Tab Pane 2</a-tab-pane>
                 <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
             </a-tabs>
-        </plugin-drop-box>
+        </plugin-drop-view>
     </div>
 </template>
 
 <script>
 import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
-import PluginDropBox from '../modules/workbench/components/PluginDropBox.vue';
 
 export default defineComponent({
     name: 'view-app',
-    components: {
-        PluginDropBox
-    },
     setup() {
 
         const store = useStore();

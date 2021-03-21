@@ -22,6 +22,7 @@
             </a-input>
         </div>
         <div class="wrokbench-component-tools-content">
+            <plugin-drop-handler-list />
             <vd-collapse
                 v-for="item in componentList"
                 :key="item.value"
@@ -55,8 +56,8 @@
 <script>
 import { computed, ref, defineComponent } from 'vue';
 import { cloneDeep } from 'lodash';
-import VdCollapse from '@modules/globals/components/VdCollapse.vue';
-import LayoutPanel from '@modules/workbench/components/LayoutPanel.vue';
+import VdCollapse from '@/modules/globals/components/VdCollapse.vue';
+import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
 import { TOOL_TREE } from '../constants';
 import COMPONENT_LIST from '../componentList';
 import {

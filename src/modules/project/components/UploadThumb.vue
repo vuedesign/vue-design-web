@@ -42,18 +42,18 @@ export default defineComponent({
         LoadingOutlined
     },
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: ''
         }
     },
-    emits: ['update:value'],
+    emits: ['update:modelValue'],
     setup(props, { emit }) {
         const store = useStore();
 
         const fileList = ref([]);
         const loading = ref(false);
-        const imageUrl = toRef(props, 'value');
+        const imageUrl = toRef(props, 'modelValue');
 
         console.log('imageUrl==========', imageUrl);
 
@@ -66,10 +66,11 @@ export default defineComponent({
                 // Get this url from response in real world.
                 getBase64(info.file.originFileObj, (base64Url) => {
                     imageUrl.value = base64Url;
+                    // emit('update:modelValue', base64Url);
                     loading.value = false;
                 });
                 if (info.file.response.retcode === 0) {
-                    emit('update:value', info.file.response.data.filePath);
+                    emit('update:modelValue', info.file.response.data.filePath);
                 }
                 console.log('info', info);
             }

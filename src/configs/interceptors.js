@@ -1,4 +1,4 @@
-import { router, store, http } from '@core';
+import { router, store, http } from '@/core';
 import { SUCCESS_STATUS_CODE } from './constants';
 import {
     onGlobalConfig,
@@ -9,7 +9,7 @@ import {
     onRouterBeforeEach,
     onRouterAfterEach,
     onRouterBeforeResolve
-} from '@core/interceptors';
+} from '@/core/interceptors';
 // import { onMounted } from 'vue';
 
 // 拦截器配置

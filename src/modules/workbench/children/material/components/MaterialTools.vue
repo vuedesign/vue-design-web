@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import { ref, onMounted, defineComponent } from 'vue';
-import VdCollapse from '@modules/globals/components/VdCollapse.vue';
-import LayoutPanel from '@modules/workbench/components/LayoutPanel.vue';
+import { ref, defineComponent } from 'vue';
+import VdCollapse from '@/modules/globals/components/VdCollapse.vue';
+import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
 import { TOOL_TREE } from '../constants';
 import {
     FileSearchOutlined,
@@ -58,7 +58,6 @@ import {
     BarChartOutlined,
     RadarChartOutlined
 } from '@ant-design/icons-vue';
-import Sortable from 'sortablejs';
 
 export default defineComponent({
     name: 'material-tools',
@@ -119,20 +118,6 @@ export default defineComponent({
                 ]
             }
         ]);
-
-        onMounted(() => {
-            console.log('toolList', toolList.value);
-            toolList.value.forEach(item => {
-                const el = document.getElementById(item.id);
-                Sortable.create(el, {
-                    group: {
-                        name: item.id,
-                        pull: 'clone'
-                    },
-                    sort: false
-                });
-            });
-        });
 
         return {
             toolTree: TOOL_TREE,
