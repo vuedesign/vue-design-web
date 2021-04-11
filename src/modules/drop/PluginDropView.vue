@@ -81,7 +81,8 @@ export default defineComponent({
             }
         }
     },
-    setup(props, { slots }) {
+    emits: ['move', 'init'],
+    setup(props, { slots, emit }) {
         const store = useStore();
         const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
 
@@ -129,6 +130,11 @@ export default defineComponent({
                 console.log(item);
             });
             console.log('onMounted props children pluginDropBox ======== ', props, children, pluginDropBox.value);
+            emit('init', {
+                styleData,
+                event: null,
+                eventType: 'init'
+            });
         });
 
         const doc = document;
@@ -136,14 +142,17 @@ export default defineComponent({
 
         console.log('clientHeight', clientHeight);
 
-        doc.addEventListener('mouseleave', () => {
+        doc.addEventListener('mouseleave', (ev) => {
             isMove.value = false;
+            emit('move', {
+                styleData,
+                event: ev,
+                eventType: 'leave'
+            });
         });
         doc.addEventListener('mousemove', (ev) => {
             if (isMove.value) {
-                switch(dropType.value) {
-                case 'box':
-                case 'move': {
+                if (dropType.value === 'box' || dropType.value === 'move') {
                     styleData.cursor = 'move';
                     styleData.left = ev.pageX - styleData.layerX;
                     if (styleData.left < 0) {
@@ -159,43 +168,38 @@ export default defineComponent({
                     if (styleData.top > clientHeight - styleData.height) {
                         styleData.top = clientHeight - styleData.height;
                     }
-                }
-                    break;
-                case 'top-left':
+                } else if (dropType.value === 'top-left') {
                     styleData.width = styleData.width - (ev.pageX - styleData.layerX - styleData.left);
                     styleData.height = styleData.height - (ev.pageY - styleData.layerY - styleData.top);
                     styleData.left = ev.pageX - styleData.layerX;
                     styleData.top = ev.pageY - styleData.layerY;
-                    break;
-                case 'top-right':
+                } else if (dropType.value === 'top-right') {
                     styleData.width = ev.pageX - styleData.left;
                     styleData.height = styleData.height - (ev.pageY - styleData.top);
                     styleData.top = ev.pageY;
-                    break;
-                case 'bottom-left':
+                } else if (dropType.value === 'bottom-left') {
                     styleData.width = styleData.width - (ev.pageX - styleData.left);
                     styleData.height = ev.pageY - styleData.top;
                     styleData.left = ev.pageX;
-                    break;
-                case 'bottom-right':
+                } else if (dropType.value === 'bottom-right') {
                     styleData.width = ev.pageX - styleData.left;
                     styleData.height = ev.pageY - styleData.top;
-                    break;
-                case 'top':
+                } else if (dropType.value === 'top') {
                     styleData.height = styleData.height - (ev.pageY - styleData.top);
                     styleData.top = ev.pageY;
-                    break;
-                case 'right':
+                } else if (dropType.value === 'right') {
                     styleData.width = ev.pageX - styleData.left;
-                    break;
-                case 'bottom':
+                } else if (dropType.value === 'bottom') {
                     styleData.height = ev.pageY - styleData.top;
-                    break;
-                case 'left':
+                } else if (dropType.value === 'left') {
                     styleData.width = styleData.width - (ev.pageX - styleData.left);
                     styleData.left = ev.pageX;
-                    break;
                 }
+                emit('move', {
+                    styleData,
+                    event: ev,
+                    eventType: 'move'
+                });
             } else {
                 rect.cursor = 'default';
             }
@@ -206,6 +210,11 @@ export default defineComponent({
             ev.stopPropagation();
             isMove.value = false;
             rect.cursor = 'default';
+            emit('init', {
+                styleData,
+                event: ev,
+                eventType: type
+            });
         };
 
         const handleMousedown = (type, ev) => {

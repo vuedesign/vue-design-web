@@ -3,10 +3,16 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
-    name: 'app'
+    name: 'app',
+    setup() {
+        const store = useStore();
+        const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
+        console.log('app currentDropComponent----', currentDropComponent.value);
+    }
 });
 </script>
 

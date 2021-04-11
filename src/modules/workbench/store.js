@@ -126,6 +126,11 @@ const mutations = {
     },
     SET_VIEW_IFRAME(state, iframe) {
         state.viewIframe = iframe;
+    },
+    POST_IFRAME_MESSAGE(state, data) {
+        if (state.viewIframe) {
+            state.viewIframe.contentWindow.postMessage(data, 'http://localhost:3000');
+        }
     }
 };
 

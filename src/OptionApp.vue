@@ -42,13 +42,12 @@ import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
-    name: 'view-app',
+    name: 'option-app',
     setup() {
-
         const store = useStore();
         const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
+        console.log('currentDropComponent----', currentDropComponent);
         const activeKey = ref('1');
-
         return {
             currentDropComponent,
             activeKey

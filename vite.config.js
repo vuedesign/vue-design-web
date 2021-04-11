@@ -5,11 +5,13 @@ import viteESLint from '@ehutch79/vite-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    hmr: { overlay: false },
     build: {
         rollupOptions: {
           input: {
             main: resolve(__dirname, 'index.html'),
-            'main.view': resolve(__dirname, 'view/index.html')
+            design: resolve(__dirname, 'entries/design.html'),
+            option: resolve(__dirname, 'entries/option.html'),
           }
         }
     },
@@ -32,5 +34,8 @@ export default defineConfig({
             '@': resolve('src')
         }
     },
-    plugins: [vue(), viteESLint({ 'include': ['src/**/*.vue', 'src/**/*.js'] })]
+    plugins: [
+        vue(),
+        viteESLint({ 'include': ['src/**/*.vue', 'src/**/*.js'] })
+    ]
 });

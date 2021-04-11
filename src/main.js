@@ -7,13 +7,15 @@ import App from './App.vue';
 import Options from './modules/options/index';
 import drop from './modules/drop/index';
 
-const app = createApp(App);
-app.config.productionTip = false;
+window['app'] = createApp(App);
+window.__store__ = store;
+window.__app__ = window.app;
+window.app.config.productionTip = false;
 
-app.use(Antd);
-app.use(store);
-app.use(router);
-app.use(Options);
-app.use(drop);
+window.app.use(Antd);
+window.app.use(store);
+window.app.use(router);
+window.app.use(Options);
+window.app.use(drop);
 
-app.mount('#app');
+window.app.mount('#app');

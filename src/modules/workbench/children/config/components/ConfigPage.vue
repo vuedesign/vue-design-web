@@ -91,12 +91,12 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
-import Tools from '../../editor/tools';
+// import Tools from '../../editor/tools';
 
-export default {
+export default defineComponent({
     name: 'config-page',
     components: {
         LayoutPanel
@@ -206,21 +206,21 @@ export default {
             }
         });
 
-        const componentTree = computed(() => store.getters['workbench/componentTree']);
+        // const componentTree = computed(() => store.getters['workbench/componentTree']);
 
-        watch([
-            display,
-            flexDirection,
-            left,
-            top
-        ], () => {
-            componentTree.value.forEach(item => {
-                const toolTarget = document.getElementById(item.uuid);
-                setTimeout(() => {
-                    new Tools(toolTarget);
-                }, 0);
-            });
-        });
+        // watch([
+        //     display,
+        //     flexDirection,
+        //     left,
+        //     top
+        // ], () => {
+        //     componentTree.value.forEach(item => {
+        //         const toolTarget = document.getElementById(item.uuid);
+        //         setTimeout(() => {
+        //             new Tools(toolTarget);
+        //         }, 0);
+        //     });
+        // });
 
         return {
             currentPageStyle,
@@ -239,7 +239,7 @@ export default {
             currentPageCustomState
         };
     }
-};
+});
 </script>
 
 <style lang="scss" scoped>

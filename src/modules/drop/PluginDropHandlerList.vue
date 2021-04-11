@@ -105,6 +105,11 @@ export default defineComponent({
                 currentTarget.style.top = `${ev.pageY - currentCloneTargetCacheRect.layerY}px`;
                 const viewIframeRect = viewIframe.value.getBoundingClientRect();
                 const currentTargetRect = currentTarget.getBoundingClientRect();
+                store.commit('workbench/POST_IFRAME_MESSAGE', {
+                    status: 'finish',
+                    message: 'drop',
+                    data: currentTargetRect
+                });
                 if (viewIframeRect.left - (currentTargetRect.left + currentTargetRect.width) <= 0) {
                     currentTarget.width = `${viewIframeRect.left - currentTargetRect.left}px`;
                 } else {

@@ -1,5 +1,5 @@
 <template>
-    <iframe id="editor-panel-preview" src="/view/index.html"></iframe>
+    <iframe id="editor-panel-preview" src="/entries/design.html"></iframe>
 </template>
 
 <script>
@@ -45,12 +45,14 @@ export default defineComponent({
     name: 'editor-panel-preview',
     setup() {
         const store = useStore();
+
         onMounted(() => {
-            const iframe = document.getElementById('editor-panel-preview');
-            // update(iframe, htmlCode);
-            iframe.src = '/view/index.html';
-            store.commit('workbench/SET_VIEW_IFRAME', iframe);
+            console.log('ddd', store);
+            // const iframe = document.getElementById('editor-panel-preview');
+            // iframe.src = '/view/index.html';
+            // store.commit('workbench/SET_VIEW_IFRAME', iframe);
         });
+
 
         // function update(iframe, htmlCode) {
         //     const blob = new Blob([htmlCode], {
