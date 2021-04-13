@@ -173,10 +173,23 @@ export default defineComponent({
                     styleData.height = styleData.height - (ev.pageY - styleData.layerY - styleData.top);
                     styleData.left = ev.pageX - styleData.layerX;
                     styleData.top = ev.pageY - styleData.layerY;
+
+                    // if (styleData.left > clientWidth - styleData.width) {
+                    //     styleData.left = clientWidth - styleData.width;
+                    // }
+                    // if (styleData.top > clientHeight - styleData.height) {
+                    //     styleData.top = clientHeight - styleData.height;
+                    // }
                 } else if (dropType.value === 'top-right') {
                     styleData.width = ev.pageX - styleData.left;
+                    if (styleData.width > clientWidth - styleData.left) {
+                        styleData.width = clientWidth - styleData.left;
+                    }
                     styleData.height = styleData.height - (ev.pageY - styleData.top);
                     styleData.top = ev.pageY;
+                    // if (styleData.top <= 0) {
+                    //     styleData.top = 0;
+                    // }
                 } else if (dropType.value === 'bottom-left') {
                     styleData.width = styleData.width - (ev.pageX - styleData.left);
                     styleData.height = ev.pageY - styleData.top;
@@ -224,47 +237,36 @@ export default defineComponent({
             // rect.pageY = ev.pageY;
             isMove.value = true;
             dropType.value = type;
-            switch(type) {
-            case 'box':
-            case 'move':
+            if (type === 'box' || type === 'move') {
                 styleData.layerX = ev.layerX;
                 styleData.layerY = ev.layerY;
                 styleData.left = ev.pageX - ev.layerX;
                 styleData.top = ev.pageY - ev.layerY;
                 styleData.cursor = 'move';
-                break;
-            case 'top-left':
+            } else if (type === 'top-left') {
                 styleData.layerX = ev.layerX - 3;
                 styleData.layerY = ev.layerY - 3;
-                break;
-            case 'top-right':
+            } else if (type === 'top-right') {
                 styleData.layerX = styleData.width + ev.layerX - 5;
                 styleData.layerY = ev.layerY - 4;
-                break;
-            case 'bottom-left':
+            } else if (type === 'bottom-left') {
                 styleData.layerX = ev.layerX - 4;
                 styleData.layerY = styleData.height + ev.layerY - 5;
-                break;
-            case 'bottom-right':
+            } else if (type === 'bottom-right') {
                 styleData.layerX = styleData.width + ev.layerX - 5;
                 styleData.layerY = styleData.height + ev.layerY - 5;
-                break;
-            case 'top':
+            } else if (type === 'top') {
                 styleData.layerX = ev.layerX + 9;
                 styleData.layerY = ev.layerY - 4;
-                break;
-            case 'right':
+            } else if (type === 'right') {
                 styleData.layerX = styleData.width + ev.layerX - 5;
                 styleData.layerY = ev.layerY + 9;
-                break;
-            case 'bottom':
+            } else if (type === 'bottom') {
                 styleData.layerX = ev.layerX + 9;
                 styleData.layerY = styleData.height + ev.layerY - 5;
-                break;
-            case 'left':
+            } else if (type === 'left') {
                 styleData.layerX = ev.layerX - 4;
                 styleData.layerY = ev.layerY + 9;
-                break;
             }
         };
 
