@@ -1,0 +1,13 @@
+{
+    "name": "button",
+    "tag": "plugin-button",
+    "versition": "1.0",
+    "label": "按钮",
+    "category": "common",
+    "text": {
+        "value": "按钮",
+        "type": "string"
+    },
+    "props": {},
+    "parent": []
+}

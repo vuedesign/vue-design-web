@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import viteESLint from '@ehutch79/vite-eslint';
+import myPlugin from './myPlugin';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -35,6 +36,7 @@ export default defineConfig({
         }
     },
     plugins: [
+        myPlugin(),
         vue(),
         viteESLint({ 'include': ['src/**/*.vue', 'src/**/*.js'] })
     ]

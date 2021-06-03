@@ -1,71 +1,58 @@
+
 <template>
-    <iframe id="editor-panel-preview" src="/entries/design.html"></iframe>
+    <div class="editor-panel-preview">
+        {{ currentComponentStyle }}
+        <a-button @click="handleClick">click</a-button>
+        <plugin-drop-view
+            :default-style="{
+                width: 200,
+                height: 200,
+                left: 10,
+                top: 10
+            }"
+            @move="hanldeMove"
+        >
+            <a-tabs v-model:activeKey="activeKey">
+                <a-tab-pane key="1" tab="Tab 1">Content of Tab Pane 1</a-tab-pane>
+                <a-tab-pane key="2" tab="Tab 2" force-render>Content of Tab Pane 2</a-tab-pane>
+                <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
+            </a-tabs>
+        </plugin-drop-view>
+    </div>
 </template>
-
 <script>
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useStore } from 'vuex';
-
-/*
-const htmlCode = `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <link rel="icon" href="/favicon.ico">
-        <title>vue.design</title>
-        <style>
-            html,
-            body,
-            #appView {
-                margin: 0;
-                padding: 0;
-                background-color: #fff;
-                width: 100%;
-                height: 100%;
-            }
-            #appView {
-                position: relative;
-            }
-        </style>
-    </head>
-    <body>
-        <noscript>
-        <strong>We're sorry but vite doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-        </noscript>
-        <div id="appView">dddddsss</div>
-        <scr` + `ipt type="module" src="/src/main.view.js"></scr` + `ipt>
-    </body>
-    </html>
-`;
-*/
 
 export default defineComponent({
     name: 'editor-panel-preview',
     setup() {
         const store = useStore();
+        const currentComponentStyle = computed(() => store.getters['workbench/currentComponentStyle']);
 
-        onMounted(() => {
-            console.log('ddd', store);
-            // const iframe = document.getElementById('editor-panel-preview');
-            // iframe.src = '/view/index.html';
-            // store.commit('workbench/SET_VIEW_IFRAME', iframe);
-        });
+        const activeKey = ref(1);
 
+        const hanldeMove = () => {};
 
-        // function update(iframe, htmlCode) {
-        //     const blob = new Blob([htmlCode], {
-        //         'type': 'text/html'
-        //     });
-        //     iframe.src = URL.createObjectURL(blob);
-        // }
+        const handleClick = () => {
+            store.commit('workbench/UPDATE_CURRENT_COMPONENT_STYLE', {
+                width: '100%',
+                left: currentComponentStyle.value.left + 1
+            });
+        };
+
+        return {
+            handleClick,
+            currentComponentStyle,
+            activeKey,
+            hanldeMove
+        };
     }
 });
 </script>
 
 <style lang="scss" scoped>
-#editor-panel-preview {
+.editor-panel-preview {
     background-color: transparent;
     position: absolute;
     width: 100%;

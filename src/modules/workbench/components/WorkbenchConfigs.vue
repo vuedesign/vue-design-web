@@ -4,18 +4,34 @@
         theme="light"
         width="241px"
     >
+        <a-button @click="handleClick">click</a-button>
         <config />
     </a-layout-sider>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 import config from '../children/config/Index.vue';
 
 export default defineComponent({
     name: 'workbench-configs',
     components: {
         config
+    },
+    setup() {
+        const store = useStore();
+        const currentComponentStyle = computed(() => store.getters['workbench/currentComponentStyle']);
+        const handleClick = () => {
+            store.commit('workbench/UPDATE_CURRENT_COMPONENT_STYLE', {
+                width: '100%',
+                left: currentComponentStyle.value.left + 1
+            });
+        };
+        return {
+            currentComponentStyle,
+            handleClick
+        };
     }
 });
 </script>

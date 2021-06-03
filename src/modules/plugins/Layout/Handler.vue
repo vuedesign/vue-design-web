@@ -1,8 +1,8 @@
 <template>
-    <plugin-drop-handler class="plugin-layout-handler">
+    <plugin-handler name="layout">
         <span>Layout</span>
         <span>布局</span>
-    </plugin-drop-handler>
+    </plugin-handler>
 </template>
 
 <script>

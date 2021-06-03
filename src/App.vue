@@ -3,20 +3,18 @@
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue';
-import { useStore } from 'vuex';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'app',
-    setup() {
-        const store = useStore();
-        const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
-        console.log('app currentDropComponent----', currentDropComponent.value);
-    }
+    name: 'app'
 });
 </script>
 
 <style lang="scss">
+html,
+body {
+    overflow: hidden;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

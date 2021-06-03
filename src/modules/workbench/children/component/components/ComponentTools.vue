@@ -22,7 +22,7 @@
             </a-input>
         </div>
         <div class="wrokbench-component-tools-content">
-            <plugin-drop-handler-list />
+            <!-- <plugin-drop-handler-list /> -->
             <vd-collapse
                 v-for="item in componentList"
                 :key="item.value"
@@ -32,19 +32,19 @@
             >
                 <ul
                     v-if="item.children && item.children.length"
-                    :id="item.value"
+                    :id="item.name"
                     class="component-list"
                 >
                     <li
                         v-for="child in item.children"
-                        :key="child.value"
-                        :data-id="child.value"
+                        :key="child.name"
+                        :data-id="child.name"
                         :draggable="child.draggable"
                         @dragstart="handleDragstart"
                         @drag="handleDrag"
                         @dragend="handleDragend"
                     >
-                        <span>{{ child.value }}</span>
+                        <span>{{ child.name }}</span>
                         <span class="title">{{ child.label }}</span>
                     </li>
                 </ul>
@@ -55,14 +55,26 @@
 
 <script>
 import { computed, ref, defineComponent } from 'vue';
-import { cloneDeep } from 'lodash';
 import VdCollapse from '@/modules/globals/components/VdCollapse.vue';
 import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
 import { TOOL_TREE } from '../constants';
-import COMPONENT_LIST from '../componentList';
+import pluginList from '@/modules/plugins/list';
 import {
     FileSearchOutlined,
 } from '@ant-design/icons-vue';
+
+const categoryMap = [
+    {
+        value: "common",
+        label: "通用",
+        isActive: true
+    },
+    {
+        value: "layout",
+        label: "布局",
+        isActive: true
+    }
+];
 
 export default defineComponent({
     name: 'component-tools',
@@ -72,8 +84,9 @@ export default defineComponent({
         FileSearchOutlined
     },
     setup() {
+        // const pluginListData = ref(pluginList());
         const search = ref('');
-        const componentList = ref(cloneDeep(COMPONENT_LIST));
+        const componentList = ref(pluginList(categoryMap));
 
         const currentComponenttotal = computed(() => {
             let total = 0;
@@ -87,13 +100,13 @@ export default defineComponent({
             console.log('event', event.target.value);
             const searchValue = event.target.value.toLowerCase();
             if (searchValue === '') {
-                componentList.value = cloneDeep(COMPONENT_LIST);
+                componentList.value = pluginList(categoryMap);
                 return;
             }
-            const list = cloneDeep(COMPONENT_LIST);
+            const list = pluginList(categoryMap);
             componentList.value = list.filter(item => {
                 item.children = item.children.filter(i => {
-                    return i.value.toLowerCase().indexOf(searchValue) > -1 || i.label.indexOf(searchValue) > -1;
+                    return i.name.toLowerCase().indexOf(searchValue) > -1 || i.label.indexOf(searchValue) > -1;
                 });
                 return item.children.length > 0;
             });

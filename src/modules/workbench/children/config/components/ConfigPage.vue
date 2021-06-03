@@ -37,7 +37,7 @@
             >
                 <a-space>
                     <a-input
-                        v-model:value="width"
+                        v-model="width"
                         size="small"
                     >
                         <template #prefix>

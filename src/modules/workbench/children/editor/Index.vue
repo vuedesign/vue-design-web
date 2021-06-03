@@ -1,6 +1,6 @@
 <template>
     <editor-panel>
-        <div id="editor-panel-tools">
+        <!-- <div id="editor-panel-tools">
             <div
                 class="vd-page"
                 :style="currentPageStyle"
@@ -10,8 +10,8 @@
             >
             </div>
             <context-menu />
-        </div>
-        <editor-panel-preview />
+        </div> -->
+        <!-- <editor-panel-preview></editor-panel-preview> -->
     </editor-panel>
 </template>
 
@@ -21,8 +21,8 @@ import { useStore } from 'vuex';
 import { v4 as uuidv4 } from 'uuid';
 import EditorPanel from './EditorPanel.vue';
 // import RenderComponent from './RenderComponent.vue';
-import ContextMenu from './ContextMenu.vue';
-import EditorPanelPreview from './EditorPanelPreview.vue';
+// import ContextMenu from './ContextMenu.vue';
+// import EditorPanelPreview from './EditorPanelPreview.vue';
 import COMPONENT_LIST from '../component/componentList';
 
 export default defineComponent({
@@ -30,13 +30,12 @@ export default defineComponent({
     components: {
         EditorPanel,
         // RenderComponent,
-        ContextMenu,
-        EditorPanelPreview
+        // ContextMenu,
+        // EditorPanelPreview
     },
     setup() {
 
         const store = useStore();
-
         const componentTree = computed(() => store.getters['workbench/componentTree']);
         const currentPageStyle = computed(() => store.getters['workbench/currentPageStyle']);
 
@@ -166,6 +165,6 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-color: #fff;
+    // background-color: #fff;
 }
 </style>

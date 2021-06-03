@@ -1,7 +1,7 @@
 <template>
-    <plugin-drop-options name="button">
+    <plugin-options name="button">
         <a-input v-model="width" />
-    </plugin-drop-options>
+    </plugin-options>
 </template>
 
 <script>
@@ -9,9 +9,6 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'view-app',
-    components: {
-        PluginDropBox
-    },
     setup() {
 
         const width = ref(100);

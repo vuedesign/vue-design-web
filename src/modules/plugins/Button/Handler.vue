@@ -1,8 +1,8 @@
 <template>
-    <plugin-drop-handler class="plugin-button-handler">
+    <plugin-handler name="button">
         <span class="name">button</span>
         <span class="label">按钮</span>
-    </plugin-drop-handler>
+    </plugin-handler>
 </template>
 
 <script>

@@ -7,6 +7,14 @@ import config from './children/config/store';
 // import { getItem } from '@/core/localStore';
 
 const state = {
+    currentComponentStyle: {
+        display: 'block',
+        position: 'relative',
+        width: 200,
+        height: 200,
+        left: 100,
+        top: 100
+    },
     viewIframe: null,
     event: {},
     currentDropComponent: {
@@ -127,10 +135,9 @@ const mutations = {
     SET_VIEW_IFRAME(state, iframe) {
         state.viewIframe = iframe;
     },
-    POST_IFRAME_MESSAGE(state, data) {
-        if (state.viewIframe) {
-            state.viewIframe.contentWindow.postMessage(data, 'http://localhost:3000');
-        }
+    UPDATE_CURRENT_COMPONENT_STYLE(state,  style) {
+        console.log('style', style);
+        Object.assign(state.currentComponentStyle, style);
     }
 };
 
@@ -144,7 +151,8 @@ const getters = {
     currentPageStyle: state => state.currentPageOptions.props.style,
     currentPageOptions: state => state.currentPageOptions,
     currentUuid: state => state.currentUuid,
-    currentDropComponent: state => state.currentDropComponent
+    currentDropComponent: state => state.currentDropComponent,
+    currentComponentStyle: state => state.currentComponentStyle
 };
 
 export default {

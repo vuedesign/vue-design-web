@@ -1,21 +1,19 @@
-
+// import './polyfill';
 import { createApp } from 'vue';
 import Antd from 'ant-design-vue';
 import './assets/styles/antd.less';
 import { store, router } from './core';
 import App from './App.vue';
 import Options from './modules/options/index';
-import drop from './modules/drop/index';
+import Drop from './modules/drop/index';
+import Plugins from './modules/plugins/index';
 
-window['app'] = createApp(App);
-window.__store__ = store;
-window.__app__ = window.app;
-window.app.config.productionTip = false;
-
-window.app.use(Antd);
-window.app.use(store);
-window.app.use(router);
-window.app.use(Options);
-window.app.use(drop);
-
-window.app.mount('#app');
+const app = createApp(App);
+app.config.productionTip = false;
+app.use(store);
+app.use(router);
+app.use(Options);
+app.use(Antd);
+app.use(Drop);
+app.use(Plugins);
+app.mount('#app');

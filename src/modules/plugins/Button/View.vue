@@ -1,25 +1,19 @@
 <template>
-    <plugin-drop-box
-        :default-style="defaultStyle"
-    >
+    <plugin-view>
         <a-button
             type="primary"
             block
         >
             按钮
         </a-button>
-    </plugin-drop-box>
+    </plugin-view>
 </template>
 
 <script>
 import { defineComponent, reactive } from 'vue';
-import PluginDropBox from '../modules/workbench/components/PluginDropBox.vue';
 
 export default defineComponent({
-    name: 'view-app',
-    components: {
-        PluginDropBox
-    },
+    name: 'plugin-button',
     setup() {
 
         const defaultStyle = reactive({
@@ -37,25 +31,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#appView {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  display: flex;
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: content-box;
-}
-ul, ol, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.view-app {
+.plugin-button {
     height: 100%;
     width: 100%;
     -webkit-user-drag: none;

@@ -87,6 +87,8 @@ export default defineComponent({
         const currentDropComponent = computed(() => store.getters['workbench/currentDropComponent']);
 
         const rect = reactive({
+            pageX: 0,
+            pageY: 0,
             layerX: 0,
             layerY: 0
         });
@@ -102,6 +104,11 @@ export default defineComponent({
             width,
             height,
             cursor: 'default'
+        });
+
+        const editorPanelRectCache = reactive({
+            x: 0,
+            y: 0
         });
 
         const style = computed(() => {
@@ -125,11 +132,17 @@ export default defineComponent({
         const pluginDropBox = ref();
 
         onMounted(() => {
+            // const doc = document.getElementById('editor-panel-tools');
+            // const editorPanelRect = doc.getBoundingClientRect();
+            // editorPanelRectCache.x = editorPanelRect.x;
+            // editorPanelRectCache.y = editorPanelRect.x;
+            // console.log('editorPanelRect::::::::::', editorPanelRect);
+            // console.log('editorPanelRectCache doc:', doc.offsetLeft);
             const children = slots.default();
             children.forEach(item => {
-                console.log(item);
+                console.log('slots', item);
             });
-            console.log('onMounted props children pluginDropBox ======== ', props, children, pluginDropBox.value);
+            // console.log('onMounted props children pluginDropBox ======== ', props, children, pluginDropBox.value);
             emit('init', {
                 styleData,
                 event: null,
@@ -144,13 +157,14 @@ export default defineComponent({
 
         doc.addEventListener('mouseleave', (ev) => {
             isMove.value = false;
+            console.log('mouseleave', ev);
             emit('move', {
                 styleData,
                 event: ev,
                 eventType: 'leave'
             });
         });
-        doc.addEventListener('mousemove', (ev) => {
+        const handleMove = (ev) => {
             if (isMove.value) {
                 if (dropType.value === 'box' || dropType.value === 'move') {
                     styleData.cursor = 'move';
@@ -216,7 +230,9 @@ export default defineComponent({
             } else {
                 rect.cursor = 'default';
             }
-        });
+        };
+
+        doc.addEventListener('mousemove', handleMove);
 
         const handleMouseup = (type, ev) => {
             console.log('type', type);
@@ -228,20 +244,23 @@ export default defineComponent({
                 event: ev,
                 eventType: type
             });
+            // doc.removeEventListener('mousemove', handleMove);
         };
 
         const handleMousedown = (type, ev) => {
             ev.stopPropagation();
-            console.log('ev', ev.pageX, ev.layerX, ev);
-            // rect.pageX = ev.pageX;
-            // rect.pageY = ev.pageY;
+            console.log('ev', ev.layerX);
+            rect.pageX = ev.pageX;
+            rect.pageY = ev.pageY;
             isMove.value = true;
+
+
             dropType.value = type;
             if (type === 'box' || type === 'move') {
-                styleData.layerX = ev.layerX;
-                styleData.layerY = ev.layerY;
-                styleData.left = ev.pageX - ev.layerX;
-                styleData.top = ev.pageY - ev.layerY;
+                styleData.layerX = ev.layerX + editorPanelRectCache.x;
+                styleData.layerY = ev.layerY + editorPanelRectCache.y;
+                styleData.left = ev.pageX - ev.layerX - editorPanelRectCache.x;
+                styleData.top = ev.pageY - ev.layerY - editorPanelRectCache.x;
                 styleData.cursor = 'move';
             } else if (type === 'top-left') {
                 styleData.layerX = ev.layerX - 3;
@@ -285,10 +304,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .plugin-drop-view {
-    position: fixed;
+    position: absolute;
     z-index: 100;
     -webkit-user-drag: none;
-    // background-color: rgba(red, .3);
+    background-color: rgba(red, .3);
 
     .drop-circle-area {
         width: 9px;
