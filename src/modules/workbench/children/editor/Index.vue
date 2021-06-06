@@ -1,17 +1,6 @@
 <template>
     <editor-panel>
-        <!-- <div id="editor-panel-tools">
-            <div
-                class="vd-page"
-                :style="currentPageStyle"
-                @drop="handleDrop"
-                @dragover="handleDropover"
-                @dragenter="handleDragenter"
-            >
-            </div>
-            <context-menu />
-        </div> -->
-        <!-- <editor-panel-preview></editor-panel-preview> -->
+        <editor-panel-drop v-model="componentTree" />
     </editor-panel>
 </template>
 
@@ -22,21 +11,28 @@ import { v4 as uuidv4 } from 'uuid';
 import EditorPanel from './EditorPanel.vue';
 // import RenderComponent from './RenderComponent.vue';
 // import ContextMenu from './ContextMenu.vue';
-// import EditorPanelPreview from './EditorPanelPreview.vue';
+import EditorPanelDrop from './EditorPanelDrop.vue';
 import COMPONENT_LIST from '../component/componentList';
 
 export default defineComponent({
     name: 'workbench-content',
     components: {
         EditorPanel,
+        EditorPanelDrop,
         // RenderComponent,
-        // ContextMenu,
-        // EditorPanelPreview
+        // ContextMenu
     },
     setup() {
 
         const store = useStore();
-        const componentTree = computed(() => store.getters['workbench/componentTree']);
+        const componentTree = computed({
+            get() {
+                return store.getters['workbench/componentTree'];
+            },
+            set(val) {
+                store.commit('workbench/COMPONENT_TREE', val);
+            }
+        });
         const currentPageStyle = computed(() => store.getters['workbench/currentPageStyle']);
 
         console.log('componentTreeOptions', componentTree);

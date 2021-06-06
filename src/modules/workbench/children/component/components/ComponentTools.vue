@@ -64,6 +64,8 @@ import {
     FileSearchOutlined,
     CaretRightOutlined
 } from '@ant-design/icons-vue';
+import { v4 as uuidv4 } from 'uuid';
+import { cloneDeep } from 'lodash';
 
 const categoryMap = [
     {
@@ -119,12 +121,15 @@ export default defineComponent({
         const activeKey = ref([
             'common',
             'layout',
-            // 'form'
+            'form'
         ]);
 
         const handleClone = (data) => {
             console.log('handleClone', data);
-            return data;
+            return {
+                ...cloneDeep(data),
+                uuid: uuidv4()
+            };
         };
 
         const handleLog = (data) => {

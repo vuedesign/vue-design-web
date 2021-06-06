@@ -382,7 +382,7 @@ export default defineComponent({
 @media screen and (max-width: 1100px) {
     .list-content {
         li {
-            width: percentage(1/3);
+            width: 33.3333%;
         }
     }
 }
@@ -391,7 +391,7 @@ export default defineComponent({
 @media screen and (max-width: 700px) {
     .list-content {
         li {
-            width: percentage(1/2);
+            width: 50%;
         }
     }
 }

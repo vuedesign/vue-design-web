@@ -129,6 +129,9 @@ const mutations = {
     UPDATE_CURRENT_UUID(state, currentUuid) {
         state.currentUuid = currentUuid;
     },
+    COMPONENT_TREE(state, componentTree) {
+        state.componentTree = componentTree;
+    },
     UPDATE_CURRENT_DROP_COMPONENT(state, styles) {
         Object.assign(state.currentDropComponent, styles);
     },

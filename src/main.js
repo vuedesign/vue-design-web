@@ -8,16 +8,10 @@ import Options from './modules/options/index';
 import Drop from './modules/drop/index';
 import Plugins from './modules/plugins/index';
 import draggable from '@/modules/globals/vueDraggablenext/vuedraggable';
-// import { library } from '@fortawesome/fontawesome-svg-core';
-// import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome';
 
 const app = createApp(App);
 app.config.productionTip = false;
 app.component(draggable.name, draggable);
-app.component('font-awesome-icon', FontAwesomeIcon);
-app.component('font-awesome-layers', FontAwesomeLayers);
-app.component('font-awesome-layers-text', FontAwesomeLayersText);
 app.use(store);
 app.use(router);
 app.use(Options);
