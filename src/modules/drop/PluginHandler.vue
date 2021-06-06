@@ -33,5 +33,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .plugin-handler {
     -webkit-user-drag: none;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

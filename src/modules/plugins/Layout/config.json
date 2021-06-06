@@ -1,7 +1,7 @@
 {
     "name": "layout",
     "tag": "plugin-layout",
-    "versition": "1.0",
+    "version": "1.0",
     "label": "布局",
     "category": "layout",
     "props": {},

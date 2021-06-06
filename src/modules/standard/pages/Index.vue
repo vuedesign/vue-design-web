@@ -64,7 +64,7 @@ export default {
 
         .item {
             width: 100%;
-            padding-top: percentage(170/288);
+            padding-top: percentage(.59);
             background-color: #fff;
             position: relative;
             height: 0;

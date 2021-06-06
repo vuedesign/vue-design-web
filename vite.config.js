@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import viteESLint from '@ehutch79/vite-eslint';
-import myPlugin from './myPlugin';
+// import myPlugin from './myPlugin';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,9 +10,7 @@ export default defineConfig({
     build: {
         rollupOptions: {
           input: {
-            main: resolve(__dirname, 'index.html'),
-            design: resolve(__dirname, 'entries/design.html'),
-            option: resolve(__dirname, 'entries/option.html'),
+            main: resolve(__dirname, 'index.html')
           }
         }
     },
@@ -36,8 +34,10 @@ export default defineConfig({
         }
     },
     plugins: [
-        myPlugin(),
         vue(),
-        viteESLint({ 'include': ['src/**/*.vue', 'src/**/*.js'] })
+        viteESLint({
+            'include': ['src/**/*.vue', 'src/**/*.js'],
+            'exclude': 'src/assets/fontawesome/js/*.js'
+        })
     ]
 });

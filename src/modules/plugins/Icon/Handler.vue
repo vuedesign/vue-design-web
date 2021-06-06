@@ -1,6 +1,6 @@
 <template>
-    <plugin-handler name="button">
-        <a-button type="primary">按钮</a-button>
+    <plugin-handler name="font-awesome">
+        <font-awesome name="angry" size="32px" color="#333" />
     </plugin-handler>
 </template>
 
@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'plugin-button-handler'
+    name: 'plugin-icon-handler'
 });
 </script>
 

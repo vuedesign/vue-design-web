@@ -11,7 +11,7 @@
             class="vd-collapse-content"
             :class="{ 'active': isActive }"
         >
-            <div ref="rootInner" class="vd-collapse-content-inner">
+            <div class="vd-collapse-content-inner">
                 <slot />
             </div>
         </section>
@@ -40,7 +40,7 @@ export default {
         },
         itemHeight: {
             type: Number,
-            default: 33
+            default: 100
         },
         itemNum: {
             type: Number,
@@ -50,7 +50,6 @@ export default {
     emits: ['update:isActive'],
     setup(props, { emit }) {
         const root = ref(null);
-        const rootInner = ref(null);
 
         function updateStyle(isActive) {
             if (root.value?.style) {
@@ -74,8 +73,7 @@ export default {
 
         return {
             handleHeaderClick,
-            root,
-            rootInner
+            root
         };
     }
 };

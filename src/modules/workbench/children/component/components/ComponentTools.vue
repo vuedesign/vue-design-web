@@ -1,7 +1,7 @@
 <template>
     <layout-panel
         class="wrokbench-component-tools"
-        :title="`组件 (${currentComponenttotal})`"
+        :title="`组件 (${currentComponentTotal})`"
     >
         <!-- <template #tools>
             <li class="btn-item">
@@ -21,58 +21,62 @@
                 </template>
             </a-input>
         </div>
-        <div class="wrokbench-component-tools-content">
-            <!-- <plugin-drop-handler-list /> -->
-            <vd-collapse
-                v-for="item in componentList"
-                :key="item.value"
-                v-model:is-active="item.isActive"
-                :title="item.label"
-                :item-num="item.children && item.children.length"
+        <div v-if="componentList && componentList.length" class="wrokbench-component-tools-content">
+            <a-collapse
+                v-model:activeKey="activeKey"
+                expand-icon-position="right"
+                :bordered="false"
             >
-                <ul
-                    v-if="item.children && item.children.length"
-                    :id="item.name"
-                    class="component-list"
+                <template #expandIcon="{ isActive }">
+                    <caret-right-outlined :rotate="isActive ? 90 : 0" />
+                </template>
+                <a-collapse-panel
+                    v-for="item in componentList"
+                    :key="item.value"
+                    :header="item.label"
                 >
-                    <li
-                        v-for="child in item.children"
-                        :key="child.name"
-                        :data-id="child.name"
-                        :draggable="child.draggable"
-                        @dragstart="handleDragstart"
-                        @drag="handleDrag"
-                        @dragend="handleDragend"
+                    <draggable
+                        :list="item.children"
+                        :group="{ name: 'components', pull: 'clone', put: false }"
+                        :component-data="{ class: 'handler-list'}"
+                        :sort="false"
+                        item-key="name"
+                        :clone="handleClone"
+                        @change="handleLog"
                     >
-                        <span>{{ child.name }}</span>
-                        <span class="title">{{ child.label }}</span>
-                    </li>
-                </ul>
-            </vd-collapse>
+                        <template #item="{ element }">
+                            <div class="handler-item">
+                                <component :is="`plugin-${element.name}-handler`" :config="element" />
+                            </div>
+                        </template>
+                    </draggable>
+                </a-collapse-panel>
+            </a-collapse>
         </div>
     </layout-panel>
 </template>
 
 <script>
 import { computed, ref, defineComponent } from 'vue';
-import VdCollapse from '@/modules/globals/components/VdCollapse.vue';
 import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
-import { TOOL_TREE } from '../constants';
 import pluginList from '@/modules/plugins/list';
 import {
     FileSearchOutlined,
+    CaretRightOutlined
 } from '@ant-design/icons-vue';
 
 const categoryMap = [
     {
         value: "common",
-        label: "通用",
-        isActive: true
+        label: "通用"
     },
     {
         value: "layout",
-        label: "布局",
-        isActive: true
+        label: "布局"
+    },
+    {
+        value: "form",
+        label: "表单"
     }
 ];
 
@@ -80,15 +84,15 @@ export default defineComponent({
     name: 'component-tools',
     components: {
         LayoutPanel,
-        VdCollapse,
-        FileSearchOutlined
+        FileSearchOutlined,
+        CaretRightOutlined
     },
     setup() {
-        // const pluginListData = ref(pluginList());
-        const search = ref('');
+        const list = ref(pluginList(categoryMap));
+        const search = ref();
         const componentList = ref(pluginList(categoryMap));
 
-        const currentComponenttotal = computed(() => {
+        const currentComponentTotal = computed(() => {
             let total = 0;
             componentList.value.forEach(item => {
                 total += item.children.length;
@@ -112,31 +116,30 @@ export default defineComponent({
             });
         };
 
-        const handleDragstart = (event) => {
-            event.currentTarget.style.backgroundColor = 'rgba(24, 144, 255, .1)';
-            event.dataTransfer.setData('text', event.target.dataset.id);
-            event.dataTransfer.effectAllowed = 'copy';
+        const activeKey = ref([
+            'common',
+            'layout',
+            // 'form'
+        ]);
+
+        const handleClone = (data) => {
+            console.log('handleClone', data);
+            return data;
         };
 
-        const handleDrag = (event) => {
-            event.preventDefault();
-            event.currentTarget.style.backgroundColor = 'rgba(24, 144, 255, .1)';
-        };
-
-        const handleDragend = (event) => {
-            event.preventDefault();
-            event.currentTarget.style.backgroundColor = 'transparent';
+        const handleLog = (data) => {
+            console.log('handleClone', data);
         };
 
         return {
-            toolTree: TOOL_TREE,
             search,
             handleSearch,
             componentList,
-            currentComponenttotal,
-            handleDragstart,
-            handleDrag,
-            handleDragend
+            currentComponentTotal,
+            handleClone,
+            handleLog,
+            list,
+            activeKey
         };
     }
 });
@@ -201,6 +204,21 @@ export default defineComponent({
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
+
+    div.handler-list {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    div.handler-item {
+        // float: left;
+        width: 100px;
+        height: 100px;
+        background-color: #f5f5f5;
+        margin-bottom: 8px;
+    }
 }
 
 </style>
@@ -212,4 +230,14 @@ export default defineComponent({
         border-color: transparent;
     }
 }
+.wrokbench-component-tools-content {
+    .ant-collapse-borderless {
+        background-color: transparent;
+
+        > .ant-collapse-item {
+            border-bottom-color: #eee;
+        }
+    }
+}
+
 </style>

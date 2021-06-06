@@ -1,0 +1,9 @@
+{
+    "name": "icon",
+    "tag": "plugin-icon",
+    "version": "1.0",
+    "label": "图标",
+    "category": "common",
+    "props": {},
+    "parent": []
+}
