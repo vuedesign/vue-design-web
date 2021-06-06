@@ -1,5 +1,18 @@
 import { h, resolveComponent, defineComponent } from "vue";
 
+
+function parseProps(props) {
+    const _props = {};
+    for(let key in props) {
+        _props[key] = props[key].default;
+    }
+    return _props;
+}
+
+function parseText(text) {
+    return text.default;
+}
+
 export default defineComponent({
     name: 'render-component',
     props: {
@@ -9,9 +22,12 @@ export default defineComponent({
         }
     },
     emits:[],
-    setup(props) {
-        return () => h(resolveComponent('plugin-view'), {
-            uuid: props.config.uuid
-        }, () => h(resolveComponent(props.config.tag)));
+    render(context) {
+        console.log('context', context);
+        const config = context.config;
+        return h(resolveComponent(config.tag), {
+            config,
+            ...parseProps(config.props)
+        }, () => parseText(config.text));
     }
 });

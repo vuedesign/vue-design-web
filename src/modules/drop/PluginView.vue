@@ -2,7 +2,6 @@
     <div
         class="plugin-view"
         :class="classNames"
-        @click="handlerSelect"
     >
         <slot />
         <div class="plugin-view-line plugin-view-line--top"></div>
@@ -18,6 +17,10 @@ import { computed, defineComponent } from 'vue';
 export default defineComponent({
     name: 'plugin-view',
     props: {
+        config: {
+            type: Object,
+            default: () => ({})
+        },
         name: {
             type: String,
             default: ''
@@ -27,7 +30,7 @@ export default defineComponent({
     setup(props, { emit }) {
 
         const classNames = computed(() => {
-            return `plugin-view--${props.name}`;
+            return `plugin-view-${props.name}`;
         });
         const handlerSelect = (ev) => {
             emit('select', ev);

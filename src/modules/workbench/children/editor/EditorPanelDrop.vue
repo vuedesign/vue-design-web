@@ -3,7 +3,7 @@
     <draggable
         v-model="children"
         :component-data="{ class: 'editor-panel-drop' }"
-        :group="{ name: 'views', pull: false, put: ['views', 'components'] }"
+        :group="{ name: 'views', put: ['views', 'components'] }"
         item-key="uuid"
         @change="handleLog"
     >
@@ -46,7 +46,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .editor-panel-drop {
-    background-color: transparent;
+    background-color: #fff;
     position: absolute;
     width: 100%;
     height: 100%;

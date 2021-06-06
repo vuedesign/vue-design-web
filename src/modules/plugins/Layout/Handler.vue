@@ -1,5 +1,5 @@
 <template>
-    <plugin-handler name="layout">
+    <plugin-handler :name="config.name">
         <span>Layout</span>
         <span>布局</span>
     </plugin-handler>
@@ -7,9 +7,15 @@
 
 <script>
 import { defineComponent } from 'vue';
+import config from './config.json';
 
 export default defineComponent({
-    name: 'plugin-layout-handler'
+    name: `${config.tag}-handler`,
+    setup() {
+        return {
+            config
+        };
+    }
 });
 </script>
 

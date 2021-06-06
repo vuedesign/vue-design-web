@@ -21,7 +21,7 @@ export default defineComponent({
     setup(props) {
 
         const classNames = computed(() => {
-            return `plugin-${props.name}--handler`;
+            return `plugin-${props.name}-handler`;
         });
         return {
             classNames

@@ -5,9 +5,20 @@
     "label": "按钮",
     "category": "common",
     "text": {
-        "value": "按钮",
+        "default": "按钮",
         "type": "string"
     },
-    "props": {},
-    "parent": []
+    "props": {
+        "type": {
+            "default": "primary",
+            "list": [
+                "primary",
+                "dashed",
+                "danger",
+                "link",
+                "default"
+            ]
+        }
+    },
+    "parent": {}
 }

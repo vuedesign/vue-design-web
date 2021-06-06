@@ -1,31 +1,35 @@
-<template>
-    <plugin-view>
-        <a-button
-            type="primary"
-            block
-        >
-            按钮
-        </a-button>
-    </plugin-view>
-</template>
-
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, resolveComponent, h } from 'vue';
+import config from './config.json';
 
 export default defineComponent({
-    name: 'plugin-button',
-    setup() {
-
-        const defaultStyle = reactive({
-            width: 100,
-            height: 32,
-            left: 10,
-            top: 300
-        });
-
-        return {
-            defaultStyle
-        };
+    name: config.tag,
+    props: {
+        name: {
+            type: String,
+            default: 'angry'
+        },
+        size: {
+            type: String,
+            default: '14px'
+        },
+        color: {
+            type: String,
+            default: '#333'
+        },
+        config: {
+            type: Object,
+            default: () => ({})
+        }
+    },
+    setup(props) {
+        return () => h(resolveComponent('plugin-view'), {
+            name: config.name,
+            'data-uuid': props.config.uuid
+        }, () => h(
+            resolveComponent('font-awesome'),
+            props
+        ));
     }
 });
 </script>

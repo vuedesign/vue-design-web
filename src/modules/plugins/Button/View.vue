@@ -1,39 +1,46 @@
-<template>
-    <plugin-view>
-        <a-button
-            type="primary"
-            block
-        >
-            按钮
-        </a-button>
-    </plugin-view>
-</template>
-
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, resolveComponent, h } from 'vue';
+import config from './config.json';
+import { Button } from 'ant-design-vue';
 
 export default defineComponent({
-    name: 'plugin-button',
-    setup() {
-
-        const defaultStyle = reactive({
-            width: 100,
-            height: 32,
-            left: 10,
-            top: 300
-        });
-
-        return {
-            defaultStyle
-        };
+    name: config.tag,
+    props: {
+        ...Button.props,
+        config: {
+            type: Object,
+            default: () => ({})
+        }
+    },
+    setup(props, context) {
+        return () => h(resolveComponent('plugin-view'), {
+            name: config.name,
+            'data-uuid': props.config.uuid
+        }, () => [
+            h(
+                resolveComponent('a-button'),
+                props,
+                context.slots
+            ),
+            h('div', {
+                class: 'plugin-view-button-mark'
+            })
+        ]);
     }
 });
 </script>
 
 <style lang="scss">
-.plugin-button {
-    height: 100%;
+.plugin-view-button {
+    width: min-content;
+    height: min-content;
+}
+.plugin-view-button-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    -webkit-user-drag: none;
+    height: 100%;
+    z-index: 2;
 }
 </style>

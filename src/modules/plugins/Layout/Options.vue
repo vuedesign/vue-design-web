@@ -1,20 +1,18 @@
 <template>
-    <plugin-options name="button">
-        <a-input v-model="width" />
+    <plugin-options :name="config.name">
+        ===
     </plugin-options>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
+import config from './config.json';
 
 export default defineComponent({
-    name: 'view-app',
+    name: `${config.tag}-options`,
     setup() {
-
-        const width = ref(100);
-
         return {
-            width
+            config
         };
     }
 });

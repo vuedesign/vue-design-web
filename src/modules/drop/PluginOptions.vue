@@ -21,7 +21,7 @@ export default defineComponent({
     setup(props) {
 
         const classNames = computed(() => {
-            return `plugin-${props.name}--options`;
+            return `plugin-${props.name}-options`;
         });
         return {
             classNames
