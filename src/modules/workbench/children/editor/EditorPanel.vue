@@ -31,10 +31,10 @@
     </div>
 </template>
 <script>
-import { computed, onMounted, defineComponent, ref } from 'vue';
+import { computed, onMounted, defineComponent } from 'vue';
 import { useStore } from 'vuex';
-import Gesto from 'gesto';
-import keyboardJS from 'keyboardjs';
+// import Gesto from 'gesto';
+// import keyboardJS from 'keyboardjs';
 
 const EDITOR_PANEL_HEADER_HEIGHT = 24;
 
@@ -44,27 +44,27 @@ export default defineComponent({
         const store = useStore();
         const position = computed(() => store.getters['workbench/editor/position']);
         const pageName = computed(() => store.getters['workbench/editor/pageName']);
-        const isMove = ref(false);
+        // const isMove = ref(false);
 
         onMounted(() => {
-            const targets = Array.from(document.querySelectorAll('.editor-panel'));
-            keyboardJS.bind('space', () => {
-                isMove.value = true;
-            });
-            document.addEventListener('mouseup', () => {
-                isMove.value = false;
-            });
-            window.getso = new Gesto(targets, {
-                container: window,
-                pinchOutside: false,
-            }).on('drag', e => {
-                if (isMove.value) {
-                    store.commit('workbench/editor/POSITION', {
-                        tx: position.value.tx + e.deltaX,
-                        ty: position.value.ty + e.deltaY
-                    });
-                }
-            });
+            // const targets = Array.from(document.querySelectorAll('.editor-panel'));
+            // keyboardJS.bind('space', () => {
+            //     isMove.value = true;
+            // });
+            // document.addEventListener('mouseup', () => {
+            //     isMove.value = false;
+            // });
+            // window.getso = new Gesto(targets, {
+            //     container: window,
+            //     pinchOutside: false,
+            // }).on('drag', e => {
+            //     if (isMove.value) {
+            //         store.commit('workbench/editor/POSITION', {
+            //             tx: position.value.tx + e.deltaX,
+            //             ty: position.value.ty + e.deltaY
+            //         });
+            //     }
+            // });
         });
 
         return {

@@ -47,7 +47,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .plugin-view {
     position: relative;
-    -webkit-user-drag: none;
 }
 
 .plugin-view-line--top {

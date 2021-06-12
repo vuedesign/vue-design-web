@@ -1,6 +1,17 @@
 <template>
     <plugin-view :name="config.name" :data-uuid="config.uuid">
-        <a-layout style="min-height: 64px;">布局</a-layout>
+        <draggable
+            v-model="children"
+            :component-data="{ class: 'editor-panel-drop', style:'min-height: 64px;' }"
+            :group="{ name: 'views', pull: true, put: ['views', 'components'] }"
+            item-key="uuid"
+            tag="a-layout"
+            @change="handleLog"
+        >
+            <template #item="{ element }">
+                <render-component :config="element" />
+            </template>
+        </draggable>
     </plugin-view>
 </template>
 
@@ -17,6 +28,13 @@ export default defineComponent({
             type: Object,
             default: () => ({})
         }
+    },
+    setup() {
+        const handleLog = () => {};
+
+        return {
+            handleLog
+        };
     }
 });
 </script>

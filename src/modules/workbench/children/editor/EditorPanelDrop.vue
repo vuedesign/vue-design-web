@@ -3,7 +3,7 @@
     <draggable
         v-model="children"
         :component-data="{ class: 'editor-panel-drop' }"
-        :group="{ name: 'views', put: ['views', 'components'] }"
+        :group="{ name: 'views', pull: true, put: ['views', 'components'] }"
         item-key="uuid"
         @change="handleLog"
     >
