@@ -28,9 +28,10 @@ export default defineConfig({
         }
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json', '.less', '.scss'],
+        extensions: ['.js', '.vue', '.json', '.less', '.scss', '.ts'],
         alias: {
-            '@': resolve('src')
+            '@': resolve('src'),
+            '@types': resolve('src')
         }
     },
     plugins: [

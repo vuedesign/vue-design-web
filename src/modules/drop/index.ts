@@ -1,4 +1,4 @@
-const components = import.meta.globEager('./*.(vue|js)');
+const components = import.meta.globEager('./*.(vue|js|ts)');
 
 export default {
     install: (app) => {
