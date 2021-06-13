@@ -28,6 +28,8 @@ const state = {
         cursor: 'default'
     },
     currentToolBar: 'component',
+    currentSelectMenuId: '',
+    cachePageList: [],
     componentTree: [
         // {
         //     id: 1,
@@ -109,8 +111,11 @@ function componentTreePush(state, uuid, options) {
 }
 
 const mutations = {
-    UPDATE_CURRENT_TOOL_BAR(state, payload) {
-        state.currentToolBar = payload;
+    UPDATE_CURRENT_TOOL_BAR(state, currentToolBar) {
+        state.currentToolBar = currentToolBar;
+    },
+    CURRENT_SELECTE_MENU_ID(state, currentSelectMenuId) {
+        state.currentSelectMenuId = currentSelectMenuId;
     },
     UPDATE_CURRENT_PAGE_STYLE(state, style) {
         Object.assign(state.currentPageOptions.props.style, style);
@@ -155,7 +160,8 @@ const getters = {
     currentPageOptions: state => state.currentPageOptions,
     currentUuid: state => state.currentUuid,
     currentDropComponent: state => state.currentDropComponent,
-    currentComponentStyle: state => state.currentComponentStyle
+    currentComponentStyle: state => state.currentComponentStyle,
+    currentSelectMenuId: state => state.currentSelectMenuId
 };
 
 export default {

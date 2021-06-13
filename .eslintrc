@@ -89,9 +89,9 @@
         "vue/no-multiple-template-root": 0,
         "vue/html-self-closing": ["error", {
             "html": {
-                "void": "never",
+                "void": "always",
                 "normal": "any",
-                "component": "any"
+                "component": "always"
             },
             "svg": "always",
             "math": "always"

@@ -13,7 +13,7 @@
     </draggable>
 </template>
 <script>
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, isProxy, reactive } from 'vue';
 
 export default defineComponent({
     name: 'editor-panel-drop',
@@ -32,6 +32,15 @@ export default defineComponent({
                 return props.modelValue;
             },
             set(val) {
+                console.log('val====', val);
+                const data = val.map(item => {
+                    if (isProxy(item)) {
+                        return item;
+                    } else {
+                        return reactive(item);
+                    }
+                });
+                console.log('data ==== ', data);
                 emit('update:modelValue', val);
             }
         });

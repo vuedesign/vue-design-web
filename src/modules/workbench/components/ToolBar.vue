@@ -18,6 +18,7 @@ import { defineComponent } from 'vue';
 import { BuildOutlined, SmileOutlined, PictureOutlined, FileTextOutlined } from '@ant-design/icons-vue';
 import { TOOL_BAR_LIST } from '../contants';
 import { useCurrentToolBar } from '../services/toolBar';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
     name: 'tool-bar',
@@ -28,12 +29,28 @@ export default defineComponent({
         FileTextOutlined
     },
     setup() {
-
+        const router = useRouter();
+        const route = useRoute();
         const { currentToolBar, updateCurrentToolBar } = useCurrentToolBar();
 
         const handleTooBarClick = (item) => {
-            updateCurrentToolBar(item.value);
+            gotoBar(item.value);
         };
+
+        function gotoBar(barType) {
+            updateCurrentToolBar(barType);
+            router.push({
+                params: route.params,
+                query: {
+                    ...route.query,
+                    barType
+                }
+            });
+        }
+
+        if (route.query?.barType) {
+            gotoBar(route.query.barType);
+        }
 
         return {
             currentToolBar,

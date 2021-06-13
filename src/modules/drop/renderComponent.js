@@ -23,8 +23,8 @@ export default defineComponent({
     },
     emits:[],
     render(context) {
-        console.log('context', context);
-        const config = context.config;
+        const config = context.$props.config;
+        console.log('config', config);
         return h(resolveComponent(config.tag), {
             config,
             ...parseProps(config.props)
