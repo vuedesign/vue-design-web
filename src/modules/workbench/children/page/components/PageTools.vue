@@ -96,17 +96,18 @@ export default defineComponent({
         });
 
         const currentSelectMenuId = computed(() => store.getters['workbench/currentSelectMenuId']);
-        const handleSelect = (item) => {
-            store.commit('workbench/CURRENT_SELECTE_MENU_ID', item.id);
+        const handleSelect = (item, type) => {
+            const menuId = `${type}-${item.id}`;
+            store.commit('workbench/CURRENT_SELECTE_MENU_ID', menuId);
             router.push({
                 query: {
                     ...route.query,
-                    menuId: item.id
+                    menuId
                 }
             });
         };
         if (route.query?.menuId) {
-            store.commit('workbench/CURRENT_SELECTE_MENU_ID', +route.query.menuId);
+            store.commit('workbench/CURRENT_SELECTE_MENU_ID', route.query.menuId);
         }
 
         const createGategoryData = reactive({
@@ -160,35 +161,52 @@ export default defineComponent({
             store.dispatch('workbench/page/create', createPageData);
         };
 
-        const handleEdit = (item) => {
+        const handleEdit = (item, type) => {
             store.commit('workbench/page/UPDATE_DETAIL', {
-                ...item,
-                isEdit: true
+                data: {
+                    ...item,
+                    isEdit: true
+                },
+                type
             });
         };
 
-        const handleBlur = (item) => {
+        const handleBlur = (item, type) => {
             store.commit('workbench/page/UPDATE_DETAIL', {
-                ...item,
-                isEdit: false
+                data: {
+                    ...item,
+                    isEdit: false
+                },
+                type
             });
             const data = {
                 ...item
             };
             delete data.isEdit;
             delete data.pages;
-            store.dispatch('workbench/page/updateCategory', data);
+            if (type === 'category') {
+                store.dispatch('workbench/page/updateCategory', data);
+            } else {
+                store.dispatch('workbench/page/update', data);
+            }
         };
 
-        const handleInput = (evt, item) => {
+        const handleInput = (evt, item, type) => {
             store.commit('workbench/page/UPDATE_DETAIL', {
-                ...item,
-                name: evt.target.value
+                data: {
+                    ...item,
+                    name: evt.target.value
+                },
+                type
             });
         };
 
-        const handleDelete = (item) => {
-            store.dispatch('workbench/page/destroyCategory', item.id);
+        const handleDelete = (item, type) => {
+            if (type === 'category') {
+                store.dispatch('workbench/page/destroyCategory', item.id);
+            } else {
+                store.dispatch('workbench/page/destroy', item.id);
+            }
         };
 
         return {
@@ -211,70 +229,6 @@ export default defineComponent({
 .workbench-page-tools {
     background-color: transparent;
     position: relative;
-
-    .page-list {
-        li {
-            line-height: 28px;
-
-            > .category-item {
-                width: 100%;
-                padding: 0 10px;
-                display: flex;
-                position: relative;
-                z-index: 2;
-
-                > .title {
-                    flex: 1;
-                    span {
-                        margin-left: 5px;
-                    }
-                }
-
-                > .icon {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: #999;
-
-                    &:hover {
-                        color: #FD00DB;
-                        cursor: pointer;
-                    }
-                }
-            }
-
-            &.active {
-                position: relative;
-                &::after {
-                    content: '';
-                    display: block;
-                    background-color: #ffd8f8;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 28px;
-                    z-index: 1;
-                }
-                // > .category-item {
-                //     background-color: #ffd8f8;
-                // }
-            }
-
-            input {
-                line-height: 20px;
-                height: 20px;
-                border: none;
-                background-color: #fff;
-                outline: none;
-                padding: 0 5px;
-            }
-
-            > ul {
-                padding: 0 32px;
-            }
-        }
-    }
 }
 
 </style>

@@ -3,23 +3,23 @@
         <li
             v-for="item in menuList"
             :key="item.id"
-            :class="{ 'active': item.id === currentSelectMenuId }"
-            @click="handleSelect(item)"
+            :class="{ 'active': `${type}-${item.id}` === currentSelectMenuId }"
+            @click.stop="handleSelect(item, type)"
         >
             <div class="category-item">
                 <div v-if="item.isEdit" class="title">
                     <input
                         :value="item.name"
-                        @input="(evt) => handleInput(evt, item)"
-                        @blur="handleBlur(item)"
+                        @input="(evt) => handleInput(evt, item, type)"
+                        @blur="handleBlur(item, type)"
                     />
                 </div>
                 <div v-else class="title">
                     <FolderOpenOutlined v-if="type === 'category'" />
                     <FileTextOutlined v-else />
-                    <span @dblclick="handleEdit(item)">{{ item.name }}</span>
+                    <span @dblclick.stop="handleEdit(item, type)">{{ item.name }}</span>
                 </div>
-                <div class="icon" @click="handleDelete(item)">
+                <div class="icon" @click="handleDelete(item, type)">
                     <DeleteOutlined />
                 </div>
             </div>
@@ -34,16 +34,6 @@
                 @edit="handleEdit"
                 @del="handleDelete"
             />
-            <!-- <ul v-if="item.pages && item.pages.length">
-                <li
-                    v-for="page in item.pages"
-                    :key="page.id"
-                >
-                    <div>
-                        <span>{{ page.name }}</span>
-                    </div>
-                </li>
-            </ul> -->
         </li>
     </ul>
 </template>
@@ -51,8 +41,6 @@
 <script>
 import { defineComponent } from 'vue';
 import {
-    // FolderAddOutlined,
-    // PlusSquareOutlined,
     DeleteOutlined,
     FolderOpenOutlined,
     FileTextOutlined
@@ -61,8 +49,6 @@ import {
 export default defineComponent({
     name: 'menu-list',
     components: {
-        // FolderAddOutlined,
-        // PlusSquareOutlined,
         DeleteOutlined,
         FolderOpenOutlined,
         FileTextOutlined
@@ -73,8 +59,8 @@ export default defineComponent({
             default: () => []
         },
         currentSelectMenuId: {
-            type: Number,
-            default: 0
+            type: String,
+            default: ''
         },
         type: {
             type: String,
@@ -83,24 +69,25 @@ export default defineComponent({
     },
     emits: ['select', 'input', 'blur', 'edit', 'del'],
     setup(props, { emit }) {
-        const handleSelect = (item) => {
-            emit('select', item);
+        const handleSelect = (item, type) => {
+            // debugger;
+            emit('select', item, type);
         };
 
-        const handleInput = (evt, item) => {
-            emit('input', evt, item);
+        const handleInput = (evt, item, type) => {
+            emit('input', evt, item, type);
         };
 
-        const handleBlur = (item) => {
-            emit('blur', item);
+        const handleBlur = (item, type) => {
+            emit('blur', item, type);
         };
 
-        const handleEdit = (item) => {
-            emit('edit', item);
+        const handleEdit = (item, type) => {
+            emit('edit', item, type);
         };
 
-        const handleDelete = (item) => {
-            emit('del', item);
+        const handleDelete = (item, type) => {
+            emit('del', item, type);
         };
 
         return {
@@ -159,9 +146,6 @@ export default defineComponent({
                 height: 28px;
                 z-index: 1;
             }
-            // > .category-item {
-            //     background-color: #ffd8f8;
-            // }
         }
 
         input {
@@ -174,7 +158,9 @@ export default defineComponent({
         }
 
         > ul {
-            padding-left: 20px;
+            .category-item {
+                padding-left: 28px;
+            }
         }
     }
 }

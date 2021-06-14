@@ -18,9 +18,20 @@ const mutations = {
     MENU_LIST(state, menuList) {
         state.menuList = menuList;
     },
-    UPDATE_DETAIL(state, data) {
-        const index = state.menuList.findIndex(item => item.id === data.id);
-        state.menuList[index] = data;
+    UPDATE_DETAIL(state, { data, type }) {
+        if (type === 'category') {
+            const index = state.menuList.findIndex(item => item.id === data.id);
+            state.menuList[index] = data;
+        } else {
+            state.menuList.forEach(item => {
+                if (item.pages && item.pages.length) {
+                    const pageIndex = item.pages.findIndex(i => i.id === data.id);
+                    if (pageIndex > -1) {
+                        item.pages[pageIndex] = data;
+                    }
+                }
+            });
+        }
     },
     PAGE_DETAIL(state, pageDetail) {
         state.pageDetail = pageDetail;
@@ -32,6 +43,12 @@ const actions = {
         const res = await findData(params);
         const list = res.map(item => {
             item.isEdit = false;
+            if (item.pages && item.pages.length) {
+                item.pages = item.pages.map(i => {
+                    i.isEdit = false;
+                    return i;
+                });
+            }
             return item;
         });
         commit('LIST', list);
