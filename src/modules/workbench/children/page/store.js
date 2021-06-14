@@ -10,17 +10,17 @@ import {
 } from './api';
 
 const state = {
-    meunList: [],
+    menuList: [],
     pageDetail: {}
 };
 
 const mutations = {
-    MENU_LIST(state, meunList) {
-        state.meunList = meunList;
+    MENU_LIST(state, menuList) {
+        state.menuList = menuList;
     },
     UPDATE_DETAIL(state, data) {
-        const index = state.findCategory.findIndex(item => item.id === data.id);
-        state.findCategory[index] = data;
+        const index = state.menuList.findIndex(item => item.id === data.id);
+        state.menuList[index] = data;
     },
     PAGE_DETAIL(state, pageDetail) {
         state.pageDetail = pageDetail;
@@ -98,7 +98,7 @@ const actions = {
 };
 
 const getters = {
-    meunList: state => state.meunList,
+    menuList: state => state.menuList,
     pageDetail: state => state.pageDetail,
 };
 

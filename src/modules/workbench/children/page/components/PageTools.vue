@@ -11,45 +11,64 @@
                 <plus-square-outlined />
             </li>
         </template>
-        <ul class="page-list">
+        <menu-list
+            :menu-list="menuList"
+            :current-select-menu-id="currentSelectMenuId"
+            @select="handleSelect"
+            @input="handleInput"
+            @blur="handleBlur"
+            @edit="handleEdit"
+            @del="handleDelete"
+        />
+        <!-- <ul class="page-list">
             <li
                 v-for="item in meunList"
                 :key="item.id"
                 :class="{ 'active': item.id === currentSelectMenuId }"
-                @dblclick="handleEdit(item)"
                 @click="handleSelect(item)"
             >
-                <div v-if="item.isEdit" class="title">
-                    <input
-                        :value="item.name"
-                        @input="(evt) => handleInput(evt, item)"
-                        @blur="handleBlur(item)"
-                    />
+                <div class="category-item">
+                    <div v-if="item.isEdit" class="title">
+                        <input
+                            :value="item.name"
+                            @input="(evt) => handleInput(evt, item)"
+                            @blur="handleBlur(item)"
+                        />
+                    </div>
+                    <div v-else class="title">
+                        <FolderOpenOutlined />
+                        <span @dblclick="handleEdit(item)">{{ item.name }}</span>
+                    </div>
+                    <div class="icon" @click="handleDelete(item)">
+                        <DeleteOutlined />
+                    </div>
                 </div>
-                <div v-else class="title">
-                    <FolderOpenOutlined />
-                    <span>{{ item.name }}</span>
-                </div>
-                <div class="icon" @click="handleDelete(item)">
-                    <DeleteOutlined />
-                </div>
+                <ul v-if="item.pages && item.pages.length">
+                    <li
+                        v-for="page in item.pages"
+                        :key="page.id"
+                    >
+                        <div>
+                            <span>{{ page.name }}</span>
+                        </div>
+                    </li>
+                </ul>
             </li>
-        </ul>
+        </ul> -->
     </layout-panel>
 </template>
 
 <script>
 import { computed, defineComponent, reactive, watchEffect } from 'vue';
 import LayoutPanel from '@/modules/workbench/components/LayoutPanel.vue';
-import {
-    FolderAddOutlined,
-    PlusSquareOutlined,
-    DeleteOutlined,
-    FolderOpenOutlined
-} from '@ant-design/icons-vue';
 import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
 import { v4 as uuidv4 } from 'uuid';
+import MenuList from './MenuList.vue';
+import {
+    FolderAddOutlined,
+    PlusSquareOutlined,
+} from '@ant-design/icons-vue';
 
 export default defineComponent({
     name: 'page-tools',
@@ -57,14 +76,15 @@ export default defineComponent({
         LayoutPanel,
         FolderAddOutlined,
         PlusSquareOutlined,
-        DeleteOutlined,
-        FolderOpenOutlined
+        // DeleteOutlined,
+        // FolderOpenOutlined,
+        MenuList
     },
     setup() {
         const store = useStore();
         const router = useRouter();
         const route = useRoute();
-        const meunList = computed(() => store.getters['workbench/page/meunList']);
+        const menuList = computed(() => store.getters['workbench/page/menuList']);
         const projectDetail = computed(() => store.getters['project/detail']);
 
         watchEffect(() => {
@@ -105,6 +125,7 @@ export default defineComponent({
             name: '页面-新建',
             description: '',
             categoryId: 0,
+            cateId: 0,
             projectId: 0,
             options: {}
         });
@@ -155,6 +176,7 @@ export default defineComponent({
                 ...item
             };
             delete data.isEdit;
+            delete data.pages;
             store.dispatch('workbench/page/updateCategory', data);
         };
 
@@ -172,7 +194,7 @@ export default defineComponent({
         return {
             currentSelectMenuId,
             handleSelect,
-            meunList,
+            menuList,
             handleAddCategory,
             handleAddPage,
             projectDetail,
@@ -193,31 +215,22 @@ export default defineComponent({
     .page-list {
         li {
             line-height: 28px;
-            padding: 0 10px;
-            display: flex;
 
-            input {
-                line-height: 20px;
-                height: 20px;
-                border: none;
-                background-color: #fff;
-                outline: none;
-                padding: 0 5px;
-            }
+            > .category-item {
+                width: 100%;
+                padding: 0 10px;
+                display: flex;
+                position: relative;
+                z-index: 2;
 
-            &.active {
-                background-color: #ffd8f8;
-            }
-
-            > div {
-                &.title {
+                > .title {
                     flex: 1;
                     span {
                         margin-left: 5px;
                     }
                 }
 
-                &.icon {
+                > .icon {
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -228,6 +241,37 @@ export default defineComponent({
                         cursor: pointer;
                     }
                 }
+            }
+
+            &.active {
+                position: relative;
+                &::after {
+                    content: '';
+                    display: block;
+                    background-color: #ffd8f8;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 28px;
+                    z-index: 1;
+                }
+                // > .category-item {
+                //     background-color: #ffd8f8;
+                // }
+            }
+
+            input {
+                line-height: 20px;
+                height: 20px;
+                border: none;
+                background-color: #fff;
+                outline: none;
+                padding: 0 5px;
+            }
+
+            > ul {
+                padding: 0 32px;
             }
         }
     }
