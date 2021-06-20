@@ -23,13 +23,14 @@ export default defineComponent({
         }
     },
     setup(props) {
-        return () => h(resolveComponent('plugin-view'), {
-            name: config.name,
-            'data-uuid': props.config.uuid
-        }, () => h(
-            resolveComponent('font-awesome'),
-            props
-        ));
+        return () => h(
+            resolveComponent('plugin-view'),
+            props,
+            () => h(
+                resolveComponent('font-awesome'),
+                props
+            )
+        );
     }
 });
 </script>

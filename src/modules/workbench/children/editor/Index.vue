@@ -1,11 +1,19 @@
 <template>
     <editor-panel>
-        <editor-panel-drop v-model="componentTree" />
+        <template v-if="pageDetail && pageDetail.options && pageDetail.options.panels.length">
+            <div
+                v-for="(item) in pageDetail.options.panels"
+                :key="item.uuid"
+            >
+                <editor-panel-drop :model-value="item.children" @update:modelValue="(data) => handleUpdate(data, item.uuid)" />
+            </div>
+        </template>
     </editor-panel>
 </template>
 
 <script>
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import EditorPanel from './EditorPanel.vue';
 import EditorPanelDrop from './EditorPanelDrop.vue';
@@ -19,18 +27,27 @@ export default defineComponent({
     setup() {
 
         const store = useStore();
-        const componentTree = computed({
-            get() {
-                return store.getters['workbench/componentTree'];
-            },
-            set(val) {
-                console.log('val', val);
-                store.commit('workbench/COMPONENT_TREE', val);
+        const route = useRoute();
+
+        const pageDetail = computed(() => store.getters['workbench/page/pageDetail']);
+        watchEffect(() => {
+            // console.log('pageDetail', pageDetail.value);
+            if (route.query.menuId && route.query.menuId.startsWith('page-')) {
+                const pageId = route.query.menuId.split('-').pop();
+                store.dispatch('workbench/page/findOne', +pageId);
             }
         });
 
+        const handleUpdate = (data, uuid) => {
+            store.commit('workbench/page/UPDATE_COMPONENT_DETAIL', {
+                uuid,
+                data
+            });
+        };
+
         return {
-            componentTree
+            pageDetail,
+            handleUpdate
         };
     }
 });

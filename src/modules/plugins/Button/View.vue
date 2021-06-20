@@ -13,19 +13,20 @@ export default defineComponent({
         }
     },
     setup(props, context) {
-        return () => h(resolveComponent('plugin-view'), {
-            name: config.name,
-            'data-uuid': props.config.uuid
-        }, () => [
-            h(
-                resolveComponent('a-button'),
-                props,
-                context.slots
-            ),
-            h('div', {
-                class: 'plugin-view-button-mark'
-            })
-        ]);
+        return () => h(
+            resolveComponent('plugin-view'),
+            props,
+            () => [
+                h(
+                    resolveComponent('a-button'),
+                    props,
+                    context.slots
+                ),
+                h('div', {
+                    class: 'plugin-view-button-mark'
+                })
+            ]
+        );
     }
 });
 </script>

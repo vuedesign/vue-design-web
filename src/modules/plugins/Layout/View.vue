@@ -1,12 +1,10 @@
 <template>
     <plugin-view
-        :name="config.name"
-        :data-uuid="config.uuid"
+        :config="config"
     >
-        <!-- {{ config.children }} -->
         <a-layout :style="style" :has-sider="hasSider">
             <draggable
-                :list="config.children"
+                v-model="children"
                 :component-data="{
                     class: 'editor-panel-drop',
                     style:'min-height: 64px;'
@@ -28,7 +26,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import config from './config.json';
 // import { Layout } from 'ant-design-vue';
 
@@ -50,12 +49,26 @@ export default defineComponent({
     },
     setup(props) {
         console.log('props ===== ', props.config);
+        const store = useStore();
         const handleLog = (evt) => {
             console.log('evt === ', evt);
         };
 
+        const children = computed({
+            get() {
+                return props.config.children;
+            },
+            set(val) {
+                store.commit('workbench/page/UPDATE_COMPONENT_DETAIL', {
+                    uuid: props.config.uuid,
+                    data: val
+                });
+            }
+        });
+
         return {
-            handleLog
+            handleLog,
+            children
         };
     }
 });

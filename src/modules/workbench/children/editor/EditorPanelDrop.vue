@@ -6,6 +6,7 @@
         :group="{ name: 'views', pull: true, put: ['views', 'components'] }"
         item-key="uuid"
         @change="handleLog"
+        @choose="hanldeSelect"
     >
         <template #item="{ element }">
             <render-component :config="element" />
@@ -13,7 +14,8 @@
     </draggable>
 </template>
 <script>
-import { computed, defineComponent, isProxy, reactive } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
     name: 'editor-panel-drop',
@@ -25,29 +27,31 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
-        const handleLog = () => {};
+        const store = useStore();
+        const handleLog = (data) => {
+            console.log('handleLog:=', data);
+        };
+
+        const hanldeSelect = (data) => {
+            if (data.item.dataset.uuid) {
+                store.commit('workbench/UPDATE_CURRENT_UUID', data.item.dataset.uuid);
+            }
+            console.log('hanldeSelect', data.item.dataset.uuid);
+        };
 
         const children = computed({
             get() {
                 return props.modelValue;
             },
             set(val) {
-                console.log('val====', val);
-                const data = val.map(item => {
-                    if (isProxy(item)) {
-                        return item;
-                    } else {
-                        return reactive(item);
-                    }
-                });
-                console.log('data ==== ', data);
                 emit('update:modelValue', val);
             }
         });
 
         return {
             handleLog,
-            children
+            children,
+            hanldeSelect
         };
     }
 });
@@ -63,5 +67,6 @@ export default defineComponent({
     top: 0;
     left: 0;
     z-index: 10;
+    font-size: 0;
 }
 </style>

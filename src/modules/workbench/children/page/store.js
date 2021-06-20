@@ -1,5 +1,6 @@
 import {
     findData,
+    findOneData,
     createData,
     updateData,
     destroyData,
@@ -13,6 +14,23 @@ const state = {
     menuList: [],
     pageDetail: {}
 };
+
+function findParent(list, uuid) {
+    if (!list || !list.length) {
+        return {};
+    }
+    const item = list.find(item => item.uuid === uuid);
+    if (item) {
+        return item;
+    } else {
+        for(let i=0; i < list.length; i++) {
+            let children = list[i].children;
+            if (children && children.length) {
+                return findParent(children, uuid);
+            }
+        }
+    }
+}
 
 const mutations = {
     MENU_LIST(state, menuList) {
@@ -35,6 +53,10 @@ const mutations = {
     },
     PAGE_DETAIL(state, pageDetail) {
         state.pageDetail = pageDetail;
+    },
+    UPDATE_COMPONENT_DETAIL(state, { uuid, data }) {
+        findParent(state.pageDetail.options.panels, uuid).children = data;
+        // state.pageDetail.options.panels[index].components = data;
     }
 };
 
@@ -53,6 +75,11 @@ const actions = {
         });
         commit('LIST', list);
         console.log('res find', res);
+    },
+    findOne: async({ commit }, id) => {
+        const res = await findOneData(id);
+        commit('PAGE_DETAIL', res);
+        console.log('res findOne', res);
     },
     create: async({ dispatch, rootGetters }, data) => {
         const res = await createData(data);
@@ -116,7 +143,7 @@ const actions = {
 
 const getters = {
     menuList: state => state.menuList,
-    pageDetail: state => state.pageDetail,
+    pageDetail: state => state.pageDetail
 };
 
 export default {

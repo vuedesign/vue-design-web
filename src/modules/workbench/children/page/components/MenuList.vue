@@ -112,6 +112,7 @@ export default defineComponent({
             display: flex;
             position: relative;
             z-index: 2;
+            cursor: pointer;
 
             > .title {
                 flex: 1;

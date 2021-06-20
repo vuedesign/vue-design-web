@@ -20,41 +20,6 @@
             @edit="handleEdit"
             @del="handleDelete"
         />
-        <!-- <ul class="page-list">
-            <li
-                v-for="item in meunList"
-                :key="item.id"
-                :class="{ 'active': item.id === currentSelectMenuId }"
-                @click="handleSelect(item)"
-            >
-                <div class="category-item">
-                    <div v-if="item.isEdit" class="title">
-                        <input
-                            :value="item.name"
-                            @input="(evt) => handleInput(evt, item)"
-                            @blur="handleBlur(item)"
-                        />
-                    </div>
-                    <div v-else class="title">
-                        <FolderOpenOutlined />
-                        <span @dblclick="handleEdit(item)">{{ item.name }}</span>
-                    </div>
-                    <div class="icon" @click="handleDelete(item)">
-                        <DeleteOutlined />
-                    </div>
-                </div>
-                <ul v-if="item.pages && item.pages.length">
-                    <li
-                        v-for="page in item.pages"
-                        :key="page.id"
-                    >
-                        <div>
-                            <span>{{ page.name }}</span>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul> -->
     </layout-panel>
 </template>
 
@@ -76,8 +41,6 @@ export default defineComponent({
         LayoutPanel,
         FolderAddOutlined,
         PlusSquareOutlined,
-        // DeleteOutlined,
-        // FolderOpenOutlined,
         MenuList
     },
     setup() {
@@ -140,7 +103,7 @@ export default defineComponent({
                     width: 1440,
                     height: 800
                 },
-                components: [],
+                children: [],
                 isEdit: true
             };
             if (currentSelectMenuId.value) {
