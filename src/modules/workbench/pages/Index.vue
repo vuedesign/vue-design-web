@@ -1,10 +1,10 @@
 <template>
-    <a-layout class="workbench">
-        <workbench-header />
-        <a-layout class="workbench-page">
-            <workbench-tools />
-            <workbench-content />
-            <workbench-configs />
+    <a-layout class="layout">
+        <layout-header />
+        <a-layout class="layout-page">
+            <layout-tools />
+            <layout-content />
+            <layout-configs />
             <tool-bar />
         </a-layout>
     </a-layout>
@@ -12,10 +12,10 @@
 
 <script>
 import { defineComponent } from 'vue';
-import WorkbenchHeader from '../components/WorkbenchHeader.vue';
-import WorkbenchTools from '../components/WorkbenchTools.vue';
-import WorkbenchConfigs from '../components/WorkbenchConfigs.vue';
-import WorkbenchContent from '../components/WorkbenchContent.vue';
+import LayoutHeader from '../components/LayoutHeader.vue';
+import LayoutTools from '../components/LayoutTools.vue';
+import LayoutConfigs from '../components/LayoutConfigs.vue';
+import LayoutContent from '../components/LayoutContent.vue';
 import ToolBar from '../components/ToolBar.vue';
 
 window.getso = window.getso || null;
@@ -24,10 +24,10 @@ window.getso = window.getso || null;
 export default defineComponent({
     name: 'workbench',
     components: {
-        WorkbenchHeader,
-        WorkbenchTools,
-        WorkbenchConfigs,
-        WorkbenchContent,
+        LayoutHeader,
+        LayoutTools,
+        LayoutConfigs,
+        LayoutContent,
         ToolBar
     },
     setup() {
@@ -37,7 +37,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.workbench {
+.layout {
     width: 100%;
 }
 </style>

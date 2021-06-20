@@ -17,7 +17,7 @@ import MaterialTools from '../children/material/components/MaterialTools.vue';
 import PageTools from '../children/page/components/PageTools.vue';
 
 export default defineComponent({
-    name: 'workbench-tools',
+    name: 'layout-tools',
     components: {
         ComponentTools,
         IconTools,
@@ -35,7 +35,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.workbench-tools {
+.layout-tools {
     background-color: #fff;
     border-right: 1px solid #d6dfe7;
     position: relative;

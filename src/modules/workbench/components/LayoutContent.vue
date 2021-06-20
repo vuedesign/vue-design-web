@@ -1,18 +1,18 @@
 <template>
-    <a-layout-content class="workbench-content" @click="handleClick">
-        <editor />
+    <a-layout-content class="layout-content" @click="handleClick">
+        <workbench-editor />
     </a-layout-content>
 </template>
 
 <script>
-import Editor from '../children/editor/Index.vue';
+import WorkbenchEditor from '../children/editor/Index.vue';
 import { useStore } from 'vuex';
 import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'workbench-content',
+    name: 'layout-content',
     components: {
-        Editor
+        WorkbenchEditor
     },
     setup() {
         const store = useStore();
@@ -35,12 +35,12 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.workbench-content {
+.layout-content {
     background-color: #eee;
     position: relative;
 }
 
-.workbench-content-inner {
+.layout-content-inner {
     padding: 20px 60px;
 }
 

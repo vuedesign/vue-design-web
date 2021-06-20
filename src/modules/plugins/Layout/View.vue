@@ -16,9 +16,10 @@
                 }"
                 item-key="uuid"
                 @change="handleLog"
+                @choose="handleSelect"
             >
                 <template #item="{ element }">
-                    <render-component :config="element" />
+                    <render-component :config="element" @select="handleSelect" />
                 </template>
             </draggable>
         </a-layout>
@@ -47,11 +48,15 @@ export default defineComponent({
             default: () => ({})
         }
     },
-    setup(props) {
-        console.log('props ===== ', props.config);
+    emits: ['select'],
+    setup(props, { emit }) {
         const store = useStore();
         const handleLog = (evt) => {
             console.log('evt === ', evt);
+        };
+
+        const handleSelect = (data) => {
+            emit('select', data);
         };
 
         const children = computed({
@@ -68,7 +73,8 @@ export default defineComponent({
 
         return {
             handleLog,
-            children
+            children,
+            handleSelect
         };
     }
 });

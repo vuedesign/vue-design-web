@@ -56,7 +56,7 @@ export default defineComponent({
     }
 
     &.active {
-        .plugin-view-line {
+        > .plugin-view-line {
             display: block;
         }
     }

@@ -9,7 +9,7 @@
         @choose="hanldeSelect"
     >
         <template #item="{ element }">
-            <render-component :config="element" />
+            <render-component :config="element" @select="hanldeSelect" />
         </template>
     </draggable>
 </template>
@@ -34,9 +34,10 @@ export default defineComponent({
 
         const hanldeSelect = (data) => {
             if (data.item.dataset.uuid) {
+                store.commit('workbench/config/UPDATE_CURRENT_CONFIG', 'config-component');
                 store.commit('workbench/UPDATE_CURRENT_UUID', data.item.dataset.uuid);
             }
-            console.log('hanldeSelect', data.item.dataset.uuid);
+            console.log('hanldeSelect', data);
         };
 
         const children = computed({

@@ -1,23 +1,22 @@
 <template>
     <a-layout-sider
-        class="workbench-configs"
+        class="layout-configs"
         theme="light"
         width="241px"
     >
-        <a-button @click="handleClick">click</a-button>
-        <config />
+        <workbench-config />
     </a-layout-sider>
 </template>
 
 <script>
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
-import config from '../children/config/Index.vue';
+import WorkbenchConfig from '../children/config/Index.vue';
 
 export default defineComponent({
-    name: 'workbench-configs',
+    name: 'layout-configs',
     components: {
-        config
+        WorkbenchConfig
     },
     setup() {
         const store = useStore();
@@ -37,7 +36,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.workbench-configs {
+.layout-configs {
     background-color: #fff;
     border-left: 1px solid #d6dfe7;
 }

@@ -1,17 +1,22 @@
 const state = {
-    currentTab: 'configPage'
+    currentConfigComponentName: 'config-page',
+    currentComponentConfig: {}
 };
 
 const mutations = {
-    UPDATE_CURRENT_CONFIG(state, currentTab) {
-        state.currentTab = currentTab;
+    UPDATE_CURRENT_CONFIG(state, currentConfigComponentName) {
+        state.currentConfigComponentName = currentConfigComponentName;
+    },
+    UPDATE_CURRENT_COMPONENT_CONFIG(state, currentComponentConfig) {
+        state.currentComponentConfig = currentComponentConfig;
     }
 };
 
 const actions = {};
 
 const getters = {
-    currentTab: state => state.currentTab
+    currentConfigComponentName: state => state.currentConfigComponentName,
+    currentComponentConfig: state => state.currentComponentConfig
 };
 
 export default {

@@ -19,7 +19,7 @@ import EditorPanel from './EditorPanel.vue';
 import EditorPanelDrop from './EditorPanelDrop.vue';
 
 export default defineComponent({
-    name: 'workbench-content',
+    name: 'workbench-editor',
     components: {
         EditorPanel,
         EditorPanelDrop

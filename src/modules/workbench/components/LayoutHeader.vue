@@ -1,5 +1,5 @@
 <template>
-    <a-layout-header class="workbench-header">
+    <a-layout-header class="layout-header">
         <div class="project-name">
             <appstore-outlined class="icon-back" @click="handleBack" />
             <span v-if="detail && detail.name" class="label">{{ detail.name }}</span>
@@ -15,7 +15,7 @@ import { MENU_LIST } from '../contants';
 import { AppstoreOutlined } from '@ant-design/icons-vue';
 
 export default defineComponent({
-    name: 'workbench-header',
+    name: 'layout-header',
     components: {
         AppstoreOutlined
     },
@@ -54,7 +54,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.workbench-header {
+.layout-header {
     display: flex;
     width: 100%;
     height: 48px;

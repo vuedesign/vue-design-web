@@ -14,6 +14,7 @@
                 height: `${panelHeight}px`,
                 lineHeight: `${panelHeight}px`
             }"
+            @click.stop="handleSelect"
         >
             <h5>{{ pageName }}</h5>
             <span>{{ position.width }} X {{ position.height }}</span>
@@ -39,12 +40,16 @@ import { useStore } from 'vuex';
 const EDITOR_PANEL_HEADER_HEIGHT = 24;
 
 export default defineComponent({
-    name: 'icon-tools',
+    name: 'editor-panel',
     setup() {
         const store = useStore();
         const position = computed(() => store.getters['workbench/editor/position']);
         const pageName = computed(() => store.getters['workbench/editor/pageName']);
         // const isMove = ref(false);
+
+        const handleSelect = () => {
+            store.commit('workbench/config/UPDATE_CURRENT_CONFIG', 'config-page');
+        };
 
         onMounted(() => {
             // const targets = Array.from(document.querySelectorAll('.editor-panel'));
@@ -70,7 +75,8 @@ export default defineComponent({
         return {
             position,
             pageName,
-            panelHeight: EDITOR_PANEL_HEADER_HEIGHT
+            panelHeight: EDITOR_PANEL_HEADER_HEIGHT,
+            handleSelect
         };
     }
 });

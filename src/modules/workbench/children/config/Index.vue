@@ -1,23 +1,25 @@
 <template>
-    <component :is="currentTab" />
+    <component :is="currentConfigComponentName" />
 </template>
 
 <script>
 import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import ConfigPage from './components/ConfigPage.vue';
+import ConfigComponent from './components/ConfigComponent.vue';
 
 export default defineComponent({
-    name: 'config',
+    name: 'workbench-config',
     components: {
         ConfigPage,
+        ConfigComponent
     },
     setup() {
         const store = useStore();
-        const currentTab = computed(() => store.getters['workbench/config/currentTab']);
+        const currentConfigComponentName = computed(() => store.getters['workbench/config/currentConfigComponentName']);
 
         return {
-            currentTab
+            currentConfigComponentName
         };
     }
 });

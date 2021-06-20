@@ -21,10 +21,14 @@ export default defineComponent({
             default: () => ({})
         }
     },
-    setup(props) {
+    emits: ['select'],
+    setup(props, { emit }) {
         return () => h(resolveComponent(props.config.tag), {
             config: props.config,
-            ...parseProps(props.config.props)
+            ...parseProps(props.config.props),
+            onSelect: (data) => {
+                emit('select', data);
+            }
         }, () => parseText(props.config.text));
     }
 });
